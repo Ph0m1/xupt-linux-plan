@@ -78,12 +78,10 @@ boost::multiprecision::cpp_int factorial(boost::multiprecision::cpp_int n)
     return (n == 0) ? 1 : n * factorial(n - 1);
 }
 
-
-
 int main()
 {
     ThreadPool pool(1);
-    auto res = pool.enqueue(factorial, 260);
+    auto res = pool.enqueue(factorial, 26);
     std::cout << res.get() << std::endl;
     return 0;
 }
