@@ -46,7 +46,7 @@ public:
     QComboBox *questions;
     QLabel *label_6;
     QLineEdit *ans;
-    QPushButton *Res;
+    QPushButton *Reg;
     QPushButton *quit2;
 
     void setupUi(QDialog *welcome)
@@ -205,10 +205,10 @@ public:
 
         gridLayout_2->addWidget(ans, 3, 1, 1, 1);
 
-        Res = new QPushButton(Register);
-        Res->setObjectName(QString::fromUtf8("Res"));
+        Reg = new QPushButton(Register);
+        Reg->setObjectName(QString::fromUtf8("Reg"));
 
-        gridLayout_2->addWidget(Res, 4, 1, 1, 1);
+        gridLayout_2->addWidget(Reg, 4, 1, 1, 1);
 
         quit2 = new QPushButton(Register);
         quit2->setObjectName(QString::fromUtf8("quit2"));
@@ -226,8 +226,8 @@ public:
         QWidget::setTabOrder(name_reg, passwd_reg);
         QWidget::setTabOrder(passwd_reg, questions);
         QWidget::setTabOrder(questions, ans);
-        QWidget::setTabOrder(ans, Res);
-        QWidget::setTabOrder(Res, quit2);
+        QWidget::setTabOrder(ans, Reg);
+        QWidget::setTabOrder(Reg, quit2);
 
         retranslateUi(welcome);
 
@@ -259,7 +259,7 @@ public:
         questions->setItemText(4, QCoreApplication::translate("welcome", "\344\275\240\345\255\246\346\240\241\347\232\204\345\220\215\345\255\227\357\274\237", nullptr));
 
         label_6->setText(QCoreApplication::translate("welcome", "\347\255\224   \346\241\210", nullptr));
-        Res->setText(QCoreApplication::translate("welcome", "\346\263\250\345\206\214", nullptr));
+        Reg->setText(QCoreApplication::translate("welcome", "\346\263\250\345\206\214", nullptr));
         quit2->setText(QCoreApplication::translate("welcome", "\351\200\200\345\207\272", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(Register), QCoreApplication::translate("welcome", "Register", nullptr));
     } // retranslateUi
@@ -267,7 +267,9 @@ public:
 };
 
 namespace Ui {
-    class welcome: public Ui_welcome {};
+    class welcome: public Ui_welcome {
+
+    };
 } // namespace Ui
 
 QT_END_NAMESPACE

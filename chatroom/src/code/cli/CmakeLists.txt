@@ -1,0 +1,10 @@
+# 添加子目录
+add_subdirectory(back)
+add_subdirectory(format)
+
+# 编译可执行文件
+add_executable(cli *.cpp)
+target_link_libraries(cli back format)
+
+# 如果需要链接其他库，例如 `json`
+target_link_libraries(cli rapidjson)

@@ -20,7 +20,7 @@ private:
 public:
   // 构造函数
   // 连接redis
-  Redis(std::string json) {
+  Redis() {
     m_ip = IP;
     m_port = PORT;
     m_context = redisConnect(m_ip.c_str(), m_port);
@@ -31,7 +31,7 @@ public:
       }
       exit(1);
     }
-    m_json = json;
+    std::cout << "Connect to redis success!" << std::endl;
   }
   // 析构函数
   ~Redis();
