@@ -1,0 +1,12 @@
+<RCC>
+    <qresource prefix="/Header">
+        <file>Header.jpeg</file>
+        <file>images/clear.png</file>
+        <file>images/clike.png</file>
+        <file>images/file.png</file>
+        <file>images/chatroom_zh_CN.ts</file>
+        <file>images/strong.png</file>
+        <file>images/underline.png</file>
+        <file>images/itallc.png</file>
+    </qresource>
+</RCC>

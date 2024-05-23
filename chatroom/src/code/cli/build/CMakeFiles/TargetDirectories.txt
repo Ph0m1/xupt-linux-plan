@@ -1,0 +1,3 @@
+/home/ph0m/plan/chatroom/src/code/cli/build/CMakeFiles/cli.dir
+/home/ph0m/plan/chatroom/src/code/cli/build/CMakeFiles/edit_cache.dir
+/home/ph0m/plan/chatroom/src/code/cli/build/CMakeFiles/rebuild_cache.dir

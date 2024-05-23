@@ -1,0 +1,9 @@
+/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/CMakeFiles/chatroom.dir
+/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/CMakeFiles/edit_cache.dir
+/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/CMakeFiles/rebuild_cache.dir
+/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/CMakeFiles/list_install_components.dir
+/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/CMakeFiles/install.dir
+/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/CMakeFiles/install/local.dir
+/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/CMakeFiles/install/strip.dir
+/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/CMakeFiles/chatroom_autogen_timestamp_deps.dir
+/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/CMakeFiles/chatroom_autogen.dir
