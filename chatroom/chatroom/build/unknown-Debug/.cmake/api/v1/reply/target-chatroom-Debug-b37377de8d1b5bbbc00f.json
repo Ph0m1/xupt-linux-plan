@@ -37,13 +37,13 @@
 			{
 				"command" : 1,
 				"file" : 0,
-				"line" : 71,
+				"line" : 72,
 				"parent" : 0
 			},
 			{
 				"command" : 2,
 				"file" : 0,
-				"line" : 54,
+				"line" : 55,
 				"parent" : 0
 			},
 			{
@@ -105,6 +105,10 @@
 				},
 				{
 					"backtrace" : 3,
+					"define" : "QT_NETWORK_LIB"
+				},
+				{
+					"backtrace" : 3,
 					"define" : "QT_WIDGETS_LIB"
 				}
 			],
@@ -138,6 +142,11 @@
 					"backtrace" : 3,
 					"isSystem" : true,
 					"path" : "/usr/lib/qt/mkspecs/linux-g++"
+				},
+				{
+					"backtrace" : 3,
+					"isSystem" : true,
+					"path" : "/usr/include/qt/QtNetwork"
 				}
 			],
 			"language" : "CXX",
@@ -155,7 +164,8 @@
 				1,
 				2,
 				7,
-				13
+				11,
+				17
 			]
 		}
 	],
@@ -202,6 +212,11 @@
 				"role" : "libraries"
 			},
 			{
+				"backtrace" : 3,
+				"fragment" : "/usr/lib/libQt5Network.so.5.15.13",
+				"role" : "libraries"
+			},
+			{
 				"backtrace" : 9,
 				"fragment" : "/usr/lib/libQt5Gui.so.5.15.13",
 				"role" : "libraries"
@@ -231,7 +246,8 @@
 				1,
 				2,
 				7,
-				13
+				11,
+				17
 			]
 		},
 		{
@@ -241,7 +257,9 @@
 				3,
 				6,
 				10,
-				11
+				13,
+				14,
+				15
 			]
 		},
 		{
@@ -252,15 +270,16 @@
 				5,
 				8,
 				9,
-				12
+				12,
+				16
 			]
 		},
 		{
 			"name" : "CMake Rules",
 			"sourceIndexes" : 
 			[
-				14,
-				15
+				18,
+				19
 			]
 		}
 	],
@@ -322,6 +341,22 @@
 			"sourceGroupIndex" : 2
 		},
 		{
+			"backtrace" : 1,
+			"path" : "menu.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "menu.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "menu.ui",
+			"sourceGroupIndex" : 2
+		},
+		{
 			"backtrace" : 0,
 			"isGenerated" : true,
 			"path" : "build/unknown-Debug/chatroom_autogen/include/ui_widget.h",
@@ -331,6 +366,12 @@
 			"backtrace" : 0,
 			"isGenerated" : true,
 			"path" : "build/unknown-Debug/chatroom_autogen/include/ui_log.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "build/unknown-Debug/chatroom_autogen/include/ui_menu.h",
 			"sourceGroupIndex" : 1
 		},
 		{

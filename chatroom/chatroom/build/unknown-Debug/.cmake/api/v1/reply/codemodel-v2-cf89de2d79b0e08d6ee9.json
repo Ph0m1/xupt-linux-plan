@@ -7,7 +7,7 @@
 				{
 					"build" : ".",
 					"hasInstallRule" : true,
-					"jsonFile" : "directory-.-Debug-fde2ed490938785cd122.json",
+					"jsonFile" : "directory-.-Debug-cbbf44e93b3b0e1d4ce0.json",
 					"minimumCMakeVersion" : 
 					{
 						"string" : "3.5"
@@ -44,7 +44,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "chatroom::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-chatroom-Debug-d7b8407b853381acc9dd.json",
+					"jsonFile" : "target-chatroom-Debug-b37377de8d1b5bbbc00f.json",
 					"name" : "chatroom",
 					"projectIndex" : 0
 				},

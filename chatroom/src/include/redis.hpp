@@ -1,7 +1,7 @@
 #ifndef _REDIS_HPP_
 #define _REDIS_HPP_
-
-#include "json.hpp"
+#include <nlohmann/json.hpp>
+#include <nlohmann/json_fwd.hpp>
 #include <hiredis/hiredis.h>
 #include <iostream>
 #include <string>

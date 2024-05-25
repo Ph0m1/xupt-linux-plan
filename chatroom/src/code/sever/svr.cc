@@ -67,7 +67,11 @@ int main() {
 
   // 创建epoll事件集
   struct epoll_event events[MAX_EVENTS];
-  
+  std::cout<<"Sever started"<<std::endl;
+
+  std::cout<<"epoll_fd:"<<epoll_fd<<std::endl;
+  std::cout<<"svr_fd:"<<svr_fd<<std::endl;
+  std::cout<<"svrAddr:" << svrAddr.sin_addr.s_addr<<":" << svrAddr.sin_port<<std::endl;
   // 循环处理事件
   while (true) {
     int num_events = epoll_wait(epoll_fd, events, MAX_EVENTS, -1);

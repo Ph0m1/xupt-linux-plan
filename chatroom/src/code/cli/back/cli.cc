@@ -1,6 +1,3 @@
-#include "redis.hpp"
-#include "json.hpp"
-#include "menu.hpp"
 #include "cli.hpp"
 
 /****************************************
@@ -9,6 +6,12 @@
         "name": name string,
         "password": password string,
         "status": status int,
+        "friends": [friend1, friend2, ...]
     }
 *
 ****************************************/
+
+void cli::Back::execute(const std::vector<std::string> &args){
+    // TODO: implement this function
+    
+}

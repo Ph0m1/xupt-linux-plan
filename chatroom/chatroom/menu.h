@@ -17,6 +17,7 @@ public:
 
 private:
     Ui::menu *ui;
+    QVector<bool> IsShow;
 };
 
 #endif // MENU_H

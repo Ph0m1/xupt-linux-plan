@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1270</width>
-    <height>754</height>
+    <width>940</width>
+    <height>595</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -54,7 +54,14 @@
                 <widget class="QWidget" name="widget" native="true">
                  <layout class="QHBoxLayout" name="horizontalLayout">
                   <item>
-                   <widget class="QTextBrowser" name="MsgBrowser"/>
+                   <widget class="QTextBrowser" name="MsgBrowser">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Expanding" vsizetype="MinimumExpanding">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                   </widget>
                   </item>
                  </layout>
                 </widget>
@@ -227,7 +234,7 @@
                      </size>
                     </property>
                     <property name="checkable">
-                     <bool>true</bool>
+                     <bool>false</bool>
                     </property>
                    </widget>
                   </item>
@@ -299,7 +306,20 @@
                 <number>0</number>
                </property>
                <item>
-                <widget class="QTextEdit" name="msgTextEdit"/>
+                <widget class="QTextEdit" name="msgTextEdit">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>16777215</width>
+                   <height>128</height>
+                  </size>
+                 </property>
+                </widget>
                </item>
               </layout>
              </widget>
@@ -392,6 +412,12 @@
          </property>
          <item>
           <widget class="QTableWidget" name="userTable">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
            <column>
             <property name="text">
              <string>用户名</string>
