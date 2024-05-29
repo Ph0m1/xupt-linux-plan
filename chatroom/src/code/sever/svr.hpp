@@ -14,6 +14,8 @@
 #include <iostream>
 
 #define SVR_PORT 7000
+#define PORT 7000
+#define IP "127.0.0.1"
 #define SVR_IP "127.0.0.1"
 
 // 最大同时链接数

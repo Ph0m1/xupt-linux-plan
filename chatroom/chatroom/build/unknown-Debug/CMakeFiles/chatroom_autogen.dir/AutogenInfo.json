@@ -97,6 +97,18 @@
 	"HEADERS" : 
 	[
 		[
+			"/home/ph0m/plan/chatroom/chatroom/client.h",
+			"MU",
+			"EWIEGA46WW/moc_client.cpp",
+			null
+		],
+		[
+			"/home/ph0m/plan/chatroom/chatroom/found.h",
+			"MU",
+			"EWIEGA46WW/moc_found.cpp",
+			null
+		],
+		[
 			"/home/ph0m/plan/chatroom/chatroom/log.h",
 			"MU",
 			"EWIEGA46WW/moc_log.cpp",
@@ -106,6 +118,42 @@
 			"/home/ph0m/plan/chatroom/chatroom/menu.h",
 			"MU",
 			"EWIEGA46WW/moc_menu.cpp",
+			null
+		],
+		[
+			"/home/ph0m/plan/chatroom/chatroom/msgtype.h",
+			"MU",
+			"EWIEGA46WW/moc_msgtype.cpp",
+			null
+		],
+		[
+			"/home/ph0m/plan/chatroom/chatroom/mysocket.h",
+			"MU",
+			"EWIEGA46WW/moc_mysocket.cpp",
+			null
+		],
+		[
+			"/home/ph0m/plan/chatroom/chatroom/redis.h",
+			"MU",
+			"EWIEGA46WW/moc_redis.cpp",
+			null
+		],
+		[
+			"/home/ph0m/plan/chatroom/chatroom/reg.h",
+			"MU",
+			"EWIEGA46WW/moc_reg.cpp",
+			null
+		],
+		[
+			"/home/ph0m/plan/chatroom/chatroom/setnewpasswd.h",
+			"MU",
+			"EWIEGA46WW/moc_setnewpasswd.cpp",
+			null
+		],
+		[
+			"/home/ph0m/plan/chatroom/chatroom/threadpool.h",
+			"MU",
+			"EWIEGA46WW/moc_threadpool.cpp",
 			null
 		],
 		[
@@ -167,9 +215,16 @@
 	"SETTINGS_FILE" : "/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/CMakeFiles/chatroom_autogen.dir/AutogenUsed.txt",
 	"SOURCES" : 
 	[
+		[ "/home/ph0m/plan/chatroom/chatroom/client.cpp", "MU", null ],
+		[ "/home/ph0m/plan/chatroom/chatroom/found.cpp", "MU", null ],
 		[ "/home/ph0m/plan/chatroom/chatroom/log.cpp", "MU", null ],
 		[ "/home/ph0m/plan/chatroom/chatroom/main.cpp", "MU", null ],
 		[ "/home/ph0m/plan/chatroom/chatroom/menu.cpp", "MU", null ],
+		[ "/home/ph0m/plan/chatroom/chatroom/mysocket.cpp", "MU", null ],
+		[ "/home/ph0m/plan/chatroom/chatroom/redis.cpp", "MU", null ],
+		[ "/home/ph0m/plan/chatroom/chatroom/reg.cpp", "MU", null ],
+		[ "/home/ph0m/plan/chatroom/chatroom/server.cpp", "MU", null ],
+		[ "/home/ph0m/plan/chatroom/chatroom/setnewpasswd.cpp", "MU", null ],
 		[ "/home/ph0m/plan/chatroom/chatroom/widget.cpp", "MU", null ]
 	],
 	"UIC_OPTIONS" : [],

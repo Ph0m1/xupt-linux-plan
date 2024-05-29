@@ -3,7 +3,7 @@
 #include <QDataStream>
 #include <QMessageBox>
 #include <QDateTime>
-Widget::Widget(QWidget *parent, QString name)
+Widget::Widget(QWidget *parent, QString name,int sfd)
     : QWidget(parent)
     , ui(new Ui::Widget)
 {
@@ -30,9 +30,44 @@ Widget::Widget(QWidget *parent, QString name)
     connect(ui->quitButton,&QPushButton::clicked,[=](){
         this->close();
     });
-
+    // 链接清除按钮
     connect(ui->clearButton,&QPushButton::clicked,[=](){
         ui->msgTextEdit->clear();
+        ui->msgTextEdit->setFocus();
+    });
+
+    // 设置字体
+    connect(ui->fontComboBox,&QFontComboBox::currentFontChanged,[=](const QFont &font){
+        ui->msgTextEdit->setFontFamily(font.toString());
+        ui->msgTextEdit->setFocus();
+    });
+
+    // 设置字体大小
+    void (QComboBox:: * sizebox)(const QString &text) = &QComboBox::currentTextChanged;
+    connect(ui->sizeBox,sizebox,[=](const QString &text){
+        ui->msgTextEdit->setFontPointSize(text.toDouble());
+        ui->msgTextEdit->setFocus();
+    });
+
+    // 以下参数均为bool类型
+        // 加粗
+    connect(ui->strongButton,&QToolButton::clicked,[=](bool checked){
+        if(checked){
+            ui->msgTextEdit->setFontWeight(QFont::Bold);
+        }
+        else{
+            ui->msgTextEdit->setFontWeight(QFont::Normal);
+        }
+        ui->msgTextEdit->setFocus();
+    });
+        // 倾斜
+    connect(ui->itllicButton,&QToolButton::clicked,[=](bool checked){
+        ui->msgTextEdit->setFontItalic(checked);
+        ui->msgTextEdit->setFocus();
+    });
+        // 下划线
+    connect(ui->underlineButton,&QToolButton::clicked,[=](bool checked){
+        ui->msgTextEdit->setFontUnderline(checked);
         ui->msgTextEdit->setFocus();
     });
 }

@@ -32,7 +32,7 @@ int main() {
 
   // 绑定地址
   svrAddr.sin_family = AF_INET;
-  svrAddr.sin_port = htons(SVR_PORT);
+  svrAddr.sin_port = htons(PORT);
   svrAddr.sin_addr.s_addr = INADDR_ANY;
   if (bind(svr_fd, (struct sockaddr *)&svrAddr, sizeof(svrAddr)) == -1) {
     perror("bind");

@@ -4,7 +4,7 @@
 #include <QPixmap>
 #include <QMessageBox>
 #include "widget.h"
-menu::menu(QWidget *parent)
+menu::menu(QWidget *parent,int sfd)
     : QWidget(parent)
     , ui(new Ui::menu)
 {
@@ -43,7 +43,7 @@ menu::menu(QWidget *parent)
                 return;
             }
             IsShow[i] = true;
-            Widget *widget = new Widget(nullptr,vector[i]->text());
+            Widget *widget = new Widget(nullptr,vector[i]->text(),sfd);
             widget->setWindowIcon(vector[i]->icon());
             widget->setWindowTitle(vector[i]->text());
             widget->show();

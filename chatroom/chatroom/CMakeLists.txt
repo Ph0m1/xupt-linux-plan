@@ -14,45 +14,72 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets Network LinguistT
 
 set(TS_FILES chatroom_zh_CN.ts)
 
-set(PROJECT_SOURCES
+# Client source files
+set(CLIENT_SOURCES
         main.cpp
         widget.cpp
         widget.h
         widget.ui
         ${TS_FILES}
+        log.h
+        log.cpp
+        log.ui
+        log.qrc
+        menu.h
+        menu.cpp
+        menu.ui
+        reg.h
+        reg.cpp
+        reg.ui
+        found.h
+        found.cpp
+        found.ui
+        setnewpasswd.h
+        setnewpasswd.cpp
+        setnewpasswd.ui
+        client.h
+        client.cpp
+        msgtype.h
+        mysocket.h
+        mysocket.cpp
 )
 
+# Sever source files
+set(SERVER_SOURCES
+        server.cpp
+        msgtype.h
+        mysocket.h
+        mysocket.cpp
+        redis.h
+        redis.cpp
+        threadpool.h
+)
+
+# Client target
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
-    qt_add_executable(chatroom
+    qt_add_executable(client
         MANUAL_FINALIZATION
-        ${PROJECT_SOURCES}
+        ${CLIENT_SOURCES}
     )
-# Define target properties for Android with Qt 6 as:
-#    set_property(TARGET chatroom APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
-#                 ${CMAKE_CURRENT_SOURCE_DIR}/android)
-# For more information, see https://doc.qt.io/qt-6/qt-add-executable.html#target-creation
 
     qt_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
 else()
     if(ANDROID)
-        add_library(chatroom SHARED
-            ${PROJECT_SOURCES}
+        add_library(client SHARED
+            ${CLIENT_SOURCES}
         )
 # Define properties for Android with Qt 5 after find_package() calls as:
 #    set(ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/android")
     else()
-        add_executable(chatroom
-            ${PROJECT_SOURCES}
-            log.h log.cpp log.ui
-            log.qrc
-            menu.h menu.cpp menu.ui
+        add_executable(client
+            ${CLIENT_SOURCES}
         )
     endif()
 
     qt5_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
 endif()
 
-target_link_libraries(chatroom PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Network)
+target_link_libraries(client PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Network)
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
 # If you are developing for iOS or macOS you should consider setting an
@@ -60,16 +87,24 @@ target_link_libraries(chatroom PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VER
 if(${QT_VERSION} VERSION_LESS 6.1.0)
   set(BUNDLE_ID_OPTION MACOSX_BUNDLE_GUI_IDENTIFIER com.example.chatroom)
 endif()
-set_target_properties(chatroom PROPERTIES
+
+set_target_properties(client PROPERTIES
     ${BUNDLE_ID_OPTION}
     MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
     MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
     MACOSX_BUNDLE TRUE
     WIN32_EXECUTABLE TRUE
 )
+#Server target
+add_executable(server ${SERVER_SOURCES}
+    server.h)
 
+# Linking libraries for server (add any necessary libraries here)
+target_link_libraries(server PRIVATE hiredis)
+
+# Install rules
 include(GNUInstallDirs)
-install(TARGETS chatroom
+install(TARGETS client server
     BUNDLE DESTINATION .
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}

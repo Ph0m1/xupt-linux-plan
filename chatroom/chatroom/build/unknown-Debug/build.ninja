@@ -41,78 +41,172 @@ include CMakeFiles/rules.ninja
 
 cmake_ninja_workdir = /home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/
 # =============================================================================
-# Object build statements for EXECUTABLE target chatroom
+# Object build statements for EXECUTABLE target client
 
 
 #############################################
-# Order-only phony target for chatroom
+# Order-only phony target for client
 
-build cmake_object_order_depends_target_chatroom: phony || chatroom_autogen chatroom_autogen/EWIEGA46WW/qrc_log.cpp chatroom_autogen/mocs_compilation.cpp chatroom_autogen/timestamp chatroom_autogen_timestamp_deps
+build cmake_object_order_depends_target_client: phony || client_autogen client_autogen/EWIEGA46WW/qrc_log.cpp client_autogen/mocs_compilation.cpp client_autogen/timestamp client_autogen_timestamp_deps
 
-build CMakeFiles/chatroom.dir/chatroom_autogen/mocs_compilation.cpp.o: CXX_COMPILER__chatroom_unscanned_Debug /home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/chatroom_autogen/mocs_compilation.cpp || cmake_object_order_depends_target_chatroom
+build CMakeFiles/client.dir/client_autogen/mocs_compilation.cpp.o: CXX_COMPILER__client_unscanned_Debug /home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/client_autogen/mocs_compilation.cpp || cmake_object_order_depends_target_client
   DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_WIDGETS_LIB
-  DEP_FILE = CMakeFiles/chatroom.dir/chatroom_autogen/mocs_compilation.cpp.o.d
+  DEP_FILE = CMakeFiles/client.dir/client_autogen/mocs_compilation.cpp.o.d
   FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -fdiagnostics-color=always -fPIC
-  INCLUDES = -I/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/chatroom_autogen/include -isystem /usr/include/qt -isystem /usr/include/qt/QtWidgets -isystem /usr/include/qt/QtGui -isystem /usr/include/qt/QtCore -isystem /usr/lib/qt/mkspecs/linux-g++ -isystem /usr/include/qt/QtNetwork
-  OBJECT_DIR = CMakeFiles/chatroom.dir
-  OBJECT_FILE_DIR = CMakeFiles/chatroom.dir/chatroom_autogen
+  INCLUDES = -I/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/client_autogen/include -isystem /usr/include/qt -isystem /usr/include/qt/QtWidgets -isystem /usr/include/qt/QtGui -isystem /usr/include/qt/QtCore -isystem /usr/lib/qt/mkspecs/linux-g++ -isystem /usr/include/qt/QtNetwork
+  OBJECT_DIR = CMakeFiles/client.dir
+  OBJECT_FILE_DIR = CMakeFiles/client.dir/client_autogen
 
-build CMakeFiles/chatroom.dir/main.cpp.o: CXX_COMPILER__chatroom_unscanned_Debug /home/ph0m/plan/chatroom/chatroom/main.cpp || cmake_object_order_depends_target_chatroom
+build CMakeFiles/client.dir/main.cpp.o: CXX_COMPILER__client_unscanned_Debug /home/ph0m/plan/chatroom/chatroom/main.cpp || cmake_object_order_depends_target_client
   DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_WIDGETS_LIB
-  DEP_FILE = CMakeFiles/chatroom.dir/main.cpp.o.d
+  DEP_FILE = CMakeFiles/client.dir/main.cpp.o.d
   FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -fdiagnostics-color=always -fPIC
-  INCLUDES = -I/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/chatroom_autogen/include -isystem /usr/include/qt -isystem /usr/include/qt/QtWidgets -isystem /usr/include/qt/QtGui -isystem /usr/include/qt/QtCore -isystem /usr/lib/qt/mkspecs/linux-g++ -isystem /usr/include/qt/QtNetwork
-  OBJECT_DIR = CMakeFiles/chatroom.dir
-  OBJECT_FILE_DIR = CMakeFiles/chatroom.dir
+  INCLUDES = -I/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/client_autogen/include -isystem /usr/include/qt -isystem /usr/include/qt/QtWidgets -isystem /usr/include/qt/QtGui -isystem /usr/include/qt/QtCore -isystem /usr/lib/qt/mkspecs/linux-g++ -isystem /usr/include/qt/QtNetwork
+  OBJECT_DIR = CMakeFiles/client.dir
+  OBJECT_FILE_DIR = CMakeFiles/client.dir
 
-build CMakeFiles/chatroom.dir/widget.cpp.o: CXX_COMPILER__chatroom_unscanned_Debug /home/ph0m/plan/chatroom/chatroom/widget.cpp || cmake_object_order_depends_target_chatroom
+build CMakeFiles/client.dir/widget.cpp.o: CXX_COMPILER__client_unscanned_Debug /home/ph0m/plan/chatroom/chatroom/widget.cpp || cmake_object_order_depends_target_client
   DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_WIDGETS_LIB
-  DEP_FILE = CMakeFiles/chatroom.dir/widget.cpp.o.d
+  DEP_FILE = CMakeFiles/client.dir/widget.cpp.o.d
   FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -fdiagnostics-color=always -fPIC
-  INCLUDES = -I/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/chatroom_autogen/include -isystem /usr/include/qt -isystem /usr/include/qt/QtWidgets -isystem /usr/include/qt/QtGui -isystem /usr/include/qt/QtCore -isystem /usr/lib/qt/mkspecs/linux-g++ -isystem /usr/include/qt/QtNetwork
-  OBJECT_DIR = CMakeFiles/chatroom.dir
-  OBJECT_FILE_DIR = CMakeFiles/chatroom.dir
+  INCLUDES = -I/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/client_autogen/include -isystem /usr/include/qt -isystem /usr/include/qt/QtWidgets -isystem /usr/include/qt/QtGui -isystem /usr/include/qt/QtCore -isystem /usr/lib/qt/mkspecs/linux-g++ -isystem /usr/include/qt/QtNetwork
+  OBJECT_DIR = CMakeFiles/client.dir
+  OBJECT_FILE_DIR = CMakeFiles/client.dir
 
-build CMakeFiles/chatroom.dir/log.cpp.o: CXX_COMPILER__chatroom_unscanned_Debug /home/ph0m/plan/chatroom/chatroom/log.cpp || cmake_object_order_depends_target_chatroom
+build CMakeFiles/client.dir/log.cpp.o: CXX_COMPILER__client_unscanned_Debug /home/ph0m/plan/chatroom/chatroom/log.cpp || cmake_object_order_depends_target_client
   DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_WIDGETS_LIB
-  DEP_FILE = CMakeFiles/chatroom.dir/log.cpp.o.d
+  DEP_FILE = CMakeFiles/client.dir/log.cpp.o.d
   FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -fdiagnostics-color=always -fPIC
-  INCLUDES = -I/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/chatroom_autogen/include -isystem /usr/include/qt -isystem /usr/include/qt/QtWidgets -isystem /usr/include/qt/QtGui -isystem /usr/include/qt/QtCore -isystem /usr/lib/qt/mkspecs/linux-g++ -isystem /usr/include/qt/QtNetwork
-  OBJECT_DIR = CMakeFiles/chatroom.dir
-  OBJECT_FILE_DIR = CMakeFiles/chatroom.dir
+  INCLUDES = -I/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/client_autogen/include -isystem /usr/include/qt -isystem /usr/include/qt/QtWidgets -isystem /usr/include/qt/QtGui -isystem /usr/include/qt/QtCore -isystem /usr/lib/qt/mkspecs/linux-g++ -isystem /usr/include/qt/QtNetwork
+  OBJECT_DIR = CMakeFiles/client.dir
+  OBJECT_FILE_DIR = CMakeFiles/client.dir
 
-build CMakeFiles/chatroom.dir/menu.cpp.o: CXX_COMPILER__chatroom_unscanned_Debug /home/ph0m/plan/chatroom/chatroom/menu.cpp || cmake_object_order_depends_target_chatroom
+build CMakeFiles/client.dir/menu.cpp.o: CXX_COMPILER__client_unscanned_Debug /home/ph0m/plan/chatroom/chatroom/menu.cpp || cmake_object_order_depends_target_client
   DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_WIDGETS_LIB
-  DEP_FILE = CMakeFiles/chatroom.dir/menu.cpp.o.d
+  DEP_FILE = CMakeFiles/client.dir/menu.cpp.o.d
   FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -fdiagnostics-color=always -fPIC
-  INCLUDES = -I/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/chatroom_autogen/include -isystem /usr/include/qt -isystem /usr/include/qt/QtWidgets -isystem /usr/include/qt/QtGui -isystem /usr/include/qt/QtCore -isystem /usr/lib/qt/mkspecs/linux-g++ -isystem /usr/include/qt/QtNetwork
-  OBJECT_DIR = CMakeFiles/chatroom.dir
-  OBJECT_FILE_DIR = CMakeFiles/chatroom.dir
+  INCLUDES = -I/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/client_autogen/include -isystem /usr/include/qt -isystem /usr/include/qt/QtWidgets -isystem /usr/include/qt/QtGui -isystem /usr/include/qt/QtCore -isystem /usr/lib/qt/mkspecs/linux-g++ -isystem /usr/include/qt/QtNetwork
+  OBJECT_DIR = CMakeFiles/client.dir
+  OBJECT_FILE_DIR = CMakeFiles/client.dir
 
-build CMakeFiles/chatroom.dir/chatroom_autogen/EWIEGA46WW/qrc_log.cpp.o: CXX_COMPILER__chatroom_unscanned_Debug /home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/chatroom_autogen/EWIEGA46WW/qrc_log.cpp || cmake_object_order_depends_target_chatroom
+build CMakeFiles/client.dir/reg.cpp.o: CXX_COMPILER__client_unscanned_Debug /home/ph0m/plan/chatroom/chatroom/reg.cpp || cmake_object_order_depends_target_client
   DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_WIDGETS_LIB
-  DEP_FILE = CMakeFiles/chatroom.dir/chatroom_autogen/EWIEGA46WW/qrc_log.cpp.o.d
+  DEP_FILE = CMakeFiles/client.dir/reg.cpp.o.d
   FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -fdiagnostics-color=always -fPIC
-  INCLUDES = -I/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/chatroom_autogen/include -isystem /usr/include/qt -isystem /usr/include/qt/QtWidgets -isystem /usr/include/qt/QtGui -isystem /usr/include/qt/QtCore -isystem /usr/lib/qt/mkspecs/linux-g++ -isystem /usr/include/qt/QtNetwork
-  OBJECT_DIR = CMakeFiles/chatroom.dir
-  OBJECT_FILE_DIR = CMakeFiles/chatroom.dir/chatroom_autogen/EWIEGA46WW
+  INCLUDES = -I/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/client_autogen/include -isystem /usr/include/qt -isystem /usr/include/qt/QtWidgets -isystem /usr/include/qt/QtGui -isystem /usr/include/qt/QtCore -isystem /usr/lib/qt/mkspecs/linux-g++ -isystem /usr/include/qt/QtNetwork
+  OBJECT_DIR = CMakeFiles/client.dir
+  OBJECT_FILE_DIR = CMakeFiles/client.dir
+
+build CMakeFiles/client.dir/found.cpp.o: CXX_COMPILER__client_unscanned_Debug /home/ph0m/plan/chatroom/chatroom/found.cpp || cmake_object_order_depends_target_client
+  DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_WIDGETS_LIB
+  DEP_FILE = CMakeFiles/client.dir/found.cpp.o.d
+  FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -fdiagnostics-color=always -fPIC
+  INCLUDES = -I/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/client_autogen/include -isystem /usr/include/qt -isystem /usr/include/qt/QtWidgets -isystem /usr/include/qt/QtGui -isystem /usr/include/qt/QtCore -isystem /usr/lib/qt/mkspecs/linux-g++ -isystem /usr/include/qt/QtNetwork
+  OBJECT_DIR = CMakeFiles/client.dir
+  OBJECT_FILE_DIR = CMakeFiles/client.dir
+
+build CMakeFiles/client.dir/setnewpasswd.cpp.o: CXX_COMPILER__client_unscanned_Debug /home/ph0m/plan/chatroom/chatroom/setnewpasswd.cpp || cmake_object_order_depends_target_client
+  DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_WIDGETS_LIB
+  DEP_FILE = CMakeFiles/client.dir/setnewpasswd.cpp.o.d
+  FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -fdiagnostics-color=always -fPIC
+  INCLUDES = -I/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/client_autogen/include -isystem /usr/include/qt -isystem /usr/include/qt/QtWidgets -isystem /usr/include/qt/QtGui -isystem /usr/include/qt/QtCore -isystem /usr/lib/qt/mkspecs/linux-g++ -isystem /usr/include/qt/QtNetwork
+  OBJECT_DIR = CMakeFiles/client.dir
+  OBJECT_FILE_DIR = CMakeFiles/client.dir
+
+build CMakeFiles/client.dir/client.cpp.o: CXX_COMPILER__client_unscanned_Debug /home/ph0m/plan/chatroom/chatroom/client.cpp || cmake_object_order_depends_target_client
+  DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_WIDGETS_LIB
+  DEP_FILE = CMakeFiles/client.dir/client.cpp.o.d
+  FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -fdiagnostics-color=always -fPIC
+  INCLUDES = -I/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/client_autogen/include -isystem /usr/include/qt -isystem /usr/include/qt/QtWidgets -isystem /usr/include/qt/QtGui -isystem /usr/include/qt/QtCore -isystem /usr/lib/qt/mkspecs/linux-g++ -isystem /usr/include/qt/QtNetwork
+  OBJECT_DIR = CMakeFiles/client.dir
+  OBJECT_FILE_DIR = CMakeFiles/client.dir
+
+build CMakeFiles/client.dir/mysocket.cpp.o: CXX_COMPILER__client_unscanned_Debug /home/ph0m/plan/chatroom/chatroom/mysocket.cpp || cmake_object_order_depends_target_client
+  DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_WIDGETS_LIB
+  DEP_FILE = CMakeFiles/client.dir/mysocket.cpp.o.d
+  FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -fdiagnostics-color=always -fPIC
+  INCLUDES = -I/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/client_autogen/include -isystem /usr/include/qt -isystem /usr/include/qt/QtWidgets -isystem /usr/include/qt/QtGui -isystem /usr/include/qt/QtCore -isystem /usr/lib/qt/mkspecs/linux-g++ -isystem /usr/include/qt/QtNetwork
+  OBJECT_DIR = CMakeFiles/client.dir
+  OBJECT_FILE_DIR = CMakeFiles/client.dir
+
+build CMakeFiles/client.dir/client_autogen/EWIEGA46WW/qrc_log.cpp.o: CXX_COMPILER__client_unscanned_Debug /home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/client_autogen/EWIEGA46WW/qrc_log.cpp || cmake_object_order_depends_target_client
+  DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_WIDGETS_LIB
+  DEP_FILE = CMakeFiles/client.dir/client_autogen/EWIEGA46WW/qrc_log.cpp.o.d
+  FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -fdiagnostics-color=always -fPIC
+  INCLUDES = -I/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/client_autogen/include -isystem /usr/include/qt -isystem /usr/include/qt/QtWidgets -isystem /usr/include/qt/QtGui -isystem /usr/include/qt/QtCore -isystem /usr/lib/qt/mkspecs/linux-g++ -isystem /usr/include/qt/QtNetwork
+  OBJECT_DIR = CMakeFiles/client.dir
+  OBJECT_FILE_DIR = CMakeFiles/client.dir/client_autogen/EWIEGA46WW
 
 
 # =============================================================================
-# Link build statements for EXECUTABLE target chatroom
+# Link build statements for EXECUTABLE target client
 
 
 #############################################
-# Link the executable chatroom
+# Link the executable client
 
-build chatroom: CXX_EXECUTABLE_LINKER__chatroom_Debug CMakeFiles/chatroom.dir/chatroom_autogen/mocs_compilation.cpp.o CMakeFiles/chatroom.dir/main.cpp.o CMakeFiles/chatroom.dir/widget.cpp.o CMakeFiles/chatroom.dir/log.cpp.o CMakeFiles/chatroom.dir/menu.cpp.o CMakeFiles/chatroom.dir/chatroom_autogen/EWIEGA46WW/qrc_log.cpp.o | /usr/lib/libQt5Widgets.so.5.15.13 /usr/lib/libQt5Network.so.5.15.13 /usr/lib/libQt5Gui.so.5.15.13 /usr/lib/libQt5Core.so.5.15.13 || chatroom_autogen chatroom_autogen_timestamp_deps
+build client: CXX_EXECUTABLE_LINKER__client_Debug CMakeFiles/client.dir/client_autogen/mocs_compilation.cpp.o CMakeFiles/client.dir/main.cpp.o CMakeFiles/client.dir/widget.cpp.o CMakeFiles/client.dir/log.cpp.o CMakeFiles/client.dir/menu.cpp.o CMakeFiles/client.dir/reg.cpp.o CMakeFiles/client.dir/found.cpp.o CMakeFiles/client.dir/setnewpasswd.cpp.o CMakeFiles/client.dir/client.cpp.o CMakeFiles/client.dir/mysocket.cpp.o CMakeFiles/client.dir/client_autogen/EWIEGA46WW/qrc_log.cpp.o | /usr/lib/libQt5Widgets.so.5.15.13 /usr/lib/libQt5Network.so.5.15.13 /usr/lib/libQt5Gui.so.5.15.13 /usr/lib/libQt5Core.so.5.15.13 || client_autogen client_autogen_timestamp_deps
   FLAGS = -DQT_QML_DEBUG -g
   LINK_LIBRARIES = /usr/lib/libQt5Widgets.so.5.15.13  /usr/lib/libQt5Network.so.5.15.13  /usr/lib/libQt5Gui.so.5.15.13  /usr/lib/libQt5Core.so.5.15.13
-  OBJECT_DIR = CMakeFiles/chatroom.dir
+  OBJECT_DIR = CMakeFiles/client.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_FILE = chatroom
-  TARGET_PDB = chatroom.dbg
+  TARGET_FILE = client
+  TARGET_PDB = client.dbg
+
+# =============================================================================
+# Object build statements for EXECUTABLE target server
+
+
+#############################################
+# Order-only phony target for server
+
+build cmake_object_order_depends_target_server: phony || server_autogen server_autogen/mocs_compilation.cpp server_autogen/timestamp server_autogen_timestamp_deps
+
+build CMakeFiles/server.dir/server_autogen/mocs_compilation.cpp.o: CXX_COMPILER__server_unscanned_Debug /home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/server_autogen/mocs_compilation.cpp || cmake_object_order_depends_target_server
+  DEP_FILE = CMakeFiles/server.dir/server_autogen/mocs_compilation.cpp.o.d
+  FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -fdiagnostics-color=always
+  INCLUDES = -I/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/server_autogen/include
+  OBJECT_DIR = CMakeFiles/server.dir
+  OBJECT_FILE_DIR = CMakeFiles/server.dir/server_autogen
+
+build CMakeFiles/server.dir/server.cpp.o: CXX_COMPILER__server_unscanned_Debug /home/ph0m/plan/chatroom/chatroom/server.cpp || cmake_object_order_depends_target_server
+  DEP_FILE = CMakeFiles/server.dir/server.cpp.o.d
+  FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -fdiagnostics-color=always
+  INCLUDES = -I/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/server_autogen/include
+  OBJECT_DIR = CMakeFiles/server.dir
+  OBJECT_FILE_DIR = CMakeFiles/server.dir
+
+build CMakeFiles/server.dir/mysocket.cpp.o: CXX_COMPILER__server_unscanned_Debug /home/ph0m/plan/chatroom/chatroom/mysocket.cpp || cmake_object_order_depends_target_server
+  DEP_FILE = CMakeFiles/server.dir/mysocket.cpp.o.d
+  FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -fdiagnostics-color=always
+  INCLUDES = -I/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/server_autogen/include
+  OBJECT_DIR = CMakeFiles/server.dir
+  OBJECT_FILE_DIR = CMakeFiles/server.dir
+
+build CMakeFiles/server.dir/redis.cpp.o: CXX_COMPILER__server_unscanned_Debug /home/ph0m/plan/chatroom/chatroom/redis.cpp || cmake_object_order_depends_target_server
+  DEP_FILE = CMakeFiles/server.dir/redis.cpp.o.d
+  FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -fdiagnostics-color=always
+  INCLUDES = -I/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/server_autogen/include
+  OBJECT_DIR = CMakeFiles/server.dir
+  OBJECT_FILE_DIR = CMakeFiles/server.dir
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target server
+
+
+#############################################
+# Link the executable server
+
+build server: CXX_EXECUTABLE_LINKER__server_Debug CMakeFiles/server.dir/server_autogen/mocs_compilation.cpp.o CMakeFiles/server.dir/server.cpp.o CMakeFiles/server.dir/mysocket.cpp.o CMakeFiles/server.dir/redis.cpp.o || server_autogen server_autogen_timestamp_deps
+  FLAGS = -DQT_QML_DEBUG -g
+  LINK_LIBRARIES = -lhiredis
+  OBJECT_DIR = CMakeFiles/server.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = server
+  TARGET_PDB = server.dbg
 
 
 #############################################
@@ -182,41 +276,70 @@ build install/strip: phony CMakeFiles/install/strip.util
 
 
 #############################################
-# Utility command for chatroom_autogen_timestamp_deps
+# Utility command for client_autogen_timestamp_deps
 
-build chatroom_autogen_timestamp_deps: phony
-
-
-#############################################
-# Utility command for chatroom_autogen
-
-build chatroom_autogen: phony CMakeFiles/chatroom_autogen chatroom_autogen/include/ui_widget.h chatroom_autogen/include/ui_log.h chatroom_autogen/include/ui_menu.h chatroom_autogen/timestamp chatroom_autogen/mocs_compilation.cpp chatroom_autogen_timestamp_deps
+build client_autogen_timestamp_deps: phony
 
 
 #############################################
-# Custom command for chatroom_autogen/timestamp
+# Utility command for client_autogen
 
-build chatroom_autogen/timestamp chatroom_autogen/mocs_compilation.cpp | ${cmake_ninja_workdir}chatroom_autogen/timestamp ${cmake_ninja_workdir}chatroom_autogen/mocs_compilation.cpp: CUSTOM_COMMAND /usr/bin/moc /usr/bin/uic || chatroom_autogen_timestamp_deps
-  COMMAND = cd /home/ph0m/plan/chatroom/chatroom/build/unknown-Debug && /usr/bin/cmake -E cmake_autogen /home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/CMakeFiles/chatroom_autogen.dir/AutogenInfo.json Debug && /usr/bin/cmake -E touch /home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/chatroom_autogen/timestamp && /usr/bin/cmake -E cmake_transform_depfile Ninja gccdepfile /home/ph0m/plan/chatroom/chatroom /home/ph0m/plan/chatroom/chatroom /home/ph0m/plan/chatroom/chatroom/build/unknown-Debug /home/ph0m/plan/chatroom/chatroom/build/unknown-Debug /home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/chatroom_autogen/deps /home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/CMakeFiles/d/12de88af755635e482c4791bd7f6ea47cd79ef5fdbf6a6c104d62a89a21969bc.d
-  DESC = Automatic MOC and UIC for target chatroom
-  depfile = CMakeFiles/d/12de88af755635e482c4791bd7f6ea47cd79ef5fdbf6a6c104d62a89a21969bc.d
+build client_autogen: phony CMakeFiles/client_autogen client_autogen/include/ui_widget.h client_autogen/include/ui_log.h client_autogen/include/ui_menu.h client_autogen/include/ui_reg.h client_autogen/include/ui_found.h client_autogen/include/ui_setnewpasswd.h client_autogen/timestamp client_autogen/mocs_compilation.cpp client_autogen_timestamp_deps
+
+
+#############################################
+# Utility command for server_autogen_timestamp_deps
+
+build server_autogen_timestamp_deps: phony
+
+
+#############################################
+# Utility command for server_autogen
+
+build server_autogen: phony CMakeFiles/server_autogen server_autogen/include/ui_widget.h server_autogen/include/ui_log.h server_autogen/include/ui_menu.h server_autogen/include/ui_reg.h server_autogen/include/ui_found.h server_autogen/include/ui_setnewpasswd.h server_autogen/timestamp server_autogen/mocs_compilation.cpp server_autogen_timestamp_deps
+
+
+#############################################
+# Custom command for client_autogen/timestamp
+
+build client_autogen/timestamp client_autogen/mocs_compilation.cpp | ${cmake_ninja_workdir}client_autogen/timestamp ${cmake_ninja_workdir}client_autogen/mocs_compilation.cpp: CUSTOM_COMMAND /usr/bin/moc /usr/bin/uic || client_autogen_timestamp_deps
+  COMMAND = cd /home/ph0m/plan/chatroom/chatroom/build/unknown-Debug && /usr/bin/cmake -E cmake_autogen /home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/CMakeFiles/client_autogen.dir/AutogenInfo.json Debug && /usr/bin/cmake -E touch /home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/client_autogen/timestamp && /usr/bin/cmake -E cmake_transform_depfile Ninja gccdepfile /home/ph0m/plan/chatroom/chatroom /home/ph0m/plan/chatroom/chatroom /home/ph0m/plan/chatroom/chatroom/build/unknown-Debug /home/ph0m/plan/chatroom/chatroom/build/unknown-Debug /home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/client_autogen/deps /home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/CMakeFiles/d/fcfc4ff65308eb4819683ba8ca7db673390b022bfc201234a2fb0e749550f94a.d
+  DESC = Automatic MOC and UIC for target client
+  depfile = CMakeFiles/d/fcfc4ff65308eb4819683ba8ca7db673390b022bfc201234a2fb0e749550f94a.d
   deps = gcc
   restat = 1
 
 
 #############################################
-# Custom command for chatroom_autogen/EWIEGA46WW/qrc_log.cpp
+# Custom command for client_autogen/EWIEGA46WW/qrc_log.cpp
 
-build chatroom_autogen/EWIEGA46WW/qrc_log.cpp | ${cmake_ninja_workdir}chatroom_autogen/EWIEGA46WW/qrc_log.cpp: CUSTOM_COMMAND /home/ph0m/plan/chatroom/chatroom/log.qrc CMakeFiles/chatroom_autogen.dir/AutoRcc_log_EWIEGA46WW_Info.json /home/ph0m/plan/chatroom/chatroom/Header.jpeg /home/ph0m/plan/chatroom/chatroom/images/underline.png /home/ph0m/plan/chatroom/chatroom/images/itallc.png /home/ph0m/plan/chatroom/chatroom/images/clike.png /home/ph0m/plan/chatroom/chatroom/images/chatroom_zh_CN.ts /home/ph0m/plan/chatroom/chatroom/images/file.png /home/ph0m/plan/chatroom/chatroom/images/strong.png /home/ph0m/plan/chatroom/chatroom/images/clear.png /usr/bin/rcc /usr/bin/rcc || chatroom_autogen chatroom_autogen_timestamp_deps
-  COMMAND = cd /home/ph0m/plan/chatroom/chatroom/build/unknown-Debug && /usr/bin/cmake -E cmake_autorcc /home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/CMakeFiles/chatroom_autogen.dir/AutoRcc_log_EWIEGA46WW_Info.json Debug
+build client_autogen/EWIEGA46WW/qrc_log.cpp | ${cmake_ninja_workdir}client_autogen/EWIEGA46WW/qrc_log.cpp: CUSTOM_COMMAND /home/ph0m/plan/chatroom/chatroom/log.qrc CMakeFiles/client_autogen.dir/AutoRcc_log_EWIEGA46WW_Info.json /home/ph0m/plan/chatroom/chatroom/Header.jpeg /home/ph0m/plan/chatroom/chatroom/images/underline.png /home/ph0m/plan/chatroom/chatroom/images/itallc.png /home/ph0m/plan/chatroom/chatroom/images/clike.png /home/ph0m/plan/chatroom/chatroom/images/chatroom_zh_CN.ts /home/ph0m/plan/chatroom/chatroom/images/file.png /home/ph0m/plan/chatroom/chatroom/images/strong.png /home/ph0m/plan/chatroom/chatroom/images/clear.png /usr/bin/rcc /usr/bin/rcc || client_autogen client_autogen_timestamp_deps
+  COMMAND = cd /home/ph0m/plan/chatroom/chatroom/build/unknown-Debug && /usr/bin/cmake -E cmake_autorcc /home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/CMakeFiles/client_autogen.dir/AutoRcc_log_EWIEGA46WW_Info.json Debug
   DESC = Automatic RCC for log.qrc
   restat = 1
 
 
 #############################################
-# Phony custom command for CMakeFiles/chatroom_autogen
+# Custom command for server_autogen/timestamp
 
-build CMakeFiles/chatroom_autogen chatroom_autogen/include/ui_widget.h chatroom_autogen/include/ui_log.h chatroom_autogen/include/ui_menu.h | ${cmake_ninja_workdir}CMakeFiles/chatroom_autogen ${cmake_ninja_workdir}chatroom_autogen/include/ui_widget.h ${cmake_ninja_workdir}chatroom_autogen/include/ui_log.h ${cmake_ninja_workdir}chatroom_autogen/include/ui_menu.h: phony chatroom_autogen/timestamp || chatroom_autogen_timestamp_deps
+build server_autogen/timestamp server_autogen/mocs_compilation.cpp | ${cmake_ninja_workdir}server_autogen/timestamp ${cmake_ninja_workdir}server_autogen/mocs_compilation.cpp: CUSTOM_COMMAND /usr/bin/moc /usr/bin/uic || server_autogen_timestamp_deps
+  COMMAND = cd /home/ph0m/plan/chatroom/chatroom/build/unknown-Debug && /usr/bin/cmake -E cmake_autogen /home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/CMakeFiles/server_autogen.dir/AutogenInfo.json Debug && /usr/bin/cmake -E touch /home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/server_autogen/timestamp && /usr/bin/cmake -E cmake_transform_depfile Ninja gccdepfile /home/ph0m/plan/chatroom/chatroom /home/ph0m/plan/chatroom/chatroom /home/ph0m/plan/chatroom/chatroom/build/unknown-Debug /home/ph0m/plan/chatroom/chatroom/build/unknown-Debug /home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/server_autogen/deps /home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/CMakeFiles/d/95be13c3f3cddc3ccf3ae7cc06093c7407ccc2b484b667e47463533eaff00468.d
+  DESC = Automatic MOC and UIC for target server
+  depfile = CMakeFiles/d/95be13c3f3cddc3ccf3ae7cc06093c7407ccc2b484b667e47463533eaff00468.d
+  deps = gcc
+  restat = 1
+
+
+#############################################
+# Phony custom command for CMakeFiles/client_autogen
+
+build CMakeFiles/client_autogen client_autogen/include/ui_widget.h client_autogen/include/ui_log.h client_autogen/include/ui_menu.h client_autogen/include/ui_reg.h client_autogen/include/ui_found.h client_autogen/include/ui_setnewpasswd.h | ${cmake_ninja_workdir}CMakeFiles/client_autogen ${cmake_ninja_workdir}client_autogen/include/ui_widget.h ${cmake_ninja_workdir}client_autogen/include/ui_log.h ${cmake_ninja_workdir}client_autogen/include/ui_menu.h ${cmake_ninja_workdir}client_autogen/include/ui_reg.h ${cmake_ninja_workdir}client_autogen/include/ui_found.h ${cmake_ninja_workdir}client_autogen/include/ui_setnewpasswd.h: phony client_autogen/timestamp || client_autogen_timestamp_deps
+
+
+#############################################
+# Phony custom command for CMakeFiles/server_autogen
+
+build CMakeFiles/server_autogen server_autogen/include/ui_widget.h server_autogen/include/ui_log.h server_autogen/include/ui_menu.h server_autogen/include/ui_reg.h server_autogen/include/ui_found.h server_autogen/include/ui_setnewpasswd.h | ${cmake_ninja_workdir}CMakeFiles/server_autogen ${cmake_ninja_workdir}server_autogen/include/ui_widget.h ${cmake_ninja_workdir}server_autogen/include/ui_log.h ${cmake_ninja_workdir}server_autogen/include/ui_menu.h ${cmake_ninja_workdir}server_autogen/include/ui_reg.h ${cmake_ninja_workdir}server_autogen/include/ui_found.h ${cmake_ninja_workdir}server_autogen/include/ui_setnewpasswd.h: phony server_autogen/timestamp || server_autogen_timestamp_deps
 
 # =============================================================================
 # Target aliases.
@@ -229,7 +352,7 @@ build CMakeFiles/chatroom_autogen chatroom_autogen/include/ui_widget.h chatroom_
 #############################################
 # Folder: /home/ph0m/plan/chatroom/chatroom/build/unknown-Debug
 
-build all: phony chatroom
+build all: phony client server
 
 # =============================================================================
 # Built-in targets

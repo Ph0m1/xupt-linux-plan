@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QUdpSocket>
+#include "mysocket.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -15,7 +16,7 @@ class Widget : public QWidget
     Q_OBJECT
 
 public:
-    Widget(QWidget *parent,QString name);
+    Widget(QWidget *parent,QString name,int sfd);
     // 枚举 普通信息 用户上线 用户离线
     enum MsgType{Msg,UserEnter,UserLeft};
     void sendMsg(MsgType type); // 广播UDP信息

@@ -1,6 +1,6 @@
 #include "widget.h"
 #include "log.h"
-#include "menu.h"
+#include "client.h"
 #include <QApplication>
 #include <QLocale>
 #include <QTranslator>
@@ -8,7 +8,7 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-
+    // 设置语言
     QTranslator translator;
     const QStringList uiLanguages = QLocale::system().uiLanguages();
     for (const QString &locale : uiLanguages) {
@@ -18,10 +18,12 @@ int main(int argc, char *argv[])
             break;
         }
     }
+    Client cli(argc,argv);
+
     // log b;
     // b.show();
-    menu ui;
-    ui.show();
+    // menu ui;
+    // ui.show();
     // Widget w;
     // w.show();
     return a.exec();
