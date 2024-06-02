@@ -5,6 +5,7 @@ enum MsgType{
     Success = 1,
     Refuse = 0,
     Failure = -1,
+    Disconnent,
 
     UserAccount,
     UserLogin,

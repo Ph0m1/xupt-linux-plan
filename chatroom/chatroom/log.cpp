@@ -23,6 +23,16 @@ log::log(QWidget *parent,QString id,int sfd)
     });
     // 设置登陆按钮
     connect(ui->yes,&QPushButton::clicked,[=](){
+        if(ui->uid_input->text().isEmpty()){
+            QMessageBox::warning(this,"警告","请填写帐号或邮箱");
+            ui->uid_input->focusProxy();
+            return ;
+        }
+        if(ui->passwd_input->text().isEmpty()){
+            QMessageBox::warning(this,"警告","请填写密码");
+            ui->passwd_input->focusProxy();
+            return;
+        }
         nlohmann::json js;
         int id = atoi(ui->uid_input->text().toStdString().c_str());
         std::string passwd = ui->passwd_input->text().toStdString();
@@ -30,8 +40,12 @@ log::log(QWidget *parent,QString id,int sfd)
         js["id"] = id;
         js["passwd"] = passwd;
         std::string data = js.dump();
+        std::cout<<"5656546767636423746327846"<<std::endl;
         sendMsg(sfd, UserLogin,data);
-        MsgType a = recvMsg(sfd);
+        std::cout<<"99879798789sd78as78"<<std::endl;
+        std::string remsg;
+        MsgType a = recvMsg(sfd,remsg);
+        std::cout<<"sdha"<<std::endl;
         if(a == Success){
             this->close();
             menu *wt = new menu(nullptr,sfd);
@@ -72,9 +86,41 @@ log::log(QWidget *parent,int sfd)
     });
     // 设置登陆按钮
     connect(ui->yes,&QPushButton::clicked,[=](){
-        this->close();
-        menu *wt = new menu(nullptr,sfd);
-        wt->show();
+        try{if(ui->uid_input->text().isEmpty()){
+
+            QMessageBox::warning(this,"警告","请填写帐号或邮箱");
+            ui->uid_input->focusProxy();
+        }
+        if(ui->passwd_input->text().isEmpty()){
+
+            QMessageBox::warning(this,"警告","请填写密码");
+            ui->passwd_input->focusProxy();
+        }
+        nlohmann::json js;
+        int id = atoi(ui->uid_input->text().toStdString().c_str());
+        std::string passwd = ui->passwd_input->text().toStdString();
+
+        js["id"] = id;
+        js["passwd"] = passwd;
+        std::string data = js.dump();
+        sendMsg(sfd, UserLogin,data);
+        std::string remsg;
+        MsgType a = recvMsg(sfd,remsg);
+        std::cout<<"sdha"<<std::endl;
+        if(a == Success){
+            this->close();
+            menu *wt = new menu(nullptr,sfd);
+            wt->show();
+        }
+        else if (a == Failure){
+            ui->passwd_input->clear();
+            QMessageBox::warning(this,"警告","帐号或密码错误，请重试");
+        }
+        }catch (const std::exception& e) {
+            QMessageBox::critical(this, "错误", QString::fromStdString(e.what()));
+        } catch (...) {
+            QMessageBox::critical(this, "错误", "发生未知错误");
+        }
     });
     // 设置注册按钮
     connect(ui->resButton,&QPushButton::clicked,[=](){

@@ -19,8 +19,11 @@
 const int MAX_LINK = 100;
 
 std::string getInfo();
-void sendMsg(int sfd,MsgType type);
 void sendMsg(int sfd,MsgType type,const std::string &msg);
 MsgType recvMsg(int sfd,std::string &str);
 MsgType recvMsg(int sfd);
+int writen(int fd, std::string buf, int len);
+int readen(int fd, char* buf, int len);
+
+
 #endif // MYSOCKET_H

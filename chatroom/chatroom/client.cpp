@@ -28,5 +28,5 @@ Client::Client(int argc,char *argv[]) {
 }
 
 Client::~Client(){
-    sendMsg(this->m_sfd,Failure);
+    sendMsg(this->m_sfd,Disconnent,"0");
 }

@@ -32,14 +32,22 @@ void Server::handleClient(int client_fd) {
 void Server::handleMessage(int fd, MsgType type, const std::string &msg) {
         // 根据消息类型进行处理
         switch (type) {
+        case Disconnent:
+            // 客户端断开连接
+            close(fd);
+            std::cout<<msg<<std::endl;
+            epoll_ctl(epoll_fd, EPOLL_CTL_DEL, fd, NULL);
+            clients.erase(fd);
+            std::cout << "Client disconnected: " << fd << std::endl;
+            break;
         case UserAccount:
             std::cout << "User Register message:" << msg << std::endl;
             reg(fd,msg);
             break;
-        // case UserLogin:
-        //     std::cout << "User login message: " << msg << std::endl;
-        //     login(fd,msg);
-        //     break;
+        case UserLogin:
+            std::cout << "User login message: " << msg << std::endl;
+            login(fd,msg);
+            break;
         // case AccountFound:
         //     std::cout << "User found message: " << msg << std::endl;
         //     foundAccount(fd,msg);
@@ -159,7 +167,7 @@ void login(int fd,std::string str){
     }
     //发送个人信息
     sendMsg(fd,Success,info);
-    sendFriendsList(fd, id);
+    // sendFriendsList(fd, id);
 }
 void foundAccount(int fd,std::string str);
 void infoReset(int fd,std::string str);
