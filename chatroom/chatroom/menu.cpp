@@ -4,17 +4,41 @@
 #include <QPixmap>
 #include <QMessageBox>
 #include "widget.h"
-menu::menu(QWidget *parent,int sfd)
+using json = nlohmann::json;
+menu::menu(QWidget *parent,int sfd,const std::string &data)
     : QWidget(parent)
+    , fd(sfd)
     , ui(new Ui::menu)
 {
+    //解析data数据包
+
+        json datajs = json::parse(data.data());
+        std::string info = datajs["Info"].get<std::string>();
+        json infojs = json::parse(info);
+
+        std::unordered_map<std::string,std::string> fl = datajs["FriendList"].get<std::unordered_map<std::string,std::string>>();
+        std::unordered_map<std::string,std::string> gl = datajs["GroupList"].get<std::unordered_map<std::string,std::string>>();
+        std::unordered_map<std::string,std::string> ml = datajs["MsgList"].get<std::unordered_map<std::string,std::string>>();
+
+        std::string user = infojs["username"];
+        std::string id = infojs[""];
+
+
     ui->setupUi(this);
     // 设置图标
     this->setWindowIcon(QIcon(":/Header/Header.jpeg"));
     // 设置名称
-    this->setWindowTitle("Ph0m's chatroom");
+    this->setWindowTitle(user.c_str());
+
+}
+
+menu::~menu()
+{
+    delete ui;
+}
+void menu::setFbtn( std::unordered_map<std::string,std::string> list){
     QVector<QToolButton*> vector;
-    for(int i = 0;i < 89;i++){
+    for(auto &t : list){
         QToolButton *btn = new QToolButton(this);
         // 加载图标
         btn -> setIcon(QPixmap(":/Header/Header.jpeg"));
@@ -26,37 +50,32 @@ menu::menu(QWidget *parent,int sfd)
         // 设置按钮样式 透明
         btn->setAutoRaise(true);
         // 设置网名
-        btn->setText(QString("啊木木"+static_cast<QString>(i)));
+        btn->setText(QString(static_cast<QString>(t.second.c_str()) + "<" + static_cast<QString>(t.first.c_str())) + ">");
 
         btn->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
 
         ui->friendslistLayout->addWidget(btn);
         vector.push_back(btn);
-        IsShow.push_back(false);
+        FriendIsShow.push_back(false);
     }
 
-    for(int i =0 ;i<vector.count();i++){
+    for(int i = 0; i < vector.count(); i++){
         connect(vector[i], &QToolButton::clicked,[=](){
-            if(IsShow[i]){
+            if(FriendIsShow[i]){
                 QMessageBox::warning(this, "警告","该聊天框已被打开！");
-                // vector[i]->setFocus();
                 return;
             }
-            IsShow[i] = true;
-            Widget *widget = new Widget(nullptr,vector[i]->text(),sfd);
+            FriendIsShow[i] = true;
+            Widget *widget = new Widget(nullptr,vector[i]->text(),fd);
             widget->setWindowIcon(vector[i]->icon());
             widget->setWindowTitle(vector[i]->text());
             widget->show();
-
-            // 关闭时将isShow改为false
-            connect(widget,&Widget::closeWidget,this,[=](){
-                IsShow[i] = false;
-            });
         });
     }
 }
+void menu::setGbtn(std::unordered_map<std::string,std::string> list){
 
-menu::~menu()
-{
-    delete ui;
+}
+void menu::setMbtn(std::unordered_map<std::string,std::string> list){
+
 }

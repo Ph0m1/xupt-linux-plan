@@ -4,7 +4,7 @@
 #include "server.h"
 #include <nlohmann/json.hpp>
 #include <nlohmann/json_fwd.hpp>
-
+using json = nlohmann::json;
 int main() {
     Server server;
     server.init();
@@ -166,8 +166,19 @@ void login(int fd,std::string str){
         return;
     }
     //发送个人信息
-    sendMsg(fd,Success,info);
-    // sendFriendsList(fd, id);
+
+    //json
+    // Info: json
+    // Msglist: map
+    // Friendlist: map
+    // Gruoplist: map
+    json rec;
+    rec["FriendList"] = getFl(id);
+    rec["GroupList"]=getGl(id);
+    rec["MsgList"] = getMl(id);
+    rec["Info"] = js;
+    std::string data = js.dump();
+    sendMsg(fd,Success,data);
 }
 void foundAccount(int fd,std::string str);
 void infoReset(int fd,std::string str);
@@ -188,4 +199,26 @@ void deleteFriend(int fd, std::string str);
 void bannedFriend(int fd, std::string str);
 
 
+std::unordered_map<std::string,std::string> getFl(const std::string &key){
+    std::string str = key + "f";
+    Redis redis;
+    std::unordered_map<std::string,std::string> list = redis.Hmget(str);
+
+    return list;
+}
+std::unordered_map<std::string,std::string> getGl(const std::string &key){
+    std::string str = key + "g";
+    Redis redis;
+
+    std::unordered_map<std::string,std::string> list = redis.Hmget(str);
+
+    return list;
+}
+std::unordered_map<std::string,std::string> getMl(const std::string &key){
+    std::string str = key + "m";
+    Redis redis;
+    std::unordered_map<std::string,std::string> list = redis.Hmget(str);
+
+    return list;
+}
 

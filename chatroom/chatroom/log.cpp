@@ -48,7 +48,7 @@ log::log(QWidget *parent,QString id,int sfd)
         std::cout<<"sdha"<<std::endl;
         if(a == Success){
             this->close();
-            menu *wt = new menu(nullptr,sfd);
+            menu *wt = new menu(nullptr,sfd,remsg);
             wt->show();
         }
         else if (a == Failure){

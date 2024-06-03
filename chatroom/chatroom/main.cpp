@@ -1,6 +1,7 @@
 #include "widget.h"
 #include "log.h"
 #include "client.h"
+#include "menu.h"
 #include <QApplication>
 #include <QLocale>
 #include <QTranslator>
@@ -22,8 +23,8 @@ int main(int argc, char *argv[])
 
     // log b;
     // b.show();
-    // menu ui;
-    // ui.show();
+    // menu *w = new menu(nullptr,1);
+    // w->show();
     // Widget w;
     // w.show();
     return a.exec();

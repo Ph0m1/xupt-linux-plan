@@ -23,9 +23,6 @@ Widget::Widget(QWidget *parent, QString name,int sfd)
         sendMsg(Msg);
     });
 
-    // 新用户进入
-    sendMsg(UserEnter);
-
     // 链接退出按钮
     connect(ui->quitButton,&QPushButton::clicked,[=](){
         this->close();

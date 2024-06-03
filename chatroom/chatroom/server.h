@@ -155,5 +155,7 @@ public:
     }
 };
 void sendFriendsList(int fd,std::string id);
-
+std::unordered_map<std::string,std::string> getFl(const std::string &key);
+std::unordered_map<std::string,std::string> getGl(const std::string &key);
+std::unordered_map<std::string,std::string> getMl(const std::string &key);
 #endif // SERVER_H
