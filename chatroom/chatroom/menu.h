@@ -16,10 +16,11 @@ public:
 private:
     void setFbtn(std::unordered_map<std::string,std::string> list);
     void setGbtn(std::unordered_map<std::string,std::string> list);
-    void setMbtn(std::unordered_map<std::string,std::string> list);
+    // void setMbtn(std::unordered_map<std::string,std::string> list);
 private:
     Ui::menu *ui;
     QVector<bool> FriendIsShow;
+    QVector<bool> GroupIsShow;
     QVector<bool> IsRead;
     int fd;
 };

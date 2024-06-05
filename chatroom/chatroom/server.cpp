@@ -151,16 +151,21 @@ void reg(int fd, std::string str){
     sendMsg(fd,Success,uid);
 }
 void login(int fd,std::string str){
-    nlohmann::json js = nlohmann::json::parse(str);
-    std::string id = js["Uid"];
-    std::string passwd = js["passwd"];
+    nlohmann::json js = nlohmann::json::parse(str.data());
+
+    std::string id = js["id"].get<std::string>();
+    std::string passwd = js["passwd"].get<std::string>();
     Redis r;
-    id = r.Hget(EmailHash,id);
-    if(id == ""){
-        id = js["Uid"];
-    }
+    // std::string uid = r.Hget(EmailHash,id);
+    // std::cout<<uid<<std::endl;
+    std::cout<<"1"<<std::endl;
+    // if(uid != ""){
+        // id = uid;
+    // }
     std::string info = r.Hget(UserInfo,id);
+    std::cout<<"2"<<std::endl;
     js = nlohmann::json::parse(r.Hget(UserInfo,id));
+    std::cout<<"3"<<std::endl;
     if(!(js["passwd"] == passwd)){
         sendMsg(fd, Refuse,"帐号或密码错误");
         return;
@@ -172,12 +177,13 @@ void login(int fd,std::string str){
     // Msglist: map
     // Friendlist: map
     // Gruoplist: map
+    std::cout<<"4"<<std::endl;
     json rec;
     rec["FriendList"] = getFl(id);
-    rec["GroupList"]=getGl(id);
+    rec["GroupList"]= getGl(id);
     rec["MsgList"] = getMl(id);
     rec["Info"] = js;
-    std::string data = js.dump();
+    std::string data = rec.dump();
     sendMsg(fd,Success,data);
 }
 void foundAccount(int fd,std::string str);

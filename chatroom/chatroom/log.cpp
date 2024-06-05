@@ -34,18 +34,15 @@ log::log(QWidget *parent,QString id,int sfd)
             return;
         }
         nlohmann::json js;
-        int id = atoi(ui->uid_input->text().toStdString().c_str());
+        std::string id = ui->uid_input->text().toStdString().c_str();
         std::string passwd = ui->passwd_input->text().toStdString();
 
         js["id"] = id;
         js["passwd"] = passwd;
         std::string data = js.dump();
-        std::cout<<"5656546767636423746327846"<<std::endl;
         sendMsg(sfd, UserLogin,data);
-        std::cout<<"99879798789sd78as78"<<std::endl;
         std::string remsg;
         MsgType a = recvMsg(sfd,remsg);
-        std::cout<<"sdha"<<std::endl;
         if(a == Success){
             this->close();
             menu *wt = new menu(nullptr,sfd,remsg);
@@ -97,7 +94,7 @@ log::log(QWidget *parent,int sfd)
             ui->passwd_input->focusProxy();
         }
         nlohmann::json js;
-        int id = atoi(ui->uid_input->text().toStdString().c_str());
+        std::string id = ui->uid_input->text().toStdString().c_str();
         std::string passwd = ui->passwd_input->text().toStdString();
 
         js["id"] = id;
@@ -109,7 +106,7 @@ log::log(QWidget *parent,int sfd)
         std::cout<<"sdha"<<std::endl;
         if(a == Success){
             this->close();
-            menu *wt = new menu(nullptr,sfd);
+            menu *wt = new menu(nullptr,sfd,remsg);
             wt->show();
         }
         else if (a == Failure){

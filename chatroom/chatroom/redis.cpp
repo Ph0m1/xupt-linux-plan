@@ -22,11 +22,11 @@ bool Redis::Hget(std::string str){
     return true;
 }
 std::string Redis::Hget(std::string key,std::string str) {
-    std::string cmd = "HGET " + str;
+    std::string cmd = "HGET " + key + " " + str;
     m_reply = (redisReply *)redisCommand(m_context, cmd.c_str());
     if (m_reply->type == REDIS_REPLY_ERROR) {
         std::cout << "Error: " << m_reply->str << std::endl;
-        return nullptr;
+        return "";
     }
     return m_reply->str;
 }
@@ -56,6 +56,9 @@ std::unordered_map<std::string,std::string> Redis::Hmget(std::string key) {
         for(size_t i= 0;i< m_reply->elements;i+=2){
             a[m_reply->element[i]->str] = m_reply->element[i+1]->str;
         }
+    }
+    if (a.empty()){
+        a[""] = "";
     }
 
     return a;

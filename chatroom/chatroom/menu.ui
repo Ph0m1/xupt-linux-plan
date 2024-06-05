@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>308</width>
-    <height>776</height>
+    <height>526</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,7 +17,7 @@
    <item>
     <widget class="QToolBox" name="toolBox">
      <property name="currentIndex">
-      <number>0</number>
+      <number>2</number>
      </property>
      <widget class="QWidget" name="page">
       <property name="geometry">
@@ -25,59 +25,47 @@
         <x>0</x>
         <y>0</y>
         <width>290</width>
-        <height>665</height>
+        <height>415</height>
        </rect>
       </property>
       <attribute name="label">
        <string>消息列表</string>
       </attribute>
-      <layout class="QVBoxLayout" name="msglistLayout">
+      <layout class="QVBoxLayout" name="verticalLayout_2">
        <item>
-        <widget class="QScrollArea" name="scrollArea">
-         <property name="widgetResizable">
-          <bool>true</bool>
-         </property>
-         <widget class="QWidget" name="scrollAreaWidgetContents">
-          <property name="geometry">
-           <rect>
-            <x>0</x>
-            <y>0</y>
-            <width>270</width>
-            <height>645</height>
-           </rect>
+        <widget class="QWidget" name="widget" native="true">
+         <layout class="QVBoxLayout" name="verticalLayout_3">
+          <property name="leftMargin">
+           <number>0</number>
           </property>
-          <widget class="QWidget" name="widget_3" native="true">
-           <property name="geometry">
-            <rect>
-             <x>0</x>
-             <y>0</y>
-             <width>251</width>
-             <height>41</height>
-            </rect>
-           </property>
-           <layout class="QHBoxLayout" name="horizontalLayout_3">
-            <property name="leftMargin">
-             <number>6</number>
-            </property>
-            <property name="topMargin">
-             <number>0</number>
-            </property>
-            <property name="rightMargin">
-             <number>0</number>
-            </property>
-            <property name="bottomMargin">
-             <number>0</number>
-            </property>
-            <item>
-             <widget class="QPushButton" name="searchBtn_3">
-              <property name="text">
-               <string>发起群聊</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </widget>
-         </widget>
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
+          <item>
+           <widget class="QWidget" name="widget_2" native="true">
+            <layout class="QVBoxLayout" name="verticalLayout_4">
+             <item>
+              <widget class="QPushButton" name="pushButton">
+               <property name="text">
+                <string>发起群聊</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QWidget" name="widget_3" native="true">
+               <layout class="QVBoxLayout" name="msglayout"/>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+         </layout>
         </widget>
        </item>
       </layout>
@@ -88,7 +76,7 @@
         <x>0</x>
         <y>0</y>
         <width>290</width>
-        <height>665</height>
+        <height>415</height>
        </rect>
       </property>
       <property name="layoutDirection">
@@ -100,7 +88,7 @@
       <attribute name="label">
        <string>好友列表</string>
       </attribute>
-      <layout class="QVBoxLayout" name="friendslistLayout">
+      <layout class="QVBoxLayout" name="friendslistLayout1">
        <property name="spacing">
         <number>3</number>
        </property>
@@ -120,72 +108,18 @@
         <number>9</number>
        </property>
        <item>
-        <widget class="QScrollArea" name="scrollArea_2">
-         <property name="autoFillBackground">
-          <bool>false</bool>
+        <widget class="QLineEdit" name="lineEdit_3"/>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton_2">
+         <property name="text">
+          <string>添加好友</string>
          </property>
-         <property name="sizeAdjustPolicy">
-          <enum>QAbstractScrollArea::AdjustIgnored</enum>
-         </property>
-         <property name="widgetResizable">
-          <bool>true</bool>
-         </property>
-         <widget class="QWidget" name="scrollAreaWidgetContents_2">
-          <property name="enabled">
-           <bool>true</bool>
-          </property>
-          <property name="geometry">
-           <rect>
-            <x>0</x>
-            <y>0</y>
-            <width>270</width>
-            <height>645</height>
-           </rect>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>16777215</width>
-            <height>16777215</height>
-           </size>
-          </property>
-          <widget class="QWidget" name="widget" native="true">
-           <property name="geometry">
-            <rect>
-             <x>0</x>
-             <y>0</y>
-             <width>261</width>
-             <height>41</height>
-            </rect>
-           </property>
-           <layout class="QHBoxLayout" name="horizontalLayout">
-            <property name="spacing">
-             <number>6</number>
-            </property>
-            <property name="leftMargin">
-             <number>6</number>
-            </property>
-            <property name="topMargin">
-             <number>0</number>
-            </property>
-            <property name="rightMargin">
-             <number>0</number>
-            </property>
-            <property name="bottomMargin">
-             <number>0</number>
-            </property>
-            <item>
-             <widget class="QLineEdit" name="searchEdit"/>
-            </item>
-            <item>
-             <widget class="QPushButton" name="searchBtn">
-              <property name="text">
-               <string>搜索</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </widget>
-         </widget>
+        </widget>
+       </item>
+       <item>
+        <widget class="QWidget" name="widget_4" native="true">
+         <layout class="QVBoxLayout" name="layoutfriend"/>
         </widget>
        </item>
       </layout>
@@ -196,7 +130,7 @@
         <x>0</x>
         <y>0</y>
         <width>290</width>
-        <height>665</height>
+        <height>415</height>
        </rect>
       </property>
       <attribute name="label">
@@ -213,57 +147,42 @@
         <number>9</number>
        </property>
        <item>
-        <widget class="QScrollArea" name="scrollArea_3">
-         <property name="verticalScrollBarPolicy">
-          <enum>Qt::ScrollBarAsNeeded</enum>
-         </property>
-         <property name="widgetResizable">
-          <bool>true</bool>
-         </property>
-         <widget class="QWidget" name="scrollAreaWidgetContents_3">
-          <property name="geometry">
-           <rect>
-            <x>0</x>
-            <y>0</y>
-            <width>270</width>
-            <height>645</height>
-           </rect>
+        <widget class="QWidget" name="widget_8" native="true">
+         <layout class="QVBoxLayout" name="asdfasfasdfas">
+          <property name="leftMargin">
+           <number>0</number>
           </property>
-          <widget class="QWidget" name="widget_2" native="true">
-           <property name="geometry">
-            <rect>
-             <x>0</x>
-             <y>0</y>
-             <width>251</width>
-             <height>41</height>
-            </rect>
-           </property>
-           <layout class="QHBoxLayout" name="horizontalLayout_2">
-            <property name="leftMargin">
-             <number>6</number>
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
+          <item>
+           <widget class="QLineEdit" name="lineEdit_2"/>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton_4">
+            <property name="text">
+             <string>加入群聊</string>
             </property>
-            <property name="topMargin">
-             <number>0</number>
-            </property>
-            <property name="rightMargin">
-             <number>0</number>
-            </property>
-            <property name="bottomMargin">
-             <number>0</number>
-            </property>
-            <item>
-             <widget class="QLineEdit" name="searchEdit_2"/>
-            </item>
-            <item>
-             <widget class="QPushButton" name="searchBtn_2">
-              <property name="text">
-               <string>搜索</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </widget>
-         </widget>
+           </widget>
+          </item>
+          <item>
+           <widget class="QWidget" name="widget_group" native="true">
+            <layout class="QVBoxLayout" name="Grouplayout">
+             <item>
+              <widget class="QWidget" name="Groupwidget" native="true">
+               <layout class="QVBoxLayout" name="grouplayout"/>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+         </layout>
         </widget>
        </item>
       </layout>
