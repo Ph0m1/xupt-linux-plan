@@ -30,6 +30,10 @@ menu::menu(QWidget *parent,int sfd,const std::string &data)
     this->setWindowTitle(user.c_str());
 
     setFbtn(fl);
+    setGbtn(gl);
+    connect(ui->SearchFriendBtn,&QPushButton::clicked,[=](){
+
+    });
 
 }
 

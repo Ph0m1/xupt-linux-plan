@@ -125,3 +125,13 @@
 205	6259	1717589409368723839	CMakeFiles/client.dir/reg.cpp.o	6bda45941704f95d
 205	7368	1717589409368723839	CMakeFiles/client.dir/menu.cpp.o	ffd9df5aa12dca1d
 7368	7875	1717589416535228233	client	59ae5a8cd3f5627
+5	150	1717595977569195617	/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/CMakeFiles/cmake.verify_globs	9b34712b2d3b6140
+153	217	1717595977715859183	client_autogen/timestamp	4c32ee9abf259cb5
+153	217	1717595977715859183	client_autogen/mocs_compilation.cpp	4c32ee9abf259cb5
+153	217	1717595977715859183	/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/client_autogen/timestamp	4c32ee9abf259cb5
+153	217	1717595977715859183	/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/client_autogen/mocs_compilation.cpp	4c32ee9abf259cb5
+219	5275	1717595977782524440	CMakeFiles/client.dir/setnewpasswd.cpp.o	73cc8bfb150ffee6
+219	5369	1717595977782524440	CMakeFiles/client.dir/found.cpp.o	678ff40b5bdb0e0d
+218	6126	1717595977779191177	CMakeFiles/client.dir/widget.cpp.o	794d1dca800e1b51
+218	6405	1717595977779191177	CMakeFiles/client.dir/log.cpp.o	c3a7bcca99f93ff0
+218	6739	1717595977782524440	CMakeFiles/client.dir/reg.cpp.o	6bda45941704f95d
