@@ -53,6 +53,8 @@ set(SERVER_SOURCES
         redis.h
         redis.cpp
         threadpool.h
+        smtpmailer.h
+        smtpmailer.cpp
 )
 
 # Client target
@@ -73,6 +75,7 @@ else()
     else()
         add_executable(client
             ${CLIENT_SOURCES}
+
         )
     endif()
 
