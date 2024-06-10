@@ -17,6 +17,7 @@ public:
 
 private:
     Ui::Found *ui;
+    int fd;
 };
 
 #endif // FOUND_H
