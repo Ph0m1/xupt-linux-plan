@@ -5,11 +5,16 @@ enum MsgType{
     Success = 1,
     Refuse = 0,
     Failure = -1,
+    MailError,
     Disconnent,
+    OutLine,
+
+    Captcha,
 
     UserAccount,
     UserLogin,
     AccountFound,
+    ResetPasswd,
     ResetInfo,
     AccountDelete,
 

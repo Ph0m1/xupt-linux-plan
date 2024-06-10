@@ -2,6 +2,7 @@
 #include "mysocket.h"
 #include "msgtype.h"
 #include "server.h"
+#include "smtpmailer.h"
 #include <nlohmann/json.hpp>
 #include <nlohmann/json_fwd.hpp>
 using json = nlohmann::json;
@@ -48,10 +49,17 @@ void Server::handleMessage(int fd, MsgType type, const std::string &msg) {
             std::cout << "User login message: " << msg << std::endl;
             login(fd,msg);
             break;
-        // case AccountFound:
-        //     std::cout << "User found message: " << msg << std::endl;
-        //     foundAccount(fd,msg);
-        //     break;
+        case OutLine:
+            std::cout << "User logout : " << msg << std::endl;
+            logout(msg);
+            break;
+        case AccountFound:
+            std::cout << "User found message: " << msg << std::endl;
+            foundAccount(fd,msg);
+            break;
+        case Captcha:
+            captcha(fd);
+            break;
         // case ResetInfo:
         //     std::cout << "User reset infomation message: " << msg << std::endl;
         //     infoReset(fd,msg);
@@ -98,6 +106,7 @@ void Server::handleMessage(int fd, MsgType type, const std::string &msg) {
         }
     }
 
+
 void Server::broadcastMessage(int sender_fd, const std::string &message) {
         for (const auto &client : clients) {
             if (client.first != sender_fd) {
@@ -107,7 +116,7 @@ void Server::broadcastMessage(int sender_fd, const std::string &message) {
 }
 
 // 生成uid
-std::string generateUid(){
+std::string Server::generateUid(){
         std::srand(static_cast<unsigned int>(std::time(0)));
         std::ostringstream idStream;
         int a = rand() % 9 + 1;
@@ -124,7 +133,14 @@ std::string generateUid(){
         return idStream.str();
 }
 
-void reg(int fd, std::string str){
+
+
+void Server::logout(std::string id){
+    Redis r;
+    r.Srem("Online",id);
+}
+
+void Server::reg(int fd, std::string str){
     std::string uid = generateUid();
     nlohmann::json js = nlohmann::json::parse(str);
     std::string name = js["username"];
@@ -150,18 +166,18 @@ void reg(int fd, std::string str){
 
     sendMsg(fd,Success,uid);
 }
-void login(int fd,std::string str){
+void Server::login(int fd,std::string str){
     nlohmann::json js = nlohmann::json::parse(str.data());
 
     std::string id = js["id"].get<std::string>();
     std::string passwd = js["passwd"].get<std::string>();
     Redis r;
-    // std::string uid = r.Hget(EmailHash,id);
-    // std::cout<<uid<<std::endl;
+    std::string uid = r.Hget(EmailHash,id);
+    std::cout<<uid<<std::endl;
     std::cout<<"1"<<std::endl;
-    // if(uid != ""){
-        // id = uid;
-    // }
+    if(uid != ""){
+        id = uid;
+    }
     std::string info = r.Hget(UserInfo,id);
     std::cout<<"2"<<std::endl;
     js = nlohmann::json::parse(r.Hget(UserInfo,id));
@@ -170,6 +186,8 @@ void login(int fd,std::string str){
         sendMsg(fd, Refuse,"帐号或密码错误");
         return;
     }
+
+    users[fd] = id;
     //发送个人信息
 
     //json
@@ -185,9 +203,49 @@ void login(int fd,std::string str){
     rec["Info"] = js;
     std::string data = rec.dump();
     sendMsg(fd,Success,data);
+    r.Sadd("Online", id);
 }
-void foundAccount(int fd,std::string str);
-void infoReset(int fd,std::string str);
+void Server::foundAccount(int fd,std::string str){
+    SMTPMailer mailer;
+    std::string from = "<ph0m_hu.xa@foxmail.com>";
+    std::vector<std::string> to = {"<" + str + ">"};
+    std::string subject = "验证码";
+    std::string c = mailer.getcode();
+    std::string body = "您的验证码是: " + c;
+    capts[fd] = c;
+    if(mailer.sendMail(from, to, subject,body)){
+        sendMsg(fd,Success);
+    }else {
+        sendMsg(fd,MailError);
+    }
+    found_queue[fd] = str;
+}
+
+void Server::captcha(int fd,std::string buf){
+
+    if (buf.data() == capts[fd].data()){
+        sendMsg(fd,Success);
+    }
+    else{
+        sendMsg(fd,Refuse,"验证码错误！");
+        return;
+    }
+}
+
+void Server::resetpasswd(int fd, std::string str){
+    Redis r;
+    std::string mail = found_queue[fd];
+    std::string id = r.Hget(EmailHash,mail);
+    json infojs = json::parse(r.Hget(UserInfo,id).c_str());
+    infojs["passwd"] = str;
+    std::string a = infojs.dump();
+    r.Hmset(UserInfo, a);
+    sendMsg(fd,Success);
+}
+
+void Server::infoReset(int fd,std::string str){
+
+}
 void deleteAccount(int fd,std::string str);
 
 void creatGroup(int fd, std::string str);
@@ -200,7 +258,9 @@ void left(int fd, std::string str);
 void Message(int fd, std::string str);
 void files(int fd, std::string str);
 
-void addFriend(int fd, std::string str);
+void addFriend(int fd, std::string str){
+
+}
 void deleteFriend(int fd, std::string str);
 void bannedFriend(int fd, std::string str);
 

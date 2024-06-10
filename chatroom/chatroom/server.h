@@ -4,7 +4,7 @@
 #include "threadpool.h"
 #include "mysocket.h"
 #include "msgtype.h"
-
+#include <curl/curl.h>
 #include <unordered_map>
 #include <cstring>
 
@@ -14,32 +14,6 @@
 #define EmailHash "EmailHash"
 #define OnlineSet "OnlineSet"
 
-// 处理报文的函数
-void reg(int fd, std::string str);
-void login(int fd,std::string str);
-void foundAccount(int fd,std::string str);
-void infoReset(int fd,std::string str);
-void deleteAccount(int fd,std::string str);
-
-void creatGroup(int fd, std::string str);
-void joinGroup(int fd, std::string str);
-void exitGroup(int fd, std::string str);
-
-void enter(int fd, std::string str);
-void left(int fd, std::string str);
-
-void Message(int fd, std::string str);
-void files(int fd, std::string str)
-{
-    void sendFile(int fd, std::string str);
-    void recvFile(int fd, std::string str);
-}
-void addFriend(int fd, std::string str);
-void deleteFriend(int fd, std::string str);
-void bannedFriend(int fd, std::string str);
-
-// 生成uid
-std::string generateUid();
 
 class Server {
 private:
@@ -50,12 +24,48 @@ private:
     int epoll_fd;
     struct epoll_event ev, events[MAX_LINK];
 
+    // 绑定fd和用户
+    std::unordered_map<int, std::string> users;
+    // 绑定fd和验证码
+    std::unordered_map<int,std::string> capts;
+    // 设置找回队列
+    std::unordered_map<int ,std::string> found_queue;
+private:
     void handleClient(int client_fd);
 
     void handleMessage(int client_fd, MsgType type, const std::string &message);
 
     void broadcastMessage(int sender_fd, const std::string &message);
 
+    // 处理报文的函数
+    void reg(int fd, std::string str);
+    void login(int fd,std::string str);
+    void foundAccount(int fd,std::string str);
+    void infoReset(int fd,std::string str);
+    void deleteAccount(int fd,std::string str);
+    void resetpasswd(int fd,std::string str);
+    void creatGroup(int fd, std::string str);
+    void joinGroup(int fd, std::string str);
+    void exitGroup(int fd, std::string str);
+
+    void enter(int fd, std::string str);
+    void left(int fd, std::string str);
+
+    void Message(int fd, std::string str);
+    void files(int fd, std::string str);
+
+    void addFriend(int fd, std::string str);
+    void deleteFriend(int fd, std::string str);
+    void bannedFriend(int fd, std::string str);
+
+    void logout(std::string id);
+    // 校验验证码
+    void captcha(int fd, std::string str);
+
+
+    // 生成uid
+    std::string generateUid();
+    // 设置为非阻塞
     int setNonBlocking(int fd) {
         int flags = fcntl(fd, F_GETFL, 0);
         if (flags == -1) {
@@ -158,4 +168,5 @@ void sendFriendsList(int fd,std::string id);
 std::unordered_map<std::string,std::string> getFl(const std::string &key);
 std::unordered_map<std::string,std::string> getGl(const std::string &key);
 std::unordered_map<std::string,std::string> getMl(const std::string &key);
+
 #endif // SERVER_H
