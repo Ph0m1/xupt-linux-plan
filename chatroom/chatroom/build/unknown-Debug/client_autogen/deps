@@ -1,8 +1,8 @@
 client_autogen/timestamp: \
 	/home/ph0m/plan/chatroom/chatroom/CMakeLists.txt \
 	/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/.qtc/package-manager/auto-setup.cmake \
-	/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/CMakeFiles/3.29.3/CMakeCXXCompiler.cmake \
-	/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/CMakeFiles/3.29.3/CMakeSystem.cmake \
+	/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/CMakeFiles/3.29.5/CMakeCXXCompiler.cmake \
+	/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/CMakeFiles/3.29.5/CMakeSystem.cmake \
 	/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/client_autogen/moc_predefs.h \
 	/home/ph0m/plan/chatroom/chatroom/client.cpp \
 	/home/ph0m/plan/chatroom/chatroom/client.h \

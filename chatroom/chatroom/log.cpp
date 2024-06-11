@@ -50,7 +50,7 @@ log::log(QWidget *parent,QString id,int sfd)
         }
         else if (a == Failure){
             ui->passwd_input->clear();
-            QMessageBox::warning(this,"警告","帐号或密码错误，请重试");
+            QMessageBox::warning(this,"警告","帐号或密码错误，请重试!");
         }
     });
     // 设置注册按钮
@@ -62,7 +62,7 @@ log::log(QWidget *parent,QString id,int sfd)
 
     // 设置忘记密码按钮
     connect(ui->foundButton,&QPushButton::clicked,[=](){
-        // this->close();
+        this->close();
         Found *w = new Found(nullptr,sfd);
         w->show();
     });
@@ -124,6 +124,13 @@ log::log(QWidget *parent,int sfd)
         this->close();
         reg *widget = new reg(nullptr,sfd);
         widget->show();
+    });
+
+    // 设置忘记密码按钮
+    connect(ui->foundButton,&QPushButton::clicked,[=](){
+        this->close();
+        Found *w = new Found(nullptr,sfd);
+        w->show();
     });
 }
 

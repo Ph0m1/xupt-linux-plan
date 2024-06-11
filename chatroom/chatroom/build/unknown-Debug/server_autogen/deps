@@ -1,8 +1,8 @@
 server_autogen/timestamp: \
 	/home/ph0m/plan/chatroom/chatroom/CMakeLists.txt \
 	/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/.qtc/package-manager/auto-setup.cmake \
-	/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/CMakeFiles/3.29.3/CMakeCXXCompiler.cmake \
-	/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/CMakeFiles/3.29.3/CMakeSystem.cmake \
+	/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/CMakeFiles/3.29.5/CMakeCXXCompiler.cmake \
+	/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/CMakeFiles/3.29.5/CMakeSystem.cmake \
 	/home/ph0m/plan/chatroom/chatroom/log.qrc \
 	/home/ph0m/plan/chatroom/chatroom/msgtype.h \
 	/home/ph0m/plan/chatroom/chatroom/mysocket.cpp \
@@ -11,6 +11,8 @@ server_autogen/timestamp: \
 	/home/ph0m/plan/chatroom/chatroom/redis.h \
 	/home/ph0m/plan/chatroom/chatroom/server.cpp \
 	/home/ph0m/plan/chatroom/chatroom/server.h \
+	/home/ph0m/plan/chatroom/chatroom/smtpmailer.cpp \
+	/home/ph0m/plan/chatroom/chatroom/smtpmailer.h \
 	/home/ph0m/plan/chatroom/chatroom/threadpool.h \
 	/usr/lib/cmake/Qt5/Qt5Config.cmake \
 	/usr/lib/cmake/Qt5/Qt5ConfigVersion.cmake \

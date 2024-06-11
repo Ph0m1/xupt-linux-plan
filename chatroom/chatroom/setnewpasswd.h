@@ -18,6 +18,7 @@ public:
 
 private:
     Ui::SetNewPasswd *ui;
+    int fd;
 };
 
 #endif // SETNEWPASSWD_H

@@ -103,7 +103,7 @@ add_executable(server ${SERVER_SOURCES}
     server.h)
 
 # Linking libraries for server (add any necessary libraries here)
-target_link_libraries(server PRIVATE hiredis)
+target_link_libraries(server PRIVATE hiredis curl)
 
 # Install rules
 include(GNUInstallDirs)

@@ -76,7 +76,15 @@ bool Redis::Sadd(std::string str,std::string value){// 向集合添加成员
     return result;
 }
 bool Scard(int key);
-bool Srem(int key, std::string str);
+bool Redis::Srem(std::string key, std::string str){
+    std::string cmd = "SREM "+ key + " " + str;
+    redisReply *reply = (redisReply*) redisCommand(m_context,cmd.c_str());
+    if(reply == nullptr ){
+        std::cerr<<"Redis SREM command failed." <<std::endl;
+        return false;
+    }
+    return reply->integer;
+}
 bool Sscan(int key, std::string str);
 bool Redis::Sismember( std::string str,std::string value){
     std::string cmd = "SISMEMBER " + str + " " + value;

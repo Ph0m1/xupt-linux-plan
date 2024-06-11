@@ -91,7 +91,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "3"
+			"value" : "5"
 		},
 		{
 			"name" : "CMAKE_COLOR_DIAGNOSTICS",

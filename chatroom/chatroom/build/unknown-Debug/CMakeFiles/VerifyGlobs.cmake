@@ -42,6 +42,7 @@ endif()
 file(GLOB_RECURSE NEW_GLOB LIST_DIRECTORIES false "/home/ph0m/plan/chatroom/chatroom/*.cpp")
 set(OLD_GLOB
   "/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/CMakeFiles/3.29.3/CompilerIdCXX/CMakeCXXCompilerId.cpp"
+  "/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/CMakeFiles/3.29.5/CompilerIdCXX/CMakeCXXCompilerId.cpp"
   "/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/chatroom_autogen/EWIEGA46WW/moc_found.cpp"
   "/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/chatroom_autogen/EWIEGA46WW/moc_log.cpp"
   "/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/chatroom_autogen/EWIEGA46WW/moc_menu.cpp"
@@ -69,6 +70,7 @@ set(OLD_GLOB
   "/home/ph0m/plan/chatroom/chatroom/reg.cpp"
   "/home/ph0m/plan/chatroom/chatroom/server.cpp"
   "/home/ph0m/plan/chatroom/chatroom/setnewpasswd.cpp"
+  "/home/ph0m/plan/chatroom/chatroom/smtpmailer.cpp"
   "/home/ph0m/plan/chatroom/chatroom/widget.cpp"
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
@@ -113,6 +115,7 @@ set(OLD_GLOB
   "/home/ph0m/plan/chatroom/chatroom/reg.h"
   "/home/ph0m/plan/chatroom/chatroom/server.h"
   "/home/ph0m/plan/chatroom/chatroom/setnewpasswd.h"
+  "/home/ph0m/plan/chatroom/chatroom/smtpmailer.h"
   "/home/ph0m/plan/chatroom/chatroom/threadpool.h"
   "/home/ph0m/plan/chatroom/chatroom/widget.h"
   )

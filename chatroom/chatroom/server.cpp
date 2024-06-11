@@ -58,7 +58,10 @@ void Server::handleMessage(int fd, MsgType type, const std::string &msg) {
             foundAccount(fd,msg);
             break;
         case Captcha:
-            captcha(fd);
+            captcha(fd,msg);
+            break;
+        case ResetPasswd:
+            resetpasswd(fd,msg);
             break;
         // case ResetInfo:
         //     std::cout << "User reset infomation message: " << msg << std::endl;
@@ -227,7 +230,7 @@ void Server::captcha(int fd,std::string buf){
         sendMsg(fd,Success);
     }
     else{
-        sendMsg(fd,Refuse,"验证码错误！");
+        sendMsg(fd,Refuse);
         return;
     }
 }
@@ -240,6 +243,7 @@ void Server::resetpasswd(int fd, std::string str){
     infojs["passwd"] = str;
     std::string a = infojs.dump();
     r.Hmset(UserInfo, a);
+    found_queue.erase(fd);
     sendMsg(fd,Success);
 }
 

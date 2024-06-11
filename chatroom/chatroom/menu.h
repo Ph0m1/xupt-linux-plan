@@ -23,6 +23,7 @@ private:
     QVector<bool> GroupIsShow;
     QVector<bool> IsRead;
     int fd;
+    std::string id;
 };
 
 #endif // MENU_H

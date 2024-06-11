@@ -46,7 +46,7 @@ public:
 
     bool Sadd(std::string str,std::string value);// 向集合添加一个或多个成员
     bool Scard(int key);
-    bool Srem(int key, std::string str);
+    bool Srem(std::string key, std::string str);
     bool Sscan(int key, std::string str);
     bool Sismember( std::string str,std::string value);
 };

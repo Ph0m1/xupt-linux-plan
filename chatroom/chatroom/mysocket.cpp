@@ -1,26 +1,21 @@
 #include "mysocket.h"
 
+void sendMsg(int fd,MsgType type){
+    send(fd,&type,sizeof(type),0);
+}
+
+MsgType recvMsg(int sfd){
+    MsgType a;
+    int valread = read(sfd,&a,sizeof(a));
+    if (valread > 0){
+        return a;
+    }
+    return Failure;
+}
+
 void sendMsg(int sfd,MsgType type,const std::string &msg){
 
-    // if(sfd == -1 || msg.empty()){
-    //     return;
-    // }
-    // nlohmann::json js;
-    // js["MsgType"] = type;
-    // js["Msg"] = msg;
-    // std::string data = js.dump();
 
-    // int len = htonl(data.size());
-    // std::string buf(4 + data.size(), '\0');
-
-    // memcpy(&buf[0],&len,4);
-    // memcpy(&buf[4],data.data(),len);
-
-    // int ret = writen(sfd,buf,buf.size());
-    // if(ret <0){
-    //     std::cerr << "Writing error"<<std::endl;
-    //     close(sfd);
-    // }
     std::cout << "sendMsg started" << std::endl;
 
     if (sfd == -1 || msg.empty()) {
@@ -98,14 +93,6 @@ MsgType recvMsg(int sfd,std::string &str){
 }
 
 
-MsgType recvMsg(int sfd){
-    MsgType a;
-    int valread = read(sfd,&a,sizeof(a));
-    if (valread > 0){
-        return a;
-    }
-    return Failure;
-}
 
 
 int readen(int fd, char* buf, int len){
@@ -131,3 +118,5 @@ int readen(int fd, char* buf, int len){
     }
     return len-count;
 }
+
+

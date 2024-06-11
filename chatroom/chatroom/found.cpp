@@ -1,6 +1,8 @@
 #include "found.h"
 #include "ui_found.h"
 #include "setnewpasswd.h"
+#include "mysocket.h"
+#include <QMessageBox>
 Found::Found(QWidget *parent,int sfd)
     : QWidget(parent)
     , ui(new Ui::Found)
@@ -16,13 +18,19 @@ Found::Found(QWidget *parent,int sfd)
         //发送验证码
         std::string mail = ui->mailEdit->text().toStdString().c_str();
         sendMsg(fd,AccountFound,mail);
-        std::string code = ui->codeEdit->text().toStdString().c_str();
-        sendMsg(fd,Captcha,code);
+
 
     });
     // 设置校验验证码按钮
     connect(ui->confrimButton,&QPushButton::clicked,[=](){
         // 比较验证码
+        std::string code = ui->codeEdit->text().toStdString().c_str();
+        sendMsg(fd,Captcha,code);
+        MsgType status = recvMsg(fd);
+        if(status == Refuse){
+            QMessageBox::warning(this, "警告","验证码错误，请重试！");
+            return;
+        }
         SetNewPasswd *w = new SetNewPasswd(nullptr,sfd);
         w->show();
         this->close();

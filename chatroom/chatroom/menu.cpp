@@ -22,7 +22,8 @@ menu::menu(QWidget *parent,int sfd,const std::string &data)
 
         std::string user = infojs["username"];
 
-
+        std::string id = infojs["uid"];
+        this->id = id;
     ui->setupUi(this);
     // 设置图标
     this->setWindowIcon(QIcon(":/Header/Header.jpeg"));
@@ -39,6 +40,7 @@ menu::menu(QWidget *parent,int sfd,const std::string &data)
 
 menu::~menu()
 {
+    sendMsg(fd,OutLine,id);
     delete ui;
 }
 void menu::setFbtn( std::unordered_map<std::string,std::string> list){
