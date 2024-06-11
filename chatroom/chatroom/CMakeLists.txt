@@ -11,6 +11,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets Network LinguistTools)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets Network LinguistTools)
+find_package(OpenSSL REQUIRED)
+
+include_directories(${OPENSSL_INCLUDE_DIR})
 
 set(TS_FILES chatroom_zh_CN.ts)
 
@@ -75,6 +78,7 @@ else()
     else()
         add_executable(client
             ${CLIENT_SOURCES}
+            settings.h settings.cpp settings.ui
 
         )
     endif()
@@ -103,7 +107,7 @@ add_executable(server ${SERVER_SOURCES}
     server.h)
 
 # Linking libraries for server (add any necessary libraries here)
-target_link_libraries(server PRIVATE hiredis curl)
+target_link_libraries(server PRIVATE hiredis curl ${OPENSSL_LIBRARIES})
 
 # Install rules
 include(GNUInstallDirs)

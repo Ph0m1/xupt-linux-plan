@@ -29,7 +29,7 @@ SMTPMailer::~SMTPMailer() {
     curl_global_cleanup(); // 清理全局libcurl资源
 }
 
-std::string SMTPMailer::base64_encode(const std::string& input) {
+std::string SMTPMailer::base64Encode(const std::string& input) {
     BIO *bio, *b64;
     BUF_MEM *bufferPtr;
     b64 = BIO_new(BIO_f_base64());
@@ -63,12 +63,12 @@ bool SMTPMailer::sendMail(const std::string& from, const std::vector<std::string
     uploadCtx.payloadText = &payloadText;
 
     // 将用户名和密码进行base64编码
-    std::string username_base64 = base64_encode(username);
-    std::string password_base64 = base64_encode(password);
+    std::string username_base64 = base64Encode(username);
+    std::string password_base64 = base64Encode(password);
 
     // 设置curl选项
-    curl_easy_setopt(curl, CURLOPT_USERNAME, username_base64.c_str());  // 设置用户名
-    curl_easy_setopt(curl, CURLOPT_PASSWORD, password_base64.c_str());  // 设置密码
+    curl_easy_setopt(curl, CURLOPT_USERNAME, username.c_str());  // 设置用户名
+    curl_easy_setopt(curl, CURLOPT_PASSWORD, password.c_str());  // 设置密码
     curl_easy_setopt(curl, CURLOPT_URL, smtpServer.c_str());  // 设置SMTP服务器地址
     curl_easy_setopt(curl, CURLOPT_USE_SSL, CURLUSESSL_ALL);  // 启用SSL/TLS
     curl_easy_setopt(curl, CURLOPT_MAIL_FROM, from.c_str());  // 设置发件人地址

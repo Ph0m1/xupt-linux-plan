@@ -4,4 +4,5 @@
 #include "EWIEGA46WW/moc_menu.cpp"
 #include "EWIEGA46WW/moc_reg.cpp"
 #include "EWIEGA46WW/moc_setnewpasswd.cpp"
+#include "EWIEGA46WW/moc_settings.cpp"
 #include "EWIEGA46WW/moc_widget.cpp"

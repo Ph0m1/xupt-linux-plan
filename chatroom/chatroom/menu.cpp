@@ -11,7 +11,7 @@ menu::menu(QWidget *parent,int sfd,const std::string &data)
     , ui(new Ui::menu)
 {
     //解析data数据包
-
+        std::cout<<data<<std::endl;
         json datajs = json::parse(data.data());
 
         json infojs = datajs["Info"].get<json>();
@@ -20,15 +20,23 @@ menu::menu(QWidget *parent,int sfd,const std::string &data)
         std::unordered_map<std::string,std::string> gl = datajs["GroupList"].get<std::unordered_map<std::string,std::string>>();
         std::unordered_map<std::string,std::string> ml = datajs["MsgList"].get<std::unordered_map<std::string,std::string>>();
 
-        std::string user = infojs["username"];
-
-        std::string id = infojs["uid"];
+        std::string user;
+        user = infojs["username"].get<std::string>();
+        std::string id;
         this->id = id;
     ui->setupUi(this);
     // 设置图标
     this->setWindowIcon(QIcon(":/Header/Header.jpeg"));
     // 设置名称
     this->setWindowTitle(user.c_str());
+    ui->personalBtn->setIcon(QPixmap(":/Header/Header.jpeg"));
+    // 设置图片大小
+    QPixmap h(":/Header/Header.jpeg") ;
+    h = h.scaled(56,56,Qt::KeepAspectRatio, Qt::SmoothTransformation);
+    ui->personalBtn->setIconSize(h.size());
+    ui->personalBtn->setAutoRaise(true);
+    ui->personalBtn->setText("测试1231");
+    ui->personalBtn->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
 
     setFbtn(fl);
     setGbtn(gl);
@@ -47,7 +55,7 @@ void menu::setFbtn( std::unordered_map<std::string,std::string> list){
     QVector<QToolButton*> vector;
     QVBoxLayout *layout = new QVBoxLayout();
     for(auto &t : list){
-        if (t.first == ""){
+        if (t.first == " "){
             break;
         }
         QToolButton *btn = new QToolButton(this);
@@ -94,7 +102,7 @@ void menu::setGbtn(std::unordered_map<std::string,std::string> list){
     QVector<QToolButton*> vector;
         QVBoxLayout *layout = new QVBoxLayout();
     for(auto &t : list){
-        if (t.first == ""){
+        if (t.first == " "){
             break;
         }
         QToolButton *btn = new QToolButton(this);

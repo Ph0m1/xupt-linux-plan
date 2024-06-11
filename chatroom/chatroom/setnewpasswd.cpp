@@ -16,9 +16,11 @@ SetNewPasswd::SetNewPasswd(QWidget *parent,int sfd)
     connect(ui->yesBtn,&QPushButton::clicked,[=](){
         std::string str = ui->newpasswdEdit->text().toStdString().c_str();
         sendMsg(fd,ResetPasswd,str);
-        MsgType status = recvMsg(fd);
+        std::string buf;
+        MsgType status = recvMsg(fd,buf);
         if(status != Success){
             QMessageBox::warning(this,"警告","修改密码失败！");
+            return;
         }
         QMessageBox::information(this,"成功！","点击ok返回登陆页面");
         this->close();

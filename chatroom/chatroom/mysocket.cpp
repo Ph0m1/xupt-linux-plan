@@ -7,7 +7,7 @@ void sendMsg(int fd,MsgType type){
 MsgType recvMsg(int sfd){
     MsgType a;
     int valread = read(sfd,&a,sizeof(a));
-    if (valread > 0){
+    if (valread >= 0){
         return a;
     }
     return Failure;

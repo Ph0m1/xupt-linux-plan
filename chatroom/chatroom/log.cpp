@@ -103,9 +103,9 @@ log::log(QWidget *parent,int sfd)
         sendMsg(sfd, UserLogin,data);
         std::string remsg;
         MsgType a = recvMsg(sfd,remsg);
-        std::cout<<"sdha"<<std::endl;
         if(a == Success){
             this->close();
+            std::cout<<"12312sadqas"<<std::endl;
             menu *wt = new menu(nullptr,sfd,remsg);
             wt->show();
         }

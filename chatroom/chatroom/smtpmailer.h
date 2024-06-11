@@ -8,6 +8,7 @@
 #include <vector>
 #include <openssl/bio.h>
 #include <openssl/evp.h>
+#include <openssl/buffer.h>
 #include <cstdint>
 #include <cstdlib>      // 用于 std::srand 和 std::rand
 #include <ctime>        // 用于 std::time
@@ -51,7 +52,7 @@ private:
     std::string password; // 密码
     CURL* curl; // curl会话句柄
 
-    std::string base64_encode(const std::string &input);
+    std::string base64Encode(const std::string &input);
 
     struct upload_status {
         int linesRead = 0; // 已读取的行数

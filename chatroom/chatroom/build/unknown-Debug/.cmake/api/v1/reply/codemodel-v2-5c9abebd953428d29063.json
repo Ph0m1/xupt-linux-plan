@@ -7,7 +7,7 @@
 				{
 					"build" : ".",
 					"hasInstallRule" : true,
-					"jsonFile" : "directory-.-Debug-cbbe66292580b0b9e152.json",
+					"jsonFile" : "directory-.-Debug-cf5da1441ed9a0ae0952.json",
 					"minimumCMakeVersion" : 
 					{
 						"string" : "3.5"
@@ -50,7 +50,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "client::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-client-Debug-782f8f50ad1b56c82d52.json",
+					"jsonFile" : "target-client-Debug-db4372d188836f330222.json",
 					"name" : "client",
 					"projectIndex" : 0
 				},
@@ -71,7 +71,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "server::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-server-Debug-aa4d036ddc8620737eeb.json",
+					"jsonFile" : "target-server-Debug-07dc8b37dd0bd2f28746.json",
 					"name" : "server",
 					"projectIndex" : 0
 				},

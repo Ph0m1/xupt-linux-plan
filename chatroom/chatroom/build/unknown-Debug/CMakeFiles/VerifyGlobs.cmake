@@ -56,6 +56,7 @@ set(OLD_GLOB
   "/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/client_autogen/EWIEGA46WW/moc_menu.cpp"
   "/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/client_autogen/EWIEGA46WW/moc_reg.cpp"
   "/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/client_autogen/EWIEGA46WW/moc_setnewpasswd.cpp"
+  "/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/client_autogen/EWIEGA46WW/moc_settings.cpp"
   "/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/client_autogen/EWIEGA46WW/moc_widget.cpp"
   "/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/client_autogen/EWIEGA46WW/qrc_log.cpp"
   "/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/client_autogen/mocs_compilation.cpp"
@@ -70,6 +71,7 @@ set(OLD_GLOB
   "/home/ph0m/plan/chatroom/chatroom/reg.cpp"
   "/home/ph0m/plan/chatroom/chatroom/server.cpp"
   "/home/ph0m/plan/chatroom/chatroom/setnewpasswd.cpp"
+  "/home/ph0m/plan/chatroom/chatroom/settings.cpp"
   "/home/ph0m/plan/chatroom/chatroom/smtpmailer.cpp"
   "/home/ph0m/plan/chatroom/chatroom/widget.cpp"
   )
@@ -102,6 +104,7 @@ set(OLD_GLOB
   "/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/client_autogen/include/ui_menu.h"
   "/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/client_autogen/include/ui_reg.h"
   "/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/client_autogen/include/ui_setnewpasswd.h"
+  "/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/client_autogen/include/ui_settings.h"
   "/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/client_autogen/include/ui_widget.h"
   "/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/client_autogen/moc_predefs.h"
   "/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/server_autogen/moc_predefs.h"
@@ -115,6 +118,7 @@ set(OLD_GLOB
   "/home/ph0m/plan/chatroom/chatroom/reg.h"
   "/home/ph0m/plan/chatroom/chatroom/server.h"
   "/home/ph0m/plan/chatroom/chatroom/setnewpasswd.h"
+  "/home/ph0m/plan/chatroom/chatroom/settings.h"
   "/home/ph0m/plan/chatroom/chatroom/smtpmailer.h"
   "/home/ph0m/plan/chatroom/chatroom/threadpool.h"
   "/home/ph0m/plan/chatroom/chatroom/widget.h"
@@ -223,6 +227,7 @@ set(OLD_GLOB
   "/home/ph0m/plan/chatroom/chatroom/menu.ui"
   "/home/ph0m/plan/chatroom/chatroom/reg.ui"
   "/home/ph0m/plan/chatroom/chatroom/setnewpasswd.ui"
+  "/home/ph0m/plan/chatroom/chatroom/settings.ui"
   "/home/ph0m/plan/chatroom/chatroom/widget.ui"
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")

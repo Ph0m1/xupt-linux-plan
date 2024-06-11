@@ -26,19 +26,19 @@
 			{
 				"command" : 0,
 				"file" : 0,
-				"line" : 102,
+				"line" : 106,
 				"parent" : 0
 			},
 			{
 				"command" : 1,
 				"file" : 0,
-				"line" : 110,
+				"line" : 114,
 				"parent" : 0
 			},
 			{
 				"command" : 2,
 				"file" : 0,
-				"line" : 106,
+				"line" : 110,
 				"parent" : 0
 			}
 		]
@@ -119,6 +119,21 @@
 				"backtrace" : 3,
 				"fragment" : "-lhiredis",
 				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "-lcurl",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "/usr/lib/libssl.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "/usr/lib/libcrypto.so",
+				"role" : "libraries"
 			}
 		],
 		"language" : "CXX"
@@ -158,21 +173,22 @@
 				13,
 				14,
 				15,
-				16
+				16,
+				17
 			]
 		},
 		{
 			"name" : "",
 			"sourceIndexes" : 
 			[
-				17
+				18
 			]
 		},
 		{
 			"name" : "CMake Rules",
 			"sourceIndexes" : 
 			[
-				18
+				19
 			]
 		}
 	],
@@ -273,6 +289,12 @@
 			"backtrace" : 0,
 			"isGenerated" : true,
 			"path" : "build/unknown-Debug/server_autogen/include/ui_setnewpasswd.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "build/unknown-Debug/server_autogen/include/ui_settings.h",
 			"sourceGroupIndex" : 1
 		},
 		{

@@ -176,12 +176,16 @@ void Server::login(int fd,std::string str){
     std::string passwd = js["passwd"].get<std::string>();
     Redis r;
     std::string uid = r.Hget(EmailHash,id);
+
     std::cout<<uid<<std::endl;
     std::cout<<"1"<<std::endl;
     if(uid != ""){
         id = uid;
     }
     std::string info = r.Hget(UserInfo,id);
+    if (info == ""){
+        sendMsg(fd,Refuse,"该账户不存在");
+    }
     std::cout<<"2"<<std::endl;
     js = nlohmann::json::parse(r.Hget(UserInfo,id));
     std::cout<<"3"<<std::endl;
@@ -226,11 +230,11 @@ void Server::foundAccount(int fd,std::string str){
 
 void Server::captcha(int fd,std::string buf){
 
-    if (buf.data() == capts[fd].data()){
-        sendMsg(fd,Success);
+    if (buf == capts[fd]){
+        sendMsg(fd,Success,"11");
     }
     else{
-        sendMsg(fd,Refuse);
+        sendMsg(fd,Refuse,"111");
         return;
     }
 }
@@ -239,18 +243,23 @@ void Server::resetpasswd(int fd, std::string str){
     Redis r;
     std::string mail = found_queue[fd];
     std::string id = r.Hget(EmailHash,mail);
+    std::cout<<id<<std::endl;
     json infojs = json::parse(r.Hget(UserInfo,id).c_str());
     infojs["passwd"] = str;
+
     std::string a = infojs.dump();
-    r.Hmset(UserInfo, a);
+    std::cout<<a<<std::endl;
+    r.Hmset(UserInfo" "+ id, a);
     found_queue.erase(fd);
-    sendMsg(fd,Success);
+    sendMsg(fd,Success,"1");
 }
 
 void Server::infoReset(int fd,std::string str){
 
 }
-void deleteAccount(int fd,std::string str);
+void Server::deleteAccount(int fd,std::string str){
+
+}
 
 void creatGroup(int fd, std::string str);
 void joinGroup(int fd, std::string str);

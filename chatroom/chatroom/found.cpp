@@ -18,7 +18,7 @@ Found::Found(QWidget *parent,int sfd)
         //发送验证码
         std::string mail = ui->mailEdit->text().toStdString().c_str();
         sendMsg(fd,AccountFound,mail);
-
+        MsgType a = recvMsg(fd);
 
     });
     // 设置校验验证码按钮
@@ -26,7 +26,8 @@ Found::Found(QWidget *parent,int sfd)
         // 比较验证码
         std::string code = ui->codeEdit->text().toStdString().c_str();
         sendMsg(fd,Captcha,code);
-        MsgType status = recvMsg(fd);
+        std::string a;
+        MsgType status = recvMsg(fd,a);
         if(status == Refuse){
             QMessageBox::warning(this, "警告","验证码错误，请重试！");
             return;
