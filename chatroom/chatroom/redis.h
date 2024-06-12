@@ -40,7 +40,7 @@ public:
     bool Hmset(std::string str, std::string value);
     bool Hget(std::string str);
     std::string Hget(std::string key,std::string str);
-    bool Hdel(int key, std::string str);
+    bool Hdel(std::string key, std::string str);
     bool Hmexists(int key, std::string value);
     std::unordered_map<std::string,std::string> Hmget(std::string key);
 

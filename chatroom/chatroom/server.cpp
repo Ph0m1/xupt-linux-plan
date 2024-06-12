@@ -67,10 +67,10 @@ void Server::handleMessage(int fd, MsgType type, const std::string &msg) {
         //     std::cout << "User reset infomation message: " << msg << std::endl;
         //     infoReset(fd,msg);
         //     break;
-        // case AccountDelete:
-        //     std::cout << "User delete account: " << msg << std::endl;
-        //     deleteAccount(fd,msg);
-        //     break;
+        case AccountDelete:
+            std::cout << "User delete account: " << msg << std::endl;
+            deleteAccount(fd,msg);
+            break;
         // case GroupCreat:
         //     std::cout << "User creat group message: " << msg << std::endl;
         //     creatGroup(fd,msg);
@@ -231,7 +231,10 @@ void Server::foundAccount(int fd,std::string str){
 void Server::captcha(int fd,std::string buf){
 
     if (buf == capts[fd]){
-        sendMsg(fd,Success,"11");
+        if(users[fd].empty()){
+           sendMsg(fd,Success,"12");
+        }
+        sendMsg(fd,Success,users[fd]);
     }
     else{
         sendMsg(fd,Refuse,"111");
@@ -258,7 +261,24 @@ void Server::infoReset(int fd,std::string str){
 
 }
 void Server::deleteAccount(int fd,std::string str){
+    Redis r;
+    std::string Info;
+    Info = r.Hget(UserInfo,str);
+    if(Info == " "){
+        sendMsg(fd,Refuse);
+        return;
+    }
+    json ijs = json::parse(Info);
+    std::string username = ijs["username"].get<std::string>();
+    std::string mail = ijs["username"].get<std::string>();
+    std::string id = r.Hget(EmailHash,mail);
+    r.Hdel(EmailHash,mail);
+    r.Hdel(UserInfo,id);
+    r.Srem(UidSet,id);
+    // ...
+    // 删除信息
 
+    sendMsg(fd,Success);
 }
 
 void creatGroup(int fd, std::string str);

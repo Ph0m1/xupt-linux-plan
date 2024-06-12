@@ -4,6 +4,7 @@
 #include <QPixmap>
 #include <QMessageBox>
 #include "widget.h"
+#include "settings.h"
 using json = nlohmann::json;
 menu::menu(QWidget *parent,int sfd,const std::string &data)
     : QWidget(parent)
@@ -28,20 +29,25 @@ menu::menu(QWidget *parent,int sfd,const std::string &data)
     // 设置图标
     this->setWindowIcon(QIcon(":/Header/Header.jpeg"));
     // 设置名称
-    this->setWindowTitle(user.c_str());
+    this->setWindowTitle("Rooms");
     ui->personalBtn->setIcon(QPixmap(":/Header/Header.jpeg"));
     // 设置图片大小
     QPixmap h(":/Header/Header.jpeg") ;
     h = h.scaled(56,56,Qt::KeepAspectRatio, Qt::SmoothTransformation);
     ui->personalBtn->setIconSize(h.size());
     ui->personalBtn->setAutoRaise(true);
-    ui->personalBtn->setText("测试1231");
+    ui->personalBtn->setText(user.c_str());
     ui->personalBtn->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
 
     setFbtn(fl);
     setGbtn(gl);
     connect(ui->SearchFriendBtn,&QPushButton::clicked,[=](){
 
+    });
+
+    connect(ui->personalBtn,&QToolButton::clicked,[=](){
+        class Settings w;
+        w.show();
     });
 
 }

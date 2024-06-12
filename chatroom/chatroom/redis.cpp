@@ -30,8 +30,8 @@ std::string Redis::Hget(std::string key,std::string str) {
     }
     return m_reply->str;
 }
-bool Redis::Hdel(int key, std::string str) {
-    std::string cmd = "HDEL " + std::to_string(key);
+bool Redis::Hdel(std::string key, std::string str) {
+    std::string cmd = "HDEL " + key + " " + str;
     m_reply = (redisReply *)redisCommand(m_context, cmd.c_str());
     if (m_reply->type == REDIS_REPLY_ERROR) {
         std::cout << "Error: " << m_reply->str << std::endl;
