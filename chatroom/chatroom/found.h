@@ -13,6 +13,7 @@ class Found : public QWidget
 
 public:
     explicit Found(QWidget *parent, int sfd);
+    explicit Found(QWidget *parent, int sfd, int tmp);
     ~Found();
 
 private:
