@@ -79,6 +79,7 @@ else()
         add_executable(client
             ${CLIENT_SOURCES}
             settings.h settings.cpp settings.ui
+            menu2.h menu2.cpp menu2.ui
 
         )
     endif()

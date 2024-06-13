@@ -26,6 +26,8 @@ private:
 
     // 绑定fd和用户
     std::unordered_map<int, std::string> users;
+    // 客户端状态
+    std::unordered_map<int, int> status;
     // 绑定fd和验证码
     std::unordered_map<int,std::string> capts;
     // 设置找回队列

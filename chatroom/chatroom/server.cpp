@@ -90,7 +90,7 @@ void Server::handleMessage(int fd, MsgType type, const std::string &msg) {
         // case Msg:
         //     Message(fd,msg);
         //     break;
-        // case File:
+        // case File:fd
         //     files(fd,msg);
         //     break;
         // case FriendAdd:

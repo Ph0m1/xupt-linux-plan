@@ -50,6 +50,18 @@ menu::menu(QWidget *parent,int sfd,const std::string &data)
         w.show();
     });
 
+    connect(ui->SearchFriendBtn,&QPushButton::clicked,[=](){
+        std::string aimmer = ui->SearchFriendEdit->text().toStdString();
+        sendMsg(fd, FriendAdd, aimmer);
+        QMessageBox::information(this,"提示","已发送好友请求");
+    });
+
+    connect(ui->JoinGroupBtn,&QPushButton::clicked,[=](){
+        std::string aimmer = ui->SearchGroupBtn->text().toStdString();
+        sendMsg(fd,GroupJoin,aimmer);
+        QMessageBox::information(this,"提示","已发送加入请求");
+    });
+
 }
 
 menu::~menu()
