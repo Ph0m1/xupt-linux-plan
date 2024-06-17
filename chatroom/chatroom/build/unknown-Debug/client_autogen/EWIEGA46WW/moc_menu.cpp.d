@@ -1,5 +1,5 @@
-/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/client_autogen/EWIEGA46WW/moc_menu.cpp: /home/ph0m/plan/chatroom/chatroom/menu.h \
-  /home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/client_autogen/moc_predefs.h \
+/home/ph0m/xupt-linux-plan/chatroom/chatroom/build/unknown-Debug/client_autogen/EWIEGA46WW/moc_menu.cpp: /home/ph0m/xupt-linux-plan/chatroom/chatroom/menu.h \
+  /home/ph0m/xupt-linux-plan/chatroom/chatroom/build/unknown-Debug/client_autogen/moc_predefs.h \
   /usr/include/alloca.h \
   /usr/include/asm-generic/errno-base.h \
   /usr/include/asm-generic/errno.h \

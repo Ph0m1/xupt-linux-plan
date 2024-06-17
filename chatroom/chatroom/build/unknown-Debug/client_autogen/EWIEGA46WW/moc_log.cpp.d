@@ -1,7 +1,7 @@
-/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/client_autogen/EWIEGA46WW/moc_log.cpp: /home/ph0m/plan/chatroom/chatroom/log.h \
-  /home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/client_autogen/moc_predefs.h \
-  /home/ph0m/plan/chatroom/chatroom/msgtype.h \
-  /home/ph0m/plan/chatroom/chatroom/mysocket.h \
+/home/ph0m/xupt-linux-plan/chatroom/chatroom/build/unknown-Debug/client_autogen/EWIEGA46WW/moc_log.cpp: /home/ph0m/xupt-linux-plan/chatroom/chatroom/log.h \
+  /home/ph0m/xupt-linux-plan/chatroom/chatroom/build/unknown-Debug/client_autogen/moc_predefs.h \
+  /home/ph0m/xupt-linux-plan/chatroom/chatroom/msgtype.h \
+  /home/ph0m/xupt-linux-plan/chatroom/chatroom/mysocket.h \
   /usr/include/alloca.h \
   /usr/include/arpa/inet.h \
   /usr/include/asm-generic/bitsperlong.h \

@@ -3,6 +3,7 @@
 #include "reg.h"
 #include "menu.h"
 #include "found.h"
+#include "menu2.h"
 #include <QMessageBox>
 log::log(QWidget *parent,QString id,int sfd)
     : QWidget(parent)
@@ -45,7 +46,7 @@ log::log(QWidget *parent,QString id,int sfd)
         MsgType a = recvMsg(sfd,remsg);
         if(a == Success){
             this->close();
-            menu *wt = new menu(nullptr,sfd,remsg);
+            Menu2 *wt = new Menu2(nullptr,sfd,remsg);
             wt->show();
         }
         else if (a == Failure){
@@ -106,7 +107,7 @@ log::log(QWidget *parent,int sfd)
         if(a == Success){
             this->close();
             std::cout<<"12312sadqas"<<std::endl;
-            menu *wt = new menu(nullptr,sfd,remsg);
+            Menu2 *wt = new Menu2(nullptr,sfd,remsg);
             wt->show();
         }
         else if (a == Failure){

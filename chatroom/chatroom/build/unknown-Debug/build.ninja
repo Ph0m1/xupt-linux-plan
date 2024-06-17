@@ -39,7 +39,7 @@ include CMakeFiles/rules.ninja
 #############################################
 # Logical path to working directory; prefix for absolute paths.
 
-cmake_ninja_workdir = /home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/
+cmake_ninja_workdir = /home/ph0m/xupt-linux-plan/chatroom/chatroom/build/unknown-Debug/
 # =============================================================================
 # Object build statements for EXECUTABLE target client
 
@@ -49,99 +49,107 @@ cmake_ninja_workdir = /home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/
 
 build cmake_object_order_depends_target_client: phony || client_autogen client_autogen/EWIEGA46WW/qrc_log.cpp client_autogen/mocs_compilation.cpp client_autogen/timestamp client_autogen_timestamp_deps
 
-build CMakeFiles/client.dir/client_autogen/mocs_compilation.cpp.o: CXX_COMPILER__client_unscanned_Debug /home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/client_autogen/mocs_compilation.cpp || cmake_object_order_depends_target_client
+build CMakeFiles/client.dir/client_autogen/mocs_compilation.cpp.o: CXX_COMPILER__client_unscanned_Debug /home/ph0m/xupt-linux-plan/chatroom/chatroom/build/unknown-Debug/client_autogen/mocs_compilation.cpp || cmake_object_order_depends_target_client
   DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_WIDGETS_LIB
   DEP_FILE = CMakeFiles/client.dir/client_autogen/mocs_compilation.cpp.o.d
   FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -fdiagnostics-color=always -fPIC
-  INCLUDES = -I/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/client_autogen/include -isystem /usr/include/qt -isystem /usr/include/qt/QtWidgets -isystem /usr/include/qt/QtGui -isystem /usr/include/qt/QtCore -isystem /usr/lib/qt/mkspecs/linux-g++ -isystem /usr/include/qt/QtNetwork
+  INCLUDES = -I/home/ph0m/xupt-linux-plan/chatroom/chatroom/build/unknown-Debug/client_autogen/include -isystem /usr/include/qt -isystem /usr/include/qt/QtWidgets -isystem /usr/include/qt/QtGui -isystem /usr/include/qt/QtCore -isystem /usr/lib/qt/mkspecs/linux-g++ -isystem /usr/include/qt/QtNetwork
   OBJECT_DIR = CMakeFiles/client.dir
   OBJECT_FILE_DIR = CMakeFiles/client.dir/client_autogen
 
-build CMakeFiles/client.dir/main.cpp.o: CXX_COMPILER__client_unscanned_Debug /home/ph0m/plan/chatroom/chatroom/main.cpp || cmake_object_order_depends_target_client
+build CMakeFiles/client.dir/main.cpp.o: CXX_COMPILER__client_unscanned_Debug /home/ph0m/xupt-linux-plan/chatroom/chatroom/main.cpp || cmake_object_order_depends_target_client
   DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_WIDGETS_LIB
   DEP_FILE = CMakeFiles/client.dir/main.cpp.o.d
   FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -fdiagnostics-color=always -fPIC
-  INCLUDES = -I/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/client_autogen/include -isystem /usr/include/qt -isystem /usr/include/qt/QtWidgets -isystem /usr/include/qt/QtGui -isystem /usr/include/qt/QtCore -isystem /usr/lib/qt/mkspecs/linux-g++ -isystem /usr/include/qt/QtNetwork
+  INCLUDES = -I/home/ph0m/xupt-linux-plan/chatroom/chatroom/build/unknown-Debug/client_autogen/include -isystem /usr/include/qt -isystem /usr/include/qt/QtWidgets -isystem /usr/include/qt/QtGui -isystem /usr/include/qt/QtCore -isystem /usr/lib/qt/mkspecs/linux-g++ -isystem /usr/include/qt/QtNetwork
   OBJECT_DIR = CMakeFiles/client.dir
   OBJECT_FILE_DIR = CMakeFiles/client.dir
 
-build CMakeFiles/client.dir/widget.cpp.o: CXX_COMPILER__client_unscanned_Debug /home/ph0m/plan/chatroom/chatroom/widget.cpp || cmake_object_order_depends_target_client
+build CMakeFiles/client.dir/widget.cpp.o: CXX_COMPILER__client_unscanned_Debug /home/ph0m/xupt-linux-plan/chatroom/chatroom/widget.cpp || cmake_object_order_depends_target_client
   DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_WIDGETS_LIB
   DEP_FILE = CMakeFiles/client.dir/widget.cpp.o.d
   FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -fdiagnostics-color=always -fPIC
-  INCLUDES = -I/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/client_autogen/include -isystem /usr/include/qt -isystem /usr/include/qt/QtWidgets -isystem /usr/include/qt/QtGui -isystem /usr/include/qt/QtCore -isystem /usr/lib/qt/mkspecs/linux-g++ -isystem /usr/include/qt/QtNetwork
+  INCLUDES = -I/home/ph0m/xupt-linux-plan/chatroom/chatroom/build/unknown-Debug/client_autogen/include -isystem /usr/include/qt -isystem /usr/include/qt/QtWidgets -isystem /usr/include/qt/QtGui -isystem /usr/include/qt/QtCore -isystem /usr/lib/qt/mkspecs/linux-g++ -isystem /usr/include/qt/QtNetwork
   OBJECT_DIR = CMakeFiles/client.dir
   OBJECT_FILE_DIR = CMakeFiles/client.dir
 
-build CMakeFiles/client.dir/log.cpp.o: CXX_COMPILER__client_unscanned_Debug /home/ph0m/plan/chatroom/chatroom/log.cpp || cmake_object_order_depends_target_client
+build CMakeFiles/client.dir/log.cpp.o: CXX_COMPILER__client_unscanned_Debug /home/ph0m/xupt-linux-plan/chatroom/chatroom/log.cpp || cmake_object_order_depends_target_client
   DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_WIDGETS_LIB
   DEP_FILE = CMakeFiles/client.dir/log.cpp.o.d
   FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -fdiagnostics-color=always -fPIC
-  INCLUDES = -I/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/client_autogen/include -isystem /usr/include/qt -isystem /usr/include/qt/QtWidgets -isystem /usr/include/qt/QtGui -isystem /usr/include/qt/QtCore -isystem /usr/lib/qt/mkspecs/linux-g++ -isystem /usr/include/qt/QtNetwork
+  INCLUDES = -I/home/ph0m/xupt-linux-plan/chatroom/chatroom/build/unknown-Debug/client_autogen/include -isystem /usr/include/qt -isystem /usr/include/qt/QtWidgets -isystem /usr/include/qt/QtGui -isystem /usr/include/qt/QtCore -isystem /usr/lib/qt/mkspecs/linux-g++ -isystem /usr/include/qt/QtNetwork
   OBJECT_DIR = CMakeFiles/client.dir
   OBJECT_FILE_DIR = CMakeFiles/client.dir
 
-build CMakeFiles/client.dir/menu.cpp.o: CXX_COMPILER__client_unscanned_Debug /home/ph0m/plan/chatroom/chatroom/menu.cpp || cmake_object_order_depends_target_client
+build CMakeFiles/client.dir/menu.cpp.o: CXX_COMPILER__client_unscanned_Debug /home/ph0m/xupt-linux-plan/chatroom/chatroom/menu.cpp || cmake_object_order_depends_target_client
   DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_WIDGETS_LIB
   DEP_FILE = CMakeFiles/client.dir/menu.cpp.o.d
   FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -fdiagnostics-color=always -fPIC
-  INCLUDES = -I/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/client_autogen/include -isystem /usr/include/qt -isystem /usr/include/qt/QtWidgets -isystem /usr/include/qt/QtGui -isystem /usr/include/qt/QtCore -isystem /usr/lib/qt/mkspecs/linux-g++ -isystem /usr/include/qt/QtNetwork
+  INCLUDES = -I/home/ph0m/xupt-linux-plan/chatroom/chatroom/build/unknown-Debug/client_autogen/include -isystem /usr/include/qt -isystem /usr/include/qt/QtWidgets -isystem /usr/include/qt/QtGui -isystem /usr/include/qt/QtCore -isystem /usr/lib/qt/mkspecs/linux-g++ -isystem /usr/include/qt/QtNetwork
   OBJECT_DIR = CMakeFiles/client.dir
   OBJECT_FILE_DIR = CMakeFiles/client.dir
 
-build CMakeFiles/client.dir/reg.cpp.o: CXX_COMPILER__client_unscanned_Debug /home/ph0m/plan/chatroom/chatroom/reg.cpp || cmake_object_order_depends_target_client
+build CMakeFiles/client.dir/reg.cpp.o: CXX_COMPILER__client_unscanned_Debug /home/ph0m/xupt-linux-plan/chatroom/chatroom/reg.cpp || cmake_object_order_depends_target_client
   DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_WIDGETS_LIB
   DEP_FILE = CMakeFiles/client.dir/reg.cpp.o.d
   FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -fdiagnostics-color=always -fPIC
-  INCLUDES = -I/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/client_autogen/include -isystem /usr/include/qt -isystem /usr/include/qt/QtWidgets -isystem /usr/include/qt/QtGui -isystem /usr/include/qt/QtCore -isystem /usr/lib/qt/mkspecs/linux-g++ -isystem /usr/include/qt/QtNetwork
+  INCLUDES = -I/home/ph0m/xupt-linux-plan/chatroom/chatroom/build/unknown-Debug/client_autogen/include -isystem /usr/include/qt -isystem /usr/include/qt/QtWidgets -isystem /usr/include/qt/QtGui -isystem /usr/include/qt/QtCore -isystem /usr/lib/qt/mkspecs/linux-g++ -isystem /usr/include/qt/QtNetwork
   OBJECT_DIR = CMakeFiles/client.dir
   OBJECT_FILE_DIR = CMakeFiles/client.dir
 
-build CMakeFiles/client.dir/found.cpp.o: CXX_COMPILER__client_unscanned_Debug /home/ph0m/plan/chatroom/chatroom/found.cpp || cmake_object_order_depends_target_client
+build CMakeFiles/client.dir/found.cpp.o: CXX_COMPILER__client_unscanned_Debug /home/ph0m/xupt-linux-plan/chatroom/chatroom/found.cpp || cmake_object_order_depends_target_client
   DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_WIDGETS_LIB
   DEP_FILE = CMakeFiles/client.dir/found.cpp.o.d
   FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -fdiagnostics-color=always -fPIC
-  INCLUDES = -I/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/client_autogen/include -isystem /usr/include/qt -isystem /usr/include/qt/QtWidgets -isystem /usr/include/qt/QtGui -isystem /usr/include/qt/QtCore -isystem /usr/lib/qt/mkspecs/linux-g++ -isystem /usr/include/qt/QtNetwork
+  INCLUDES = -I/home/ph0m/xupt-linux-plan/chatroom/chatroom/build/unknown-Debug/client_autogen/include -isystem /usr/include/qt -isystem /usr/include/qt/QtWidgets -isystem /usr/include/qt/QtGui -isystem /usr/include/qt/QtCore -isystem /usr/lib/qt/mkspecs/linux-g++ -isystem /usr/include/qt/QtNetwork
   OBJECT_DIR = CMakeFiles/client.dir
   OBJECT_FILE_DIR = CMakeFiles/client.dir
 
-build CMakeFiles/client.dir/setnewpasswd.cpp.o: CXX_COMPILER__client_unscanned_Debug /home/ph0m/plan/chatroom/chatroom/setnewpasswd.cpp || cmake_object_order_depends_target_client
+build CMakeFiles/client.dir/setnewpasswd.cpp.o: CXX_COMPILER__client_unscanned_Debug /home/ph0m/xupt-linux-plan/chatroom/chatroom/setnewpasswd.cpp || cmake_object_order_depends_target_client
   DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_WIDGETS_LIB
   DEP_FILE = CMakeFiles/client.dir/setnewpasswd.cpp.o.d
   FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -fdiagnostics-color=always -fPIC
-  INCLUDES = -I/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/client_autogen/include -isystem /usr/include/qt -isystem /usr/include/qt/QtWidgets -isystem /usr/include/qt/QtGui -isystem /usr/include/qt/QtCore -isystem /usr/lib/qt/mkspecs/linux-g++ -isystem /usr/include/qt/QtNetwork
+  INCLUDES = -I/home/ph0m/xupt-linux-plan/chatroom/chatroom/build/unknown-Debug/client_autogen/include -isystem /usr/include/qt -isystem /usr/include/qt/QtWidgets -isystem /usr/include/qt/QtGui -isystem /usr/include/qt/QtCore -isystem /usr/lib/qt/mkspecs/linux-g++ -isystem /usr/include/qt/QtNetwork
   OBJECT_DIR = CMakeFiles/client.dir
   OBJECT_FILE_DIR = CMakeFiles/client.dir
 
-build CMakeFiles/client.dir/client.cpp.o: CXX_COMPILER__client_unscanned_Debug /home/ph0m/plan/chatroom/chatroom/client.cpp || cmake_object_order_depends_target_client
+build CMakeFiles/client.dir/client.cpp.o: CXX_COMPILER__client_unscanned_Debug /home/ph0m/xupt-linux-plan/chatroom/chatroom/client.cpp || cmake_object_order_depends_target_client
   DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_WIDGETS_LIB
   DEP_FILE = CMakeFiles/client.dir/client.cpp.o.d
   FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -fdiagnostics-color=always -fPIC
-  INCLUDES = -I/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/client_autogen/include -isystem /usr/include/qt -isystem /usr/include/qt/QtWidgets -isystem /usr/include/qt/QtGui -isystem /usr/include/qt/QtCore -isystem /usr/lib/qt/mkspecs/linux-g++ -isystem /usr/include/qt/QtNetwork
+  INCLUDES = -I/home/ph0m/xupt-linux-plan/chatroom/chatroom/build/unknown-Debug/client_autogen/include -isystem /usr/include/qt -isystem /usr/include/qt/QtWidgets -isystem /usr/include/qt/QtGui -isystem /usr/include/qt/QtCore -isystem /usr/lib/qt/mkspecs/linux-g++ -isystem /usr/include/qt/QtNetwork
   OBJECT_DIR = CMakeFiles/client.dir
   OBJECT_FILE_DIR = CMakeFiles/client.dir
 
-build CMakeFiles/client.dir/mysocket.cpp.o: CXX_COMPILER__client_unscanned_Debug /home/ph0m/plan/chatroom/chatroom/mysocket.cpp || cmake_object_order_depends_target_client
+build CMakeFiles/client.dir/mysocket.cpp.o: CXX_COMPILER__client_unscanned_Debug /home/ph0m/xupt-linux-plan/chatroom/chatroom/mysocket.cpp || cmake_object_order_depends_target_client
   DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_WIDGETS_LIB
   DEP_FILE = CMakeFiles/client.dir/mysocket.cpp.o.d
   FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -fdiagnostics-color=always -fPIC
-  INCLUDES = -I/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/client_autogen/include -isystem /usr/include/qt -isystem /usr/include/qt/QtWidgets -isystem /usr/include/qt/QtGui -isystem /usr/include/qt/QtCore -isystem /usr/lib/qt/mkspecs/linux-g++ -isystem /usr/include/qt/QtNetwork
+  INCLUDES = -I/home/ph0m/xupt-linux-plan/chatroom/chatroom/build/unknown-Debug/client_autogen/include -isystem /usr/include/qt -isystem /usr/include/qt/QtWidgets -isystem /usr/include/qt/QtGui -isystem /usr/include/qt/QtCore -isystem /usr/lib/qt/mkspecs/linux-g++ -isystem /usr/include/qt/QtNetwork
   OBJECT_DIR = CMakeFiles/client.dir
   OBJECT_FILE_DIR = CMakeFiles/client.dir
 
-build CMakeFiles/client.dir/settings.cpp.o: CXX_COMPILER__client_unscanned_Debug /home/ph0m/plan/chatroom/chatroom/settings.cpp || cmake_object_order_depends_target_client
+build CMakeFiles/client.dir/menu2.cpp.o: CXX_COMPILER__client_unscanned_Debug /home/ph0m/xupt-linux-plan/chatroom/chatroom/menu2.cpp || cmake_object_order_depends_target_client
+  DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_WIDGETS_LIB
+  DEP_FILE = CMakeFiles/client.dir/menu2.cpp.o.d
+  FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -fdiagnostics-color=always -fPIC
+  INCLUDES = -I/home/ph0m/xupt-linux-plan/chatroom/chatroom/build/unknown-Debug/client_autogen/include -isystem /usr/include/qt -isystem /usr/include/qt/QtWidgets -isystem /usr/include/qt/QtGui -isystem /usr/include/qt/QtCore -isystem /usr/lib/qt/mkspecs/linux-g++ -isystem /usr/include/qt/QtNetwork
+  OBJECT_DIR = CMakeFiles/client.dir
+  OBJECT_FILE_DIR = CMakeFiles/client.dir
+
+build CMakeFiles/client.dir/settings.cpp.o: CXX_COMPILER__client_unscanned_Debug /home/ph0m/xupt-linux-plan/chatroom/chatroom/settings.cpp || cmake_object_order_depends_target_client
   DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_WIDGETS_LIB
   DEP_FILE = CMakeFiles/client.dir/settings.cpp.o.d
   FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -fdiagnostics-color=always -fPIC
-  INCLUDES = -I/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/client_autogen/include -isystem /usr/include/qt -isystem /usr/include/qt/QtWidgets -isystem /usr/include/qt/QtGui -isystem /usr/include/qt/QtCore -isystem /usr/lib/qt/mkspecs/linux-g++ -isystem /usr/include/qt/QtNetwork
+  INCLUDES = -I/home/ph0m/xupt-linux-plan/chatroom/chatroom/build/unknown-Debug/client_autogen/include -isystem /usr/include/qt -isystem /usr/include/qt/QtWidgets -isystem /usr/include/qt/QtGui -isystem /usr/include/qt/QtCore -isystem /usr/lib/qt/mkspecs/linux-g++ -isystem /usr/include/qt/QtNetwork
   OBJECT_DIR = CMakeFiles/client.dir
   OBJECT_FILE_DIR = CMakeFiles/client.dir
 
-build CMakeFiles/client.dir/client_autogen/EWIEGA46WW/qrc_log.cpp.o: CXX_COMPILER__client_unscanned_Debug /home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/client_autogen/EWIEGA46WW/qrc_log.cpp || cmake_object_order_depends_target_client
+build CMakeFiles/client.dir/client_autogen/EWIEGA46WW/qrc_log.cpp.o: CXX_COMPILER__client_unscanned_Debug /home/ph0m/xupt-linux-plan/chatroom/chatroom/build/unknown-Debug/client_autogen/EWIEGA46WW/qrc_log.cpp || cmake_object_order_depends_target_client
   DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_WIDGETS_LIB
   DEP_FILE = CMakeFiles/client.dir/client_autogen/EWIEGA46WW/qrc_log.cpp.o.d
   FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -fdiagnostics-color=always -fPIC
-  INCLUDES = -I/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/client_autogen/include -isystem /usr/include/qt -isystem /usr/include/qt/QtWidgets -isystem /usr/include/qt/QtGui -isystem /usr/include/qt/QtCore -isystem /usr/lib/qt/mkspecs/linux-g++ -isystem /usr/include/qt/QtNetwork
+  INCLUDES = -I/home/ph0m/xupt-linux-plan/chatroom/chatroom/build/unknown-Debug/client_autogen/include -isystem /usr/include/qt -isystem /usr/include/qt/QtWidgets -isystem /usr/include/qt/QtGui -isystem /usr/include/qt/QtCore -isystem /usr/lib/qt/mkspecs/linux-g++ -isystem /usr/include/qt/QtNetwork
   OBJECT_DIR = CMakeFiles/client.dir
   OBJECT_FILE_DIR = CMakeFiles/client.dir/client_autogen/EWIEGA46WW
 
@@ -153,7 +161,7 @@ build CMakeFiles/client.dir/client_autogen/EWIEGA46WW/qrc_log.cpp.o: CXX_COMPILE
 #############################################
 # Link the executable client
 
-build client: CXX_EXECUTABLE_LINKER__client_Debug CMakeFiles/client.dir/client_autogen/mocs_compilation.cpp.o CMakeFiles/client.dir/main.cpp.o CMakeFiles/client.dir/widget.cpp.o CMakeFiles/client.dir/log.cpp.o CMakeFiles/client.dir/menu.cpp.o CMakeFiles/client.dir/reg.cpp.o CMakeFiles/client.dir/found.cpp.o CMakeFiles/client.dir/setnewpasswd.cpp.o CMakeFiles/client.dir/client.cpp.o CMakeFiles/client.dir/mysocket.cpp.o CMakeFiles/client.dir/settings.cpp.o CMakeFiles/client.dir/client_autogen/EWIEGA46WW/qrc_log.cpp.o | /usr/lib/libQt5Widgets.so.5.15.14 /usr/lib/libQt5Network.so.5.15.14 /usr/lib/libQt5Gui.so.5.15.14 /usr/lib/libQt5Core.so.5.15.14 || client_autogen client_autogen_timestamp_deps
+build client: CXX_EXECUTABLE_LINKER__client_Debug CMakeFiles/client.dir/client_autogen/mocs_compilation.cpp.o CMakeFiles/client.dir/main.cpp.o CMakeFiles/client.dir/widget.cpp.o CMakeFiles/client.dir/log.cpp.o CMakeFiles/client.dir/menu.cpp.o CMakeFiles/client.dir/reg.cpp.o CMakeFiles/client.dir/found.cpp.o CMakeFiles/client.dir/setnewpasswd.cpp.o CMakeFiles/client.dir/client.cpp.o CMakeFiles/client.dir/mysocket.cpp.o CMakeFiles/client.dir/menu2.cpp.o CMakeFiles/client.dir/settings.cpp.o CMakeFiles/client.dir/client_autogen/EWIEGA46WW/qrc_log.cpp.o | /usr/lib/libQt5Widgets.so.5.15.14 /usr/lib/libQt5Network.so.5.15.14 /usr/lib/libQt5Gui.so.5.15.14 /usr/lib/libQt5Core.so.5.15.14 || client_autogen client_autogen_timestamp_deps
   FLAGS = -DQT_QML_DEBUG -g
   LINK_LIBRARIES = /usr/lib/libQt5Widgets.so.5.15.14  /usr/lib/libQt5Network.so.5.15.14  /usr/lib/libQt5Gui.so.5.15.14  /usr/lib/libQt5Core.so.5.15.14
   OBJECT_DIR = CMakeFiles/client.dir
@@ -171,38 +179,38 @@ build client: CXX_EXECUTABLE_LINKER__client_Debug CMakeFiles/client.dir/client_a
 
 build cmake_object_order_depends_target_server: phony || server_autogen server_autogen/mocs_compilation.cpp server_autogen/timestamp server_autogen_timestamp_deps
 
-build CMakeFiles/server.dir/server_autogen/mocs_compilation.cpp.o: CXX_COMPILER__server_unscanned_Debug /home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/server_autogen/mocs_compilation.cpp || cmake_object_order_depends_target_server
+build CMakeFiles/server.dir/server_autogen/mocs_compilation.cpp.o: CXX_COMPILER__server_unscanned_Debug /home/ph0m/xupt-linux-plan/chatroom/chatroom/build/unknown-Debug/server_autogen/mocs_compilation.cpp || cmake_object_order_depends_target_server
   DEP_FILE = CMakeFiles/server.dir/server_autogen/mocs_compilation.cpp.o.d
   FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -fdiagnostics-color=always
-  INCLUDES = -I/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/server_autogen/include
+  INCLUDES = -I/home/ph0m/xupt-linux-plan/chatroom/chatroom/build/unknown-Debug/server_autogen/include
   OBJECT_DIR = CMakeFiles/server.dir
   OBJECT_FILE_DIR = CMakeFiles/server.dir/server_autogen
 
-build CMakeFiles/server.dir/server.cpp.o: CXX_COMPILER__server_unscanned_Debug /home/ph0m/plan/chatroom/chatroom/server.cpp || cmake_object_order_depends_target_server
+build CMakeFiles/server.dir/server.cpp.o: CXX_COMPILER__server_unscanned_Debug /home/ph0m/xupt-linux-plan/chatroom/chatroom/server.cpp || cmake_object_order_depends_target_server
   DEP_FILE = CMakeFiles/server.dir/server.cpp.o.d
   FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -fdiagnostics-color=always
-  INCLUDES = -I/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/server_autogen/include
+  INCLUDES = -I/home/ph0m/xupt-linux-plan/chatroom/chatroom/build/unknown-Debug/server_autogen/include
   OBJECT_DIR = CMakeFiles/server.dir
   OBJECT_FILE_DIR = CMakeFiles/server.dir
 
-build CMakeFiles/server.dir/mysocket.cpp.o: CXX_COMPILER__server_unscanned_Debug /home/ph0m/plan/chatroom/chatroom/mysocket.cpp || cmake_object_order_depends_target_server
+build CMakeFiles/server.dir/mysocket.cpp.o: CXX_COMPILER__server_unscanned_Debug /home/ph0m/xupt-linux-plan/chatroom/chatroom/mysocket.cpp || cmake_object_order_depends_target_server
   DEP_FILE = CMakeFiles/server.dir/mysocket.cpp.o.d
   FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -fdiagnostics-color=always
-  INCLUDES = -I/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/server_autogen/include
+  INCLUDES = -I/home/ph0m/xupt-linux-plan/chatroom/chatroom/build/unknown-Debug/server_autogen/include
   OBJECT_DIR = CMakeFiles/server.dir
   OBJECT_FILE_DIR = CMakeFiles/server.dir
 
-build CMakeFiles/server.dir/redis.cpp.o: CXX_COMPILER__server_unscanned_Debug /home/ph0m/plan/chatroom/chatroom/redis.cpp || cmake_object_order_depends_target_server
+build CMakeFiles/server.dir/redis.cpp.o: CXX_COMPILER__server_unscanned_Debug /home/ph0m/xupt-linux-plan/chatroom/chatroom/redis.cpp || cmake_object_order_depends_target_server
   DEP_FILE = CMakeFiles/server.dir/redis.cpp.o.d
   FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -fdiagnostics-color=always
-  INCLUDES = -I/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/server_autogen/include
+  INCLUDES = -I/home/ph0m/xupt-linux-plan/chatroom/chatroom/build/unknown-Debug/server_autogen/include
   OBJECT_DIR = CMakeFiles/server.dir
   OBJECT_FILE_DIR = CMakeFiles/server.dir
 
-build CMakeFiles/server.dir/smtpmailer.cpp.o: CXX_COMPILER__server_unscanned_Debug /home/ph0m/plan/chatroom/chatroom/smtpmailer.cpp || cmake_object_order_depends_target_server
+build CMakeFiles/server.dir/smtpmailer.cpp.o: CXX_COMPILER__server_unscanned_Debug /home/ph0m/xupt-linux-plan/chatroom/chatroom/smtpmailer.cpp || cmake_object_order_depends_target_server
   DEP_FILE = CMakeFiles/server.dir/smtpmailer.cpp.o.d
   FLAGS = -DQT_QML_DEBUG -g -std=gnu++17 -fdiagnostics-color=always
-  INCLUDES = -I/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/server_autogen/include
+  INCLUDES = -I/home/ph0m/xupt-linux-plan/chatroom/chatroom/build/unknown-Debug/server_autogen/include
   OBJECT_DIR = CMakeFiles/server.dir
   OBJECT_FILE_DIR = CMakeFiles/server.dir
 
@@ -228,7 +236,7 @@ build server: CXX_EXECUTABLE_LINKER__server_Debug CMakeFiles/server.dir/server_a
 # Utility command for edit_cache
 
 build CMakeFiles/edit_cache.util: CUSTOM_COMMAND
-  COMMAND = cd /home/ph0m/plan/chatroom/chatroom/build/unknown-Debug && /usr/bin/ccmake -S/home/ph0m/plan/chatroom/chatroom -B/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug
+  COMMAND = cd /home/ph0m/xupt-linux-plan/chatroom/chatroom/build/unknown-Debug && /usr/bin/ccmake -S/home/ph0m/xupt-linux-plan/chatroom/chatroom -B/home/ph0m/xupt-linux-plan/chatroom/chatroom/build/unknown-Debug
   DESC = Running CMake cache editor...
   pool = console
   restat = 1
@@ -240,7 +248,7 @@ build edit_cache: phony CMakeFiles/edit_cache.util
 # Utility command for rebuild_cache
 
 build CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
-  COMMAND = cd /home/ph0m/plan/chatroom/chatroom/build/unknown-Debug && /usr/bin/cmake --regenerate-during-build -S/home/ph0m/plan/chatroom/chatroom -B/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug
+  COMMAND = cd /home/ph0m/xupt-linux-plan/chatroom/chatroom/build/unknown-Debug && /usr/bin/cmake --regenerate-during-build -S/home/ph0m/xupt-linux-plan/chatroom/chatroom -B/home/ph0m/xupt-linux-plan/chatroom/chatroom/build/unknown-Debug
   DESC = Running CMake to regenerate build system...
   pool = console
   restat = 1
@@ -258,7 +266,7 @@ build list_install_components: phony
 # Utility command for install
 
 build CMakeFiles/install.util: CUSTOM_COMMAND all
-  COMMAND = cd /home/ph0m/plan/chatroom/chatroom/build/unknown-Debug && /usr/bin/cmake -P cmake_install.cmake
+  COMMAND = cd /home/ph0m/xupt-linux-plan/chatroom/chatroom/build/unknown-Debug && /usr/bin/cmake -P cmake_install.cmake
   DESC = Install the project...
   pool = console
   restat = 1
@@ -270,7 +278,7 @@ build install: phony CMakeFiles/install.util
 # Utility command for install/local
 
 build CMakeFiles/install/local.util: CUSTOM_COMMAND all
-  COMMAND = cd /home/ph0m/plan/chatroom/chatroom/build/unknown-Debug && /usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+  COMMAND = cd /home/ph0m/xupt-linux-plan/chatroom/chatroom/build/unknown-Debug && /usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
   DESC = Installing only the local directory...
   pool = console
   restat = 1
@@ -282,7 +290,7 @@ build install/local: phony CMakeFiles/install/local.util
 # Utility command for install/strip
 
 build CMakeFiles/install/strip.util: CUSTOM_COMMAND all
-  COMMAND = cd /home/ph0m/plan/chatroom/chatroom/build/unknown-Debug && /usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+  COMMAND = cd /home/ph0m/xupt-linux-plan/chatroom/chatroom/build/unknown-Debug && /usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
   DESC = Installing the project stripped...
   pool = console
   restat = 1
@@ -299,7 +307,7 @@ build client_autogen_timestamp_deps: phony
 #############################################
 # Utility command for client_autogen
 
-build client_autogen: phony CMakeFiles/client_autogen client_autogen/include/ui_widget.h client_autogen/include/ui_log.h client_autogen/include/ui_menu.h client_autogen/include/ui_reg.h client_autogen/include/ui_found.h client_autogen/include/ui_setnewpasswd.h client_autogen/include/ui_settings.h client_autogen/timestamp client_autogen/mocs_compilation.cpp client_autogen_timestamp_deps
+build client_autogen: phony CMakeFiles/client_autogen client_autogen/include/ui_widget.h client_autogen/include/ui_log.h client_autogen/include/ui_menu.h client_autogen/include/ui_reg.h client_autogen/include/ui_found.h client_autogen/include/ui_setnewpasswd.h client_autogen/include/ui_menu2.h client_autogen/include/ui_settings.h client_autogen/timestamp client_autogen/mocs_compilation.cpp client_autogen_timestamp_deps
 
 
 #############################################
@@ -311,16 +319,16 @@ build server_autogen_timestamp_deps: phony
 #############################################
 # Utility command for server_autogen
 
-build server_autogen: phony CMakeFiles/server_autogen server_autogen/include/ui_widget.h server_autogen/include/ui_log.h server_autogen/include/ui_menu.h server_autogen/include/ui_reg.h server_autogen/include/ui_found.h server_autogen/include/ui_setnewpasswd.h server_autogen/include/ui_settings.h server_autogen/timestamp server_autogen/mocs_compilation.cpp server_autogen_timestamp_deps
+build server_autogen: phony CMakeFiles/server_autogen server_autogen/include/ui_widget.h server_autogen/include/ui_log.h server_autogen/include/ui_menu.h server_autogen/include/ui_reg.h server_autogen/include/ui_found.h server_autogen/include/ui_setnewpasswd.h server_autogen/include/ui_menu2.h server_autogen/include/ui_settings.h server_autogen/timestamp server_autogen/mocs_compilation.cpp server_autogen_timestamp_deps
 
 
 #############################################
 # Custom command for client_autogen/timestamp
 
 build client_autogen/timestamp client_autogen/mocs_compilation.cpp | ${cmake_ninja_workdir}client_autogen/timestamp ${cmake_ninja_workdir}client_autogen/mocs_compilation.cpp: CUSTOM_COMMAND /usr/bin/moc /usr/bin/uic || client_autogen_timestamp_deps
-  COMMAND = cd /home/ph0m/plan/chatroom/chatroom/build/unknown-Debug && /usr/bin/cmake -E cmake_autogen /home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/CMakeFiles/client_autogen.dir/AutogenInfo.json Debug && /usr/bin/cmake -E touch /home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/client_autogen/timestamp && /usr/bin/cmake -E cmake_transform_depfile Ninja gccdepfile /home/ph0m/plan/chatroom/chatroom /home/ph0m/plan/chatroom/chatroom /home/ph0m/plan/chatroom/chatroom/build/unknown-Debug /home/ph0m/plan/chatroom/chatroom/build/unknown-Debug /home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/client_autogen/deps /home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/CMakeFiles/d/fcfc4ff65308eb4819683ba8ca7db673390b022bfc201234a2fb0e749550f94a.d
+  COMMAND = cd /home/ph0m/xupt-linux-plan/chatroom/chatroom/build/unknown-Debug && /usr/bin/cmake -E cmake_autogen /home/ph0m/xupt-linux-plan/chatroom/chatroom/build/unknown-Debug/CMakeFiles/client_autogen.dir/AutogenInfo.json Debug && /usr/bin/cmake -E touch /home/ph0m/xupt-linux-plan/chatroom/chatroom/build/unknown-Debug/client_autogen/timestamp && /usr/bin/cmake -E cmake_transform_depfile Ninja gccdepfile /home/ph0m/xupt-linux-plan/chatroom/chatroom /home/ph0m/xupt-linux-plan/chatroom/chatroom /home/ph0m/xupt-linux-plan/chatroom/chatroom/build/unknown-Debug /home/ph0m/xupt-linux-plan/chatroom/chatroom/build/unknown-Debug /home/ph0m/xupt-linux-plan/chatroom/chatroom/build/unknown-Debug/client_autogen/deps /home/ph0m/xupt-linux-plan/chatroom/chatroom/build/unknown-Debug/CMakeFiles/d/e071c32402626e7a71e25955fa3a3094c05751de57ae1caa5c62710eb1b240bf.d
   DESC = Automatic MOC and UIC for target client
-  depfile = CMakeFiles/d/fcfc4ff65308eb4819683ba8ca7db673390b022bfc201234a2fb0e749550f94a.d
+  depfile = CMakeFiles/d/e071c32402626e7a71e25955fa3a3094c05751de57ae1caa5c62710eb1b240bf.d
   deps = gcc
   restat = 1
 
@@ -328,8 +336,8 @@ build client_autogen/timestamp client_autogen/mocs_compilation.cpp | ${cmake_nin
 #############################################
 # Custom command for client_autogen/EWIEGA46WW/qrc_log.cpp
 
-build client_autogen/EWIEGA46WW/qrc_log.cpp | ${cmake_ninja_workdir}client_autogen/EWIEGA46WW/qrc_log.cpp: CUSTOM_COMMAND /home/ph0m/plan/chatroom/chatroom/log.qrc CMakeFiles/client_autogen.dir/AutoRcc_log_EWIEGA46WW_Info.json /home/ph0m/plan/chatroom/chatroom/Header.jpeg /home/ph0m/plan/chatroom/chatroom/images/underline.png /home/ph0m/plan/chatroom/chatroom/images/itallc.png /home/ph0m/plan/chatroom/chatroom/images/clike.png /home/ph0m/plan/chatroom/chatroom/images/chatroom_zh_CN.ts /home/ph0m/plan/chatroom/chatroom/images/file.png /home/ph0m/plan/chatroom/chatroom/images/strong.png /home/ph0m/plan/chatroom/chatroom/images/clear.png /usr/bin/rcc /usr/bin/rcc || client_autogen client_autogen_timestamp_deps
-  COMMAND = cd /home/ph0m/plan/chatroom/chatroom/build/unknown-Debug && /usr/bin/cmake -E cmake_autorcc /home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/CMakeFiles/client_autogen.dir/AutoRcc_log_EWIEGA46WW_Info.json Debug
+build client_autogen/EWIEGA46WW/qrc_log.cpp | ${cmake_ninja_workdir}client_autogen/EWIEGA46WW/qrc_log.cpp: CUSTOM_COMMAND /home/ph0m/xupt-linux-plan/chatroom/chatroom/log.qrc CMakeFiles/client_autogen.dir/AutoRcc_log_EWIEGA46WW_Info.json /home/ph0m/xupt-linux-plan/chatroom/chatroom/Header.jpeg /home/ph0m/xupt-linux-plan/chatroom/chatroom/images/magnifying.png /home/ph0m/xupt-linux-plan/chatroom/chatroom/images/chatroom_zh_CN.ts /home/ph0m/xupt-linux-plan/chatroom/chatroom/images/chat.png /home/ph0m/xupt-linux-plan/chatroom/chatroom/images/file.png /home/ph0m/xupt-linux-plan/chatroom/chatroom/images/add.png /home/ph0m/xupt-linux-plan/chatroom/chatroom/images/user.png /home/ph0m/xupt-linux-plan/chatroom/chatroom/images/gear.png /usr/bin/rcc /usr/bin/rcc || client_autogen client_autogen_timestamp_deps
+  COMMAND = cd /home/ph0m/xupt-linux-plan/chatroom/chatroom/build/unknown-Debug && /usr/bin/cmake -E cmake_autorcc /home/ph0m/xupt-linux-plan/chatroom/chatroom/build/unknown-Debug/CMakeFiles/client_autogen.dir/AutoRcc_log_EWIEGA46WW_Info.json Debug
   DESC = Automatic RCC for log.qrc
   restat = 1
 
@@ -338,9 +346,9 @@ build client_autogen/EWIEGA46WW/qrc_log.cpp | ${cmake_ninja_workdir}client_autog
 # Custom command for server_autogen/timestamp
 
 build server_autogen/timestamp server_autogen/mocs_compilation.cpp | ${cmake_ninja_workdir}server_autogen/timestamp ${cmake_ninja_workdir}server_autogen/mocs_compilation.cpp: CUSTOM_COMMAND /usr/bin/moc /usr/bin/uic || server_autogen_timestamp_deps
-  COMMAND = cd /home/ph0m/plan/chatroom/chatroom/build/unknown-Debug && /usr/bin/cmake -E cmake_autogen /home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/CMakeFiles/server_autogen.dir/AutogenInfo.json Debug && /usr/bin/cmake -E touch /home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/server_autogen/timestamp && /usr/bin/cmake -E cmake_transform_depfile Ninja gccdepfile /home/ph0m/plan/chatroom/chatroom /home/ph0m/plan/chatroom/chatroom /home/ph0m/plan/chatroom/chatroom/build/unknown-Debug /home/ph0m/plan/chatroom/chatroom/build/unknown-Debug /home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/server_autogen/deps /home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/CMakeFiles/d/95be13c3f3cddc3ccf3ae7cc06093c7407ccc2b484b667e47463533eaff00468.d
+  COMMAND = cd /home/ph0m/xupt-linux-plan/chatroom/chatroom/build/unknown-Debug && /usr/bin/cmake -E cmake_autogen /home/ph0m/xupt-linux-plan/chatroom/chatroom/build/unknown-Debug/CMakeFiles/server_autogen.dir/AutogenInfo.json Debug && /usr/bin/cmake -E touch /home/ph0m/xupt-linux-plan/chatroom/chatroom/build/unknown-Debug/server_autogen/timestamp && /usr/bin/cmake -E cmake_transform_depfile Ninja gccdepfile /home/ph0m/xupt-linux-plan/chatroom/chatroom /home/ph0m/xupt-linux-plan/chatroom/chatroom /home/ph0m/xupt-linux-plan/chatroom/chatroom/build/unknown-Debug /home/ph0m/xupt-linux-plan/chatroom/chatroom/build/unknown-Debug /home/ph0m/xupt-linux-plan/chatroom/chatroom/build/unknown-Debug/server_autogen/deps /home/ph0m/xupt-linux-plan/chatroom/chatroom/build/unknown-Debug/CMakeFiles/d/74dbcda2f55feb42e4622d0f64db6b38d4640f563dba0fd805b246448131ff40.d
   DESC = Automatic MOC and UIC for target server
-  depfile = CMakeFiles/d/95be13c3f3cddc3ccf3ae7cc06093c7407ccc2b484b667e47463533eaff00468.d
+  depfile = CMakeFiles/d/74dbcda2f55feb42e4622d0f64db6b38d4640f563dba0fd805b246448131ff40.d
   deps = gcc
   restat = 1
 
@@ -348,13 +356,13 @@ build server_autogen/timestamp server_autogen/mocs_compilation.cpp | ${cmake_nin
 #############################################
 # Phony custom command for CMakeFiles/client_autogen
 
-build CMakeFiles/client_autogen client_autogen/include/ui_widget.h client_autogen/include/ui_log.h client_autogen/include/ui_menu.h client_autogen/include/ui_reg.h client_autogen/include/ui_found.h client_autogen/include/ui_setnewpasswd.h client_autogen/include/ui_settings.h | ${cmake_ninja_workdir}CMakeFiles/client_autogen ${cmake_ninja_workdir}client_autogen/include/ui_widget.h ${cmake_ninja_workdir}client_autogen/include/ui_log.h ${cmake_ninja_workdir}client_autogen/include/ui_menu.h ${cmake_ninja_workdir}client_autogen/include/ui_reg.h ${cmake_ninja_workdir}client_autogen/include/ui_found.h ${cmake_ninja_workdir}client_autogen/include/ui_setnewpasswd.h ${cmake_ninja_workdir}client_autogen/include/ui_settings.h: phony client_autogen/timestamp || client_autogen_timestamp_deps
+build CMakeFiles/client_autogen client_autogen/include/ui_widget.h client_autogen/include/ui_log.h client_autogen/include/ui_menu.h client_autogen/include/ui_reg.h client_autogen/include/ui_found.h client_autogen/include/ui_setnewpasswd.h client_autogen/include/ui_menu2.h client_autogen/include/ui_settings.h | ${cmake_ninja_workdir}CMakeFiles/client_autogen ${cmake_ninja_workdir}client_autogen/include/ui_widget.h ${cmake_ninja_workdir}client_autogen/include/ui_log.h ${cmake_ninja_workdir}client_autogen/include/ui_menu.h ${cmake_ninja_workdir}client_autogen/include/ui_reg.h ${cmake_ninja_workdir}client_autogen/include/ui_found.h ${cmake_ninja_workdir}client_autogen/include/ui_setnewpasswd.h ${cmake_ninja_workdir}client_autogen/include/ui_menu2.h ${cmake_ninja_workdir}client_autogen/include/ui_settings.h: phony client_autogen/timestamp || client_autogen_timestamp_deps
 
 
 #############################################
 # Phony custom command for CMakeFiles/server_autogen
 
-build CMakeFiles/server_autogen server_autogen/include/ui_widget.h server_autogen/include/ui_log.h server_autogen/include/ui_menu.h server_autogen/include/ui_reg.h server_autogen/include/ui_found.h server_autogen/include/ui_setnewpasswd.h server_autogen/include/ui_settings.h | ${cmake_ninja_workdir}CMakeFiles/server_autogen ${cmake_ninja_workdir}server_autogen/include/ui_widget.h ${cmake_ninja_workdir}server_autogen/include/ui_log.h ${cmake_ninja_workdir}server_autogen/include/ui_menu.h ${cmake_ninja_workdir}server_autogen/include/ui_reg.h ${cmake_ninja_workdir}server_autogen/include/ui_found.h ${cmake_ninja_workdir}server_autogen/include/ui_setnewpasswd.h ${cmake_ninja_workdir}server_autogen/include/ui_settings.h: phony server_autogen/timestamp || server_autogen_timestamp_deps
+build CMakeFiles/server_autogen server_autogen/include/ui_widget.h server_autogen/include/ui_log.h server_autogen/include/ui_menu.h server_autogen/include/ui_reg.h server_autogen/include/ui_found.h server_autogen/include/ui_setnewpasswd.h server_autogen/include/ui_menu2.h server_autogen/include/ui_settings.h | ${cmake_ninja_workdir}CMakeFiles/server_autogen ${cmake_ninja_workdir}server_autogen/include/ui_widget.h ${cmake_ninja_workdir}server_autogen/include/ui_log.h ${cmake_ninja_workdir}server_autogen/include/ui_menu.h ${cmake_ninja_workdir}server_autogen/include/ui_reg.h ${cmake_ninja_workdir}server_autogen/include/ui_found.h ${cmake_ninja_workdir}server_autogen/include/ui_setnewpasswd.h ${cmake_ninja_workdir}server_autogen/include/ui_menu2.h ${cmake_ninja_workdir}server_autogen/include/ui_settings.h: phony server_autogen/timestamp || server_autogen_timestamp_deps
 
 # =============================================================================
 # Target aliases.
@@ -365,7 +373,7 @@ build CMakeFiles/server_autogen server_autogen/include/ui_widget.h server_autoge
 # =============================================================================
 
 #############################################
-# Folder: /home/ph0m/plan/chatroom/chatroom/build/unknown-Debug
+# Folder: /home/ph0m/xupt-linux-plan/chatroom/chatroom/build/unknown-Debug
 
 build all: phony client server
 
@@ -376,13 +384,13 @@ build all: phony client server
 #############################################
 # Phony target to force glob verification run.
 
-build /home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/CMakeFiles/VerifyGlobs.cmake_force: phony
+build /home/ph0m/xupt-linux-plan/chatroom/chatroom/build/unknown-Debug/CMakeFiles/VerifyGlobs.cmake_force: phony
 
 
 #############################################
 # Re-run CMake to check if globbed directories changed.
 
-build /home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/CMakeFiles/cmake.verify_globs: VERIFY_GLOBS | /home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/CMakeFiles/VerifyGlobs.cmake_force
+build /home/ph0m/xupt-linux-plan/chatroom/chatroom/build/unknown-Debug/CMakeFiles/cmake.verify_globs: VERIFY_GLOBS | /home/ph0m/xupt-linux-plan/chatroom/chatroom/build/unknown-Debug/CMakeFiles/VerifyGlobs.cmake_force
   pool = console
   restat = 1
 
@@ -390,14 +398,14 @@ build /home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/CMakeFiles/cmake.ver
 #############################################
 # Re-run CMake if any of its inputs changed.
 
-build build.ninja: RERUN_CMAKE /home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/CMakeFiles/cmake.verify_globs | .qtc/package-manager/auto-setup.cmake /home/ph0m/plan/chatroom/chatroom/CMakeLists.txt /home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/CMakeFiles/VerifyGlobs.cmake /home/ph0m/plan/chatroom/chatroom/log.qrc /usr/lib/cmake/Qt5/Qt5Config.cmake /usr/lib/cmake/Qt5/Qt5ConfigVersion.cmake /usr/lib/cmake/Qt5/Qt5ModuleLocation.cmake /usr/lib/cmake/Qt5Core/Qt5CoreConfig.cmake /usr/lib/cmake/Qt5Core/Qt5CoreConfigExtras.cmake /usr/lib/cmake/Qt5Core/Qt5CoreConfigExtrasMkspecDir.cmake /usr/lib/cmake/Qt5Core/Qt5CoreConfigVersion.cmake /usr/lib/cmake/Qt5Core/Qt5CoreMacros.cmake /usr/lib/cmake/Qt5Gui/Qt5GuiConfig.cmake /usr/lib/cmake/Qt5Gui/Qt5GuiConfigExtras.cmake /usr/lib/cmake/Qt5Gui/Qt5GuiConfigVersion.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QComposePlatformInputContextPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QEglFSEmulatorIntegrationPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QEglFSIntegrationPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QEglFSKmsEglDeviceIntegrationPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QEglFSKmsGbmIntegrationPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QEglFSX11IntegrationPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QEvdevKeyboardPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QEvdevMousePlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QEvdevTabletPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QEvdevTouchScreenPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QGifPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QGtk3ThemePlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QICOPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QIbusPlatformInputContextPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QJpegPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QLibInputPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QLinuxFbIntegrationPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QMinimalEglIntegrationPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QMinimalIntegrationPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QOffscreenIntegrationPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QPdfPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QSvgIconPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QSvgPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QTsLibPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QTuioTouchPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QVncIntegrationPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QWaylandEglPlatformIntegrationPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QWaylandIntegrationPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QWaylandXCompositeEglPlatformIntegrationPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QWaylandXCompositeGlxPlatformIntegrationPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QXcbEglIntegrationPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QXcbGlxIntegrationPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QXcbIntegrationPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QXdgDesktopPortalThemePlugin.cmake /usr/lib/cmake/Qt5LinguistTools/Qt5LinguistToolsConfig.cmake /usr/lib/cmake/Qt5LinguistTools/Qt5LinguistToolsConfigVersion.cmake /usr/lib/cmake/Qt5LinguistTools/Qt5LinguistToolsMacros.cmake /usr/lib/cmake/Qt5Network/Qt5NetworkConfig.cmake /usr/lib/cmake/Qt5Network/Qt5NetworkConfigVersion.cmake /usr/lib/cmake/Qt5Network/Qt5Network_QConnmanEnginePlugin.cmake /usr/lib/cmake/Qt5Network/Qt5Network_QGenericEnginePlugin.cmake /usr/lib/cmake/Qt5Network/Qt5Network_QNetworkManagerEnginePlugin.cmake /usr/lib/cmake/Qt5Widgets/Qt5WidgetsConfig.cmake /usr/lib/cmake/Qt5Widgets/Qt5WidgetsConfigExtras.cmake /usr/lib/cmake/Qt5Widgets/Qt5WidgetsConfigVersion.cmake /usr/lib/cmake/Qt5Widgets/Qt5WidgetsMacros.cmake /usr/share/cmake/Modules/CMakeCXXInformation.cmake /usr/share/cmake/Modules/CMakeCommonLanguageInclude.cmake /usr/share/cmake/Modules/CMakeGenericSystem.cmake /usr/share/cmake/Modules/CMakeInitializeConfigs.cmake /usr/share/cmake/Modules/CMakeLanguageInformation.cmake /usr/share/cmake/Modules/CMakeParseArguments.cmake /usr/share/cmake/Modules/CMakeSystemSpecificInformation.cmake /usr/share/cmake/Modules/CMakeSystemSpecificInitialize.cmake /usr/share/cmake/Modules/Compiler/CMakeCommonCompilerMacros.cmake /usr/share/cmake/Modules/Compiler/GNU-CXX.cmake /usr/share/cmake/Modules/Compiler/GNU.cmake /usr/share/cmake/Modules/FindOpenSSL.cmake /usr/share/cmake/Modules/FindPackageHandleStandardArgs.cmake /usr/share/cmake/Modules/FindPackageMessage.cmake /usr/share/cmake/Modules/FindPkgConfig.cmake /usr/share/cmake/Modules/GNUInstallDirs.cmake /usr/share/cmake/Modules/Platform/Linux-GNU-CXX.cmake /usr/share/cmake/Modules/Platform/Linux-GNU.cmake /usr/share/cmake/Modules/Platform/Linux-Initialize.cmake /usr/share/cmake/Modules/Platform/Linux.cmake /usr/share/cmake/Modules/Platform/UnixPaths.cmake CMakeCache.txt CMakeFiles/3.29.5/CMakeCXXCompiler.cmake CMakeFiles/3.29.5/CMakeSystem.cmake
+build build.ninja: RERUN_CMAKE /home/ph0m/xupt-linux-plan/chatroom/chatroom/build/unknown-Debug/CMakeFiles/cmake.verify_globs | .qtc/package-manager/auto-setup.cmake /home/ph0m/xupt-linux-plan/chatroom/chatroom/CMakeLists.txt /home/ph0m/xupt-linux-plan/chatroom/chatroom/build/unknown-Debug/CMakeFiles/VerifyGlobs.cmake /home/ph0m/xupt-linux-plan/chatroom/chatroom/log.qrc /usr/lib/cmake/Qt5/Qt5Config.cmake /usr/lib/cmake/Qt5/Qt5ConfigVersion.cmake /usr/lib/cmake/Qt5/Qt5ModuleLocation.cmake /usr/lib/cmake/Qt5Core/Qt5CoreConfig.cmake /usr/lib/cmake/Qt5Core/Qt5CoreConfigExtras.cmake /usr/lib/cmake/Qt5Core/Qt5CoreConfigExtrasMkspecDir.cmake /usr/lib/cmake/Qt5Core/Qt5CoreConfigVersion.cmake /usr/lib/cmake/Qt5Core/Qt5CoreMacros.cmake /usr/lib/cmake/Qt5Gui/Qt5GuiConfig.cmake /usr/lib/cmake/Qt5Gui/Qt5GuiConfigExtras.cmake /usr/lib/cmake/Qt5Gui/Qt5GuiConfigVersion.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QComposePlatformInputContextPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QEglFSEmulatorIntegrationPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QEglFSIntegrationPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QEglFSKmsEglDeviceIntegrationPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QEglFSKmsGbmIntegrationPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QEglFSX11IntegrationPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QEvdevKeyboardPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QEvdevMousePlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QEvdevTabletPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QEvdevTouchScreenPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QGifPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QGtk3ThemePlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QICOPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QIbusPlatformInputContextPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QJpegPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QLibInputPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QLinuxFbIntegrationPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QMinimalEglIntegrationPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QMinimalIntegrationPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QOffscreenIntegrationPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QPdfPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QSvgIconPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QSvgPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QTsLibPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QTuioTouchPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QVncIntegrationPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QWaylandEglPlatformIntegrationPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QWaylandIntegrationPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QWaylandXCompositeEglPlatformIntegrationPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QWaylandXCompositeGlxPlatformIntegrationPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QXcbEglIntegrationPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QXcbGlxIntegrationPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QXcbIntegrationPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QXdgDesktopPortalThemePlugin.cmake /usr/lib/cmake/Qt5LinguistTools/Qt5LinguistToolsConfig.cmake /usr/lib/cmake/Qt5LinguistTools/Qt5LinguistToolsConfigVersion.cmake /usr/lib/cmake/Qt5LinguistTools/Qt5LinguistToolsMacros.cmake /usr/lib/cmake/Qt5Network/Qt5NetworkConfig.cmake /usr/lib/cmake/Qt5Network/Qt5NetworkConfigVersion.cmake /usr/lib/cmake/Qt5Network/Qt5Network_QConnmanEnginePlugin.cmake /usr/lib/cmake/Qt5Network/Qt5Network_QGenericEnginePlugin.cmake /usr/lib/cmake/Qt5Network/Qt5Network_QNetworkManagerEnginePlugin.cmake /usr/lib/cmake/Qt5Widgets/Qt5WidgetsConfig.cmake /usr/lib/cmake/Qt5Widgets/Qt5WidgetsConfigExtras.cmake /usr/lib/cmake/Qt5Widgets/Qt5WidgetsConfigVersion.cmake /usr/lib/cmake/Qt5Widgets/Qt5WidgetsMacros.cmake /usr/share/cmake/Modules/CMakeCXXInformation.cmake /usr/share/cmake/Modules/CMakeCommonLanguageInclude.cmake /usr/share/cmake/Modules/CMakeGenericSystem.cmake /usr/share/cmake/Modules/CMakeInitializeConfigs.cmake /usr/share/cmake/Modules/CMakeLanguageInformation.cmake /usr/share/cmake/Modules/CMakeParseArguments.cmake /usr/share/cmake/Modules/CMakeSystemSpecificInformation.cmake /usr/share/cmake/Modules/CMakeSystemSpecificInitialize.cmake /usr/share/cmake/Modules/Compiler/CMakeCommonCompilerMacros.cmake /usr/share/cmake/Modules/Compiler/GNU-CXX.cmake /usr/share/cmake/Modules/Compiler/GNU.cmake /usr/share/cmake/Modules/FindOpenSSL.cmake /usr/share/cmake/Modules/FindPackageHandleStandardArgs.cmake /usr/share/cmake/Modules/FindPackageMessage.cmake /usr/share/cmake/Modules/FindPkgConfig.cmake /usr/share/cmake/Modules/GNUInstallDirs.cmake /usr/share/cmake/Modules/Platform/Linux-GNU-CXX.cmake /usr/share/cmake/Modules/Platform/Linux-GNU.cmake /usr/share/cmake/Modules/Platform/Linux-Initialize.cmake /usr/share/cmake/Modules/Platform/Linux.cmake /usr/share/cmake/Modules/Platform/UnixPaths.cmake CMakeCache.txt CMakeFiles/3.29.5/CMakeCXXCompiler.cmake CMakeFiles/3.29.5/CMakeSystem.cmake
   pool = console
 
 
 #############################################
 # A missing CMake input file is not an error.
 
-build .qtc/package-manager/auto-setup.cmake /home/ph0m/plan/chatroom/chatroom/CMakeLists.txt /home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/CMakeFiles/VerifyGlobs.cmake /home/ph0m/plan/chatroom/chatroom/log.qrc /usr/lib/cmake/Qt5/Qt5Config.cmake /usr/lib/cmake/Qt5/Qt5ConfigVersion.cmake /usr/lib/cmake/Qt5/Qt5ModuleLocation.cmake /usr/lib/cmake/Qt5Core/Qt5CoreConfig.cmake /usr/lib/cmake/Qt5Core/Qt5CoreConfigExtras.cmake /usr/lib/cmake/Qt5Core/Qt5CoreConfigExtrasMkspecDir.cmake /usr/lib/cmake/Qt5Core/Qt5CoreConfigVersion.cmake /usr/lib/cmake/Qt5Core/Qt5CoreMacros.cmake /usr/lib/cmake/Qt5Gui/Qt5GuiConfig.cmake /usr/lib/cmake/Qt5Gui/Qt5GuiConfigExtras.cmake /usr/lib/cmake/Qt5Gui/Qt5GuiConfigVersion.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QComposePlatformInputContextPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QEglFSEmulatorIntegrationPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QEglFSIntegrationPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QEglFSKmsEglDeviceIntegrationPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QEglFSKmsGbmIntegrationPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QEglFSX11IntegrationPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QEvdevKeyboardPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QEvdevMousePlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QEvdevTabletPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QEvdevTouchScreenPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QGifPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QGtk3ThemePlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QICOPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QIbusPlatformInputContextPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QJpegPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QLibInputPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QLinuxFbIntegrationPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QMinimalEglIntegrationPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QMinimalIntegrationPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QOffscreenIntegrationPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QPdfPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QSvgIconPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QSvgPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QTsLibPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QTuioTouchPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QVncIntegrationPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QWaylandEglPlatformIntegrationPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QWaylandIntegrationPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QWaylandXCompositeEglPlatformIntegrationPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QWaylandXCompositeGlxPlatformIntegrationPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QXcbEglIntegrationPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QXcbGlxIntegrationPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QXcbIntegrationPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QXdgDesktopPortalThemePlugin.cmake /usr/lib/cmake/Qt5LinguistTools/Qt5LinguistToolsConfig.cmake /usr/lib/cmake/Qt5LinguistTools/Qt5LinguistToolsConfigVersion.cmake /usr/lib/cmake/Qt5LinguistTools/Qt5LinguistToolsMacros.cmake /usr/lib/cmake/Qt5Network/Qt5NetworkConfig.cmake /usr/lib/cmake/Qt5Network/Qt5NetworkConfigVersion.cmake /usr/lib/cmake/Qt5Network/Qt5Network_QConnmanEnginePlugin.cmake /usr/lib/cmake/Qt5Network/Qt5Network_QGenericEnginePlugin.cmake /usr/lib/cmake/Qt5Network/Qt5Network_QNetworkManagerEnginePlugin.cmake /usr/lib/cmake/Qt5Widgets/Qt5WidgetsConfig.cmake /usr/lib/cmake/Qt5Widgets/Qt5WidgetsConfigExtras.cmake /usr/lib/cmake/Qt5Widgets/Qt5WidgetsConfigVersion.cmake /usr/lib/cmake/Qt5Widgets/Qt5WidgetsMacros.cmake /usr/share/cmake/Modules/CMakeCXXInformation.cmake /usr/share/cmake/Modules/CMakeCommonLanguageInclude.cmake /usr/share/cmake/Modules/CMakeGenericSystem.cmake /usr/share/cmake/Modules/CMakeInitializeConfigs.cmake /usr/share/cmake/Modules/CMakeLanguageInformation.cmake /usr/share/cmake/Modules/CMakeParseArguments.cmake /usr/share/cmake/Modules/CMakeSystemSpecificInformation.cmake /usr/share/cmake/Modules/CMakeSystemSpecificInitialize.cmake /usr/share/cmake/Modules/Compiler/CMakeCommonCompilerMacros.cmake /usr/share/cmake/Modules/Compiler/GNU-CXX.cmake /usr/share/cmake/Modules/Compiler/GNU.cmake /usr/share/cmake/Modules/FindOpenSSL.cmake /usr/share/cmake/Modules/FindPackageHandleStandardArgs.cmake /usr/share/cmake/Modules/FindPackageMessage.cmake /usr/share/cmake/Modules/FindPkgConfig.cmake /usr/share/cmake/Modules/GNUInstallDirs.cmake /usr/share/cmake/Modules/Platform/Linux-GNU-CXX.cmake /usr/share/cmake/Modules/Platform/Linux-GNU.cmake /usr/share/cmake/Modules/Platform/Linux-Initialize.cmake /usr/share/cmake/Modules/Platform/Linux.cmake /usr/share/cmake/Modules/Platform/UnixPaths.cmake CMakeCache.txt CMakeFiles/3.29.5/CMakeCXXCompiler.cmake CMakeFiles/3.29.5/CMakeSystem.cmake: phony
+build .qtc/package-manager/auto-setup.cmake /home/ph0m/xupt-linux-plan/chatroom/chatroom/CMakeLists.txt /home/ph0m/xupt-linux-plan/chatroom/chatroom/build/unknown-Debug/CMakeFiles/VerifyGlobs.cmake /home/ph0m/xupt-linux-plan/chatroom/chatroom/log.qrc /usr/lib/cmake/Qt5/Qt5Config.cmake /usr/lib/cmake/Qt5/Qt5ConfigVersion.cmake /usr/lib/cmake/Qt5/Qt5ModuleLocation.cmake /usr/lib/cmake/Qt5Core/Qt5CoreConfig.cmake /usr/lib/cmake/Qt5Core/Qt5CoreConfigExtras.cmake /usr/lib/cmake/Qt5Core/Qt5CoreConfigExtrasMkspecDir.cmake /usr/lib/cmake/Qt5Core/Qt5CoreConfigVersion.cmake /usr/lib/cmake/Qt5Core/Qt5CoreMacros.cmake /usr/lib/cmake/Qt5Gui/Qt5GuiConfig.cmake /usr/lib/cmake/Qt5Gui/Qt5GuiConfigExtras.cmake /usr/lib/cmake/Qt5Gui/Qt5GuiConfigVersion.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QComposePlatformInputContextPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QEglFSEmulatorIntegrationPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QEglFSIntegrationPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QEglFSKmsEglDeviceIntegrationPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QEglFSKmsGbmIntegrationPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QEglFSX11IntegrationPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QEvdevKeyboardPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QEvdevMousePlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QEvdevTabletPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QEvdevTouchScreenPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QGifPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QGtk3ThemePlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QICOPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QIbusPlatformInputContextPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QJpegPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QLibInputPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QLinuxFbIntegrationPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QMinimalEglIntegrationPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QMinimalIntegrationPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QOffscreenIntegrationPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QPdfPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QSvgIconPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QSvgPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QTsLibPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QTuioTouchPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QVncIntegrationPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QWaylandEglPlatformIntegrationPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QWaylandIntegrationPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QWaylandXCompositeEglPlatformIntegrationPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QWaylandXCompositeGlxPlatformIntegrationPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QXcbEglIntegrationPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QXcbGlxIntegrationPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QXcbIntegrationPlugin.cmake /usr/lib/cmake/Qt5Gui/Qt5Gui_QXdgDesktopPortalThemePlugin.cmake /usr/lib/cmake/Qt5LinguistTools/Qt5LinguistToolsConfig.cmake /usr/lib/cmake/Qt5LinguistTools/Qt5LinguistToolsConfigVersion.cmake /usr/lib/cmake/Qt5LinguistTools/Qt5LinguistToolsMacros.cmake /usr/lib/cmake/Qt5Network/Qt5NetworkConfig.cmake /usr/lib/cmake/Qt5Network/Qt5NetworkConfigVersion.cmake /usr/lib/cmake/Qt5Network/Qt5Network_QConnmanEnginePlugin.cmake /usr/lib/cmake/Qt5Network/Qt5Network_QGenericEnginePlugin.cmake /usr/lib/cmake/Qt5Network/Qt5Network_QNetworkManagerEnginePlugin.cmake /usr/lib/cmake/Qt5Widgets/Qt5WidgetsConfig.cmake /usr/lib/cmake/Qt5Widgets/Qt5WidgetsConfigExtras.cmake /usr/lib/cmake/Qt5Widgets/Qt5WidgetsConfigVersion.cmake /usr/lib/cmake/Qt5Widgets/Qt5WidgetsMacros.cmake /usr/share/cmake/Modules/CMakeCXXInformation.cmake /usr/share/cmake/Modules/CMakeCommonLanguageInclude.cmake /usr/share/cmake/Modules/CMakeGenericSystem.cmake /usr/share/cmake/Modules/CMakeInitializeConfigs.cmake /usr/share/cmake/Modules/CMakeLanguageInformation.cmake /usr/share/cmake/Modules/CMakeParseArguments.cmake /usr/share/cmake/Modules/CMakeSystemSpecificInformation.cmake /usr/share/cmake/Modules/CMakeSystemSpecificInitialize.cmake /usr/share/cmake/Modules/Compiler/CMakeCommonCompilerMacros.cmake /usr/share/cmake/Modules/Compiler/GNU-CXX.cmake /usr/share/cmake/Modules/Compiler/GNU.cmake /usr/share/cmake/Modules/FindOpenSSL.cmake /usr/share/cmake/Modules/FindPackageHandleStandardArgs.cmake /usr/share/cmake/Modules/FindPackageMessage.cmake /usr/share/cmake/Modules/FindPkgConfig.cmake /usr/share/cmake/Modules/GNUInstallDirs.cmake /usr/share/cmake/Modules/Platform/Linux-GNU-CXX.cmake /usr/share/cmake/Modules/Platform/Linux-GNU.cmake /usr/share/cmake/Modules/Platform/Linux-Initialize.cmake /usr/share/cmake/Modules/Platform/Linux.cmake /usr/share/cmake/Modules/Platform/UnixPaths.cmake CMakeCache.txt CMakeFiles/3.29.5/CMakeCXXCompiler.cmake CMakeFiles/3.29.5/CMakeSystem.cmake: phony
 
 
 #############################################

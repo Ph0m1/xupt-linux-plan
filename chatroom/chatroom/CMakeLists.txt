@@ -45,6 +45,9 @@ set(CLIENT_SOURCES
         msgtype.h
         mysocket.h
         mysocket.cpp
+        menu2.h
+        menu2.cpp
+        menu2.ui
 )
 
 # Sever source files
@@ -79,7 +82,7 @@ else()
         add_executable(client
             ${CLIENT_SOURCES}
             settings.h settings.cpp settings.ui
-            menu2.h menu2.cpp menu2.ui
+
 
         )
     endif()

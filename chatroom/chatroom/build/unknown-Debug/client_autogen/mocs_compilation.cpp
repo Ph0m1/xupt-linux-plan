@@ -2,6 +2,7 @@
 #include "EWIEGA46WW/moc_found.cpp"
 #include "EWIEGA46WW/moc_log.cpp"
 #include "EWIEGA46WW/moc_menu.cpp"
+#include "EWIEGA46WW/moc_menu2.cpp"
 #include "EWIEGA46WW/moc_reg.cpp"
 #include "EWIEGA46WW/moc_setnewpasswd.cpp"
 #include "EWIEGA46WW/moc_settings.cpp"

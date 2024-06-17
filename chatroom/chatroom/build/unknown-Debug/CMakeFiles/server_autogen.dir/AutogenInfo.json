@@ -1,17 +1,17 @@
 {
-	"BUILD_DIR" : "/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/server_autogen",
-	"CMAKE_BINARY_DIR" : "/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug",
-	"CMAKE_CURRENT_BINARY_DIR" : "/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug",
-	"CMAKE_CURRENT_SOURCE_DIR" : "/home/ph0m/plan/chatroom/chatroom",
+	"BUILD_DIR" : "/home/ph0m/xupt-linux-plan/chatroom/chatroom/build/unknown-Debug/server_autogen",
+	"CMAKE_BINARY_DIR" : "/home/ph0m/xupt-linux-plan/chatroom/chatroom/build/unknown-Debug",
+	"CMAKE_CURRENT_BINARY_DIR" : "/home/ph0m/xupt-linux-plan/chatroom/chatroom/build/unknown-Debug",
+	"CMAKE_CURRENT_SOURCE_DIR" : "/home/ph0m/xupt-linux-plan/chatroom/chatroom",
 	"CMAKE_EXECUTABLE" : "/usr/bin/cmake",
 	"CMAKE_LIST_FILES" : 
 	[
-		"/home/ph0m/plan/chatroom/chatroom/CMakeLists.txt",
-		"/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/.qtc/package-manager/auto-setup.cmake",
-		"/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/CMakeFiles/3.29.5/CMakeSystem.cmake",
+		"/home/ph0m/xupt-linux-plan/chatroom/chatroom/CMakeLists.txt",
+		"/home/ph0m/xupt-linux-plan/chatroom/chatroom/build/unknown-Debug/.qtc/package-manager/auto-setup.cmake",
+		"/home/ph0m/xupt-linux-plan/chatroom/chatroom/build/unknown-Debug/CMakeFiles/3.29.5/CMakeSystem.cmake",
 		"/usr/share/cmake/Modules/CMakeSystemSpecificInitialize.cmake",
 		"/usr/share/cmake/Modules/Platform/Linux-Initialize.cmake",
-		"/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/CMakeFiles/3.29.5/CMakeCXXCompiler.cmake",
+		"/home/ph0m/xupt-linux-plan/chatroom/chatroom/build/unknown-Debug/CMakeFiles/3.29.5/CMakeCXXCompiler.cmake",
 		"/usr/share/cmake/Modules/CMakeSystemSpecificInformation.cmake",
 		"/usr/share/cmake/Modules/CMakeGenericSystem.cmake",
 		"/usr/share/cmake/Modules/CMakeInitializeConfigs.cmake",
@@ -94,54 +94,54 @@
 		"/usr/share/cmake/Modules/FindPackageHandleStandardArgs.cmake",
 		"/usr/share/cmake/Modules/FindPackageMessage.cmake",
 		"/usr/share/cmake/Modules/GNUInstallDirs.cmake",
-		"/home/ph0m/plan/chatroom/chatroom/log.qrc"
+		"/home/ph0m/xupt-linux-plan/chatroom/chatroom/log.qrc"
 	],
-	"CMAKE_SOURCE_DIR" : "/home/ph0m/plan/chatroom/chatroom",
+	"CMAKE_SOURCE_DIR" : "/home/ph0m/xupt-linux-plan/chatroom/chatroom",
 	"CROSS_CONFIG" : false,
-	"DEP_FILE" : "/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/server_autogen/deps",
+	"DEP_FILE" : "/home/ph0m/xupt-linux-plan/chatroom/chatroom/build/unknown-Debug/server_autogen/deps",
 	"DEP_FILE_RULE_NAME" : "server_autogen/timestamp",
 	"HEADERS" : 
 	[
 		[
-			"/home/ph0m/plan/chatroom/chatroom/msgtype.h",
+			"/home/ph0m/xupt-linux-plan/chatroom/chatroom/msgtype.h",
 			"MU",
 			"EWIEGA46WW/moc_msgtype.cpp",
 			null
 		],
 		[
-			"/home/ph0m/plan/chatroom/chatroom/mysocket.h",
+			"/home/ph0m/xupt-linux-plan/chatroom/chatroom/mysocket.h",
 			"MU",
 			"EWIEGA46WW/moc_mysocket.cpp",
 			null
 		],
 		[
-			"/home/ph0m/plan/chatroom/chatroom/redis.h",
+			"/home/ph0m/xupt-linux-plan/chatroom/chatroom/redis.h",
 			"MU",
 			"EWIEGA46WW/moc_redis.cpp",
 			null
 		],
 		[
-			"/home/ph0m/plan/chatroom/chatroom/server.h",
+			"/home/ph0m/xupt-linux-plan/chatroom/chatroom/server.h",
 			"MU",
 			"EWIEGA46WW/moc_server.cpp",
 			null
 		],
 		[
-			"/home/ph0m/plan/chatroom/chatroom/smtpmailer.h",
+			"/home/ph0m/xupt-linux-plan/chatroom/chatroom/smtpmailer.h",
 			"MU",
 			"EWIEGA46WW/moc_smtpmailer.cpp",
 			null
 		],
 		[
-			"/home/ph0m/plan/chatroom/chatroom/threadpool.h",
+			"/home/ph0m/xupt-linux-plan/chatroom/chatroom/threadpool.h",
 			"MU",
 			"EWIEGA46WW/moc_threadpool.cpp",
 			null
 		]
 	],
 	"HEADER_EXTENSIONS" : [ "h", "hh", "h++", "hm", "hpp", "hxx", "in", "txx" ],
-	"INCLUDE_DIR" : "/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/server_autogen/include",
-	"MOC_COMPILATION_FILE" : "/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/server_autogen/mocs_compilation.cpp",
+	"INCLUDE_DIR" : "/home/ph0m/xupt-linux-plan/chatroom/chatroom/build/unknown-Debug/server_autogen/include",
+	"MOC_COMPILATION_FILE" : "/home/ph0m/xupt-linux-plan/chatroom/chatroom/build/unknown-Debug/server_autogen/mocs_compilation.cpp",
 	"MOC_DEFINITIONS" : [],
 	"MOC_DEPEND_FILTERS" : 
 	[
@@ -172,44 +172,54 @@
 		"-c",
 		"/usr/share/cmake/Modules/CMakeCXXCompilerABI.cpp"
 	],
-	"MOC_PREDEFS_FILE" : "/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/server_autogen/moc_predefs.h",
+	"MOC_PREDEFS_FILE" : "/home/ph0m/xupt-linux-plan/chatroom/chatroom/build/unknown-Debug/server_autogen/moc_predefs.h",
 	"MOC_RELAXED_MODE" : false,
 	"MOC_SKIP" : 
 	[
-		"/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/client_autogen/include/ui_found.h",
-		"/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/client_autogen/include/ui_log.h",
-		"/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/client_autogen/include/ui_menu.h",
-		"/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/client_autogen/include/ui_reg.h",
-		"/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/client_autogen/include/ui_setnewpasswd.h",
-		"/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/client_autogen/include/ui_settings.h",
-		"/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/client_autogen/include/ui_widget.h"
+		"/home/ph0m/xupt-linux-plan/chatroom/chatroom/build/unknown-Debug/client_autogen/include/ui_found.h",
+		"/home/ph0m/xupt-linux-plan/chatroom/chatroom/build/unknown-Debug/client_autogen/include/ui_log.h",
+		"/home/ph0m/xupt-linux-plan/chatroom/chatroom/build/unknown-Debug/client_autogen/include/ui_menu.h",
+		"/home/ph0m/xupt-linux-plan/chatroom/chatroom/build/unknown-Debug/client_autogen/include/ui_menu2.h",
+		"/home/ph0m/xupt-linux-plan/chatroom/chatroom/build/unknown-Debug/client_autogen/include/ui_reg.h",
+		"/home/ph0m/xupt-linux-plan/chatroom/chatroom/build/unknown-Debug/client_autogen/include/ui_setnewpasswd.h",
+		"/home/ph0m/xupt-linux-plan/chatroom/chatroom/build/unknown-Debug/client_autogen/include/ui_settings.h",
+		"/home/ph0m/xupt-linux-plan/chatroom/chatroom/build/unknown-Debug/client_autogen/include/ui_widget.h"
 	],
 	"MULTI_CONFIG" : false,
 	"PARALLEL" : 10,
-	"PARSE_CACHE_FILE" : "/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/CMakeFiles/server_autogen.dir/ParseCache.txt",
+	"PARSE_CACHE_FILE" : "/home/ph0m/xupt-linux-plan/chatroom/chatroom/build/unknown-Debug/CMakeFiles/server_autogen.dir/ParseCache.txt",
 	"QT_MOC_EXECUTABLE" : "/usr/bin/moc",
 	"QT_UIC_EXECUTABLE" : "/usr/bin/uic",
 	"QT_VERSION_MAJOR" : 5,
 	"QT_VERSION_MINOR" : 15,
-	"SETTINGS_FILE" : "/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/CMakeFiles/server_autogen.dir/AutogenUsed.txt",
+	"SETTINGS_FILE" : "/home/ph0m/xupt-linux-plan/chatroom/chatroom/build/unknown-Debug/CMakeFiles/server_autogen.dir/AutogenUsed.txt",
 	"SOURCES" : 
 	[
-		[ "/home/ph0m/plan/chatroom/chatroom/mysocket.cpp", "MU", null ],
-		[ "/home/ph0m/plan/chatroom/chatroom/redis.cpp", "MU", null ],
-		[ "/home/ph0m/plan/chatroom/chatroom/server.cpp", "MU", null ],
-		[ "/home/ph0m/plan/chatroom/chatroom/smtpmailer.cpp", "MU", null ]
+		[
+			"/home/ph0m/xupt-linux-plan/chatroom/chatroom/mysocket.cpp",
+			"MU",
+			null
+		],
+		[ "/home/ph0m/xupt-linux-plan/chatroom/chatroom/redis.cpp", "MU", null ],
+		[ "/home/ph0m/xupt-linux-plan/chatroom/chatroom/server.cpp", "MU", null ],
+		[
+			"/home/ph0m/xupt-linux-plan/chatroom/chatroom/smtpmailer.cpp",
+			"MU",
+			null
+		]
 	],
 	"UIC_OPTIONS" : [],
 	"UIC_SEARCH_PATHS" : [],
 	"UIC_SKIP" : 
 	[
-		"/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/client_autogen/include/ui_found.h",
-		"/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/client_autogen/include/ui_log.h",
-		"/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/client_autogen/include/ui_menu.h",
-		"/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/client_autogen/include/ui_reg.h",
-		"/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/client_autogen/include/ui_setnewpasswd.h",
-		"/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/client_autogen/include/ui_settings.h",
-		"/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/client_autogen/include/ui_widget.h"
+		"/home/ph0m/xupt-linux-plan/chatroom/chatroom/build/unknown-Debug/client_autogen/include/ui_found.h",
+		"/home/ph0m/xupt-linux-plan/chatroom/chatroom/build/unknown-Debug/client_autogen/include/ui_log.h",
+		"/home/ph0m/xupt-linux-plan/chatroom/chatroom/build/unknown-Debug/client_autogen/include/ui_menu.h",
+		"/home/ph0m/xupt-linux-plan/chatroom/chatroom/build/unknown-Debug/client_autogen/include/ui_menu2.h",
+		"/home/ph0m/xupt-linux-plan/chatroom/chatroom/build/unknown-Debug/client_autogen/include/ui_reg.h",
+		"/home/ph0m/xupt-linux-plan/chatroom/chatroom/build/unknown-Debug/client_autogen/include/ui_setnewpasswd.h",
+		"/home/ph0m/xupt-linux-plan/chatroom/chatroom/build/unknown-Debug/client_autogen/include/ui_settings.h",
+		"/home/ph0m/xupt-linux-plan/chatroom/chatroom/build/unknown-Debug/client_autogen/include/ui_widget.h"
 	],
 	"UIC_UI_FILES" : [],
 	"USE_BETTER_GRAPH" : false,

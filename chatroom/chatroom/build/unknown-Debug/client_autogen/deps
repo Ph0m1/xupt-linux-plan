@@ -1,30 +1,32 @@
 client_autogen/timestamp: \
-	/home/ph0m/plan/chatroom/chatroom/CMakeLists.txt \
-	/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/.qtc/package-manager/auto-setup.cmake \
-	/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/CMakeFiles/3.29.5/CMakeCXXCompiler.cmake \
-	/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/CMakeFiles/3.29.5/CMakeSystem.cmake \
-	/home/ph0m/plan/chatroom/chatroom/build/unknown-Debug/client_autogen/moc_predefs.h \
-	/home/ph0m/plan/chatroom/chatroom/client.cpp \
-	/home/ph0m/plan/chatroom/chatroom/client.h \
-	/home/ph0m/plan/chatroom/chatroom/found.cpp \
-	/home/ph0m/plan/chatroom/chatroom/found.h \
-	/home/ph0m/plan/chatroom/chatroom/log.cpp \
-	/home/ph0m/plan/chatroom/chatroom/log.h \
-	/home/ph0m/plan/chatroom/chatroom/log.qrc \
-	/home/ph0m/plan/chatroom/chatroom/main.cpp \
-	/home/ph0m/plan/chatroom/chatroom/menu.cpp \
-	/home/ph0m/plan/chatroom/chatroom/menu.h \
-	/home/ph0m/plan/chatroom/chatroom/msgtype.h \
-	/home/ph0m/plan/chatroom/chatroom/mysocket.cpp \
-	/home/ph0m/plan/chatroom/chatroom/mysocket.h \
-	/home/ph0m/plan/chatroom/chatroom/reg.cpp \
-	/home/ph0m/plan/chatroom/chatroom/reg.h \
-	/home/ph0m/plan/chatroom/chatroom/setnewpasswd.cpp \
-	/home/ph0m/plan/chatroom/chatroom/setnewpasswd.h \
-	/home/ph0m/plan/chatroom/chatroom/settings.cpp \
-	/home/ph0m/plan/chatroom/chatroom/settings.h \
-	/home/ph0m/plan/chatroom/chatroom/widget.cpp \
-	/home/ph0m/plan/chatroom/chatroom/widget.h \
+	/home/ph0m/xupt-linux-plan/chatroom/chatroom/CMakeLists.txt \
+	/home/ph0m/xupt-linux-plan/chatroom/chatroom/build/unknown-Debug/.qtc/package-manager/auto-setup.cmake \
+	/home/ph0m/xupt-linux-plan/chatroom/chatroom/build/unknown-Debug/CMakeFiles/3.29.5/CMakeCXXCompiler.cmake \
+	/home/ph0m/xupt-linux-plan/chatroom/chatroom/build/unknown-Debug/CMakeFiles/3.29.5/CMakeSystem.cmake \
+	/home/ph0m/xupt-linux-plan/chatroom/chatroom/build/unknown-Debug/client_autogen/moc_predefs.h \
+	/home/ph0m/xupt-linux-plan/chatroom/chatroom/client.cpp \
+	/home/ph0m/xupt-linux-plan/chatroom/chatroom/client.h \
+	/home/ph0m/xupt-linux-plan/chatroom/chatroom/found.cpp \
+	/home/ph0m/xupt-linux-plan/chatroom/chatroom/found.h \
+	/home/ph0m/xupt-linux-plan/chatroom/chatroom/log.cpp \
+	/home/ph0m/xupt-linux-plan/chatroom/chatroom/log.h \
+	/home/ph0m/xupt-linux-plan/chatroom/chatroom/log.qrc \
+	/home/ph0m/xupt-linux-plan/chatroom/chatroom/main.cpp \
+	/home/ph0m/xupt-linux-plan/chatroom/chatroom/menu.cpp \
+	/home/ph0m/xupt-linux-plan/chatroom/chatroom/menu.h \
+	/home/ph0m/xupt-linux-plan/chatroom/chatroom/menu2.cpp \
+	/home/ph0m/xupt-linux-plan/chatroom/chatroom/menu2.h \
+	/home/ph0m/xupt-linux-plan/chatroom/chatroom/msgtype.h \
+	/home/ph0m/xupt-linux-plan/chatroom/chatroom/mysocket.cpp \
+	/home/ph0m/xupt-linux-plan/chatroom/chatroom/mysocket.h \
+	/home/ph0m/xupt-linux-plan/chatroom/chatroom/reg.cpp \
+	/home/ph0m/xupt-linux-plan/chatroom/chatroom/reg.h \
+	/home/ph0m/xupt-linux-plan/chatroom/chatroom/setnewpasswd.cpp \
+	/home/ph0m/xupt-linux-plan/chatroom/chatroom/setnewpasswd.h \
+	/home/ph0m/xupt-linux-plan/chatroom/chatroom/settings.cpp \
+	/home/ph0m/xupt-linux-plan/chatroom/chatroom/settings.h \
+	/home/ph0m/xupt-linux-plan/chatroom/chatroom/widget.cpp \
+	/home/ph0m/xupt-linux-plan/chatroom/chatroom/widget.h \
 	/usr/include/alloca.h \
 	/usr/include/arpa/inet.h \
 	/usr/include/asm-generic/bitsperlong.h \
@@ -463,12 +465,14 @@ client_autogen/timestamp: \
 	/usr/include/qt/QtCore/qvarlengtharray.h \
 	/usr/include/qt/QtCore/qvector.h \
 	/usr/include/qt/QtCore/qversiontagging.h \
+	/usr/include/qt/QtGui/QPixmap \
 	/usr/include/qt/QtGui/qbrush.h \
 	/usr/include/qt/QtGui/qcolor.h \
 	/usr/include/qt/QtGui/qcursor.h \
 	/usr/include/qt/QtGui/qfont.h \
 	/usr/include/qt/QtGui/qfontinfo.h \
 	/usr/include/qt/QtGui/qfontmetrics.h \
+	/usr/include/qt/QtGui/qicon.h \
 	/usr/include/qt/QtGui/qimage.h \
 	/usr/include/qt/QtGui/qkeysequence.h \
 	/usr/include/qt/QtGui/qmatrix.h \
@@ -490,8 +494,14 @@ client_autogen/timestamp: \
 	/usr/include/qt/QtNetwork/qtnetwork-config.h \
 	/usr/include/qt/QtNetwork/qtnetworkglobal.h \
 	/usr/include/qt/QtNetwork/qudpsocket.h \
+	/usr/include/qt/QtWidgets/QMessageBox \
+	/usr/include/qt/QtWidgets/QToolButton \
 	/usr/include/qt/QtWidgets/QWidget \
+	/usr/include/qt/QtWidgets/qabstractbutton.h \
+	/usr/include/qt/QtWidgets/qdialog.h \
+	/usr/include/qt/QtWidgets/qmessagebox.h \
 	/usr/include/qt/QtWidgets/qsizepolicy.h \
+	/usr/include/qt/QtWidgets/qtoolbutton.h \
 	/usr/include/qt/QtWidgets/qtwidgets-config.h \
 	/usr/include/qt/QtWidgets/qtwidgetsglobal.h \
 	/usr/include/qt/QtWidgets/qwidget.h \
@@ -593,11 +603,12 @@ client_autogen/timestamp: \
 	/usr/share/cmake/Modules/Platform/Linux-Initialize.cmake \
 	/usr/share/cmake/Modules/Platform/Linux.cmake \
 	/usr/share/cmake/Modules/Platform/UnixPaths.cmake \
-	/home/ph0m/plan/chatroom/chatroom/found.ui \
-	/home/ph0m/plan/chatroom/chatroom/log.ui \
-	/home/ph0m/plan/chatroom/chatroom/menu.ui \
-	/home/ph0m/plan/chatroom/chatroom/reg.ui \
-	/home/ph0m/plan/chatroom/chatroom/setnewpasswd.ui \
-	/home/ph0m/plan/chatroom/chatroom/settings.ui \
-	/home/ph0m/plan/chatroom/chatroom/widget.ui \
+	/home/ph0m/xupt-linux-plan/chatroom/chatroom/found.ui \
+	/home/ph0m/xupt-linux-plan/chatroom/chatroom/log.ui \
+	/home/ph0m/xupt-linux-plan/chatroom/chatroom/menu.ui \
+	/home/ph0m/xupt-linux-plan/chatroom/chatroom/menu2.ui \
+	/home/ph0m/xupt-linux-plan/chatroom/chatroom/reg.ui \
+	/home/ph0m/xupt-linux-plan/chatroom/chatroom/setnewpasswd.ui \
+	/home/ph0m/xupt-linux-plan/chatroom/chatroom/settings.ui \
+	/home/ph0m/xupt-linux-plan/chatroom/chatroom/widget.ui \
 	/usr/bin/cmake
