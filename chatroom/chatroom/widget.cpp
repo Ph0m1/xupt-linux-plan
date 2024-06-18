@@ -135,7 +135,7 @@ void Widget::userEnter(QString name){
         ui->userTable->setItem(0,0,usr);
         ui->MsgBrowser->setTextColor(Qt::gray);
         ui->MsgBrowser->append(name+"已上线");
-        ui->onlinepeople->setText(QString("在线人数：%1人").arg(ui->userTable->rowCount()));
+        // ui->onlinepeople->setText(QString("在线人数：%1人").arg(ui->userTable->rowCount()));
 
         sendMsg(UserEnter);
     }
@@ -152,7 +152,7 @@ void Widget::userLeft(QString name,QString time){
         //追加信息
         ui->MsgBrowser->setTextColor(Qt::gray);
         ui->MsgBrowser->append(name+"于"+time+"下线");
-        ui->onlinepeople->setText(QString("在线人数：%1人").arg(ui->userTable->rowCount()));
+        // ui->onlinepeople->setText(QString("在线人数：%1人").arg(ui->userTable->rowCount()));
 
     }
 }

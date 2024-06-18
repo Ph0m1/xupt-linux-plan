@@ -42,6 +42,7 @@ endif()
 file(GLOB_RECURSE NEW_GLOB LIST_DIRECTORIES false "/home/ph0m/xupt-linux-plan/chatroom/chatroom/*.cpp")
 set(OLD_GLOB
   "/home/ph0m/xupt-linux-plan/chatroom/chatroom/build/unknown-Debug/CMakeFiles/3.29.5/CompilerIdCXX/CMakeCXXCompilerId.cpp"
+  "/home/ph0m/xupt-linux-plan/chatroom/chatroom/build/unknown-Debug/CMakeFiles/3.29.6/CompilerIdCXX/CMakeCXXCompilerId.cpp"
   "/home/ph0m/xupt-linux-plan/chatroom/chatroom/build/unknown-Debug/client_autogen/EWIEGA46WW/moc_found.cpp"
   "/home/ph0m/xupt-linux-plan/chatroom/chatroom/build/unknown-Debug/client_autogen/EWIEGA46WW/moc_log.cpp"
   "/home/ph0m/xupt-linux-plan/chatroom/chatroom/build/unknown-Debug/client_autogen/EWIEGA46WW/moc_menu.cpp"

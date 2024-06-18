@@ -1,6 +1,7 @@
 #include "menu2.h"
 #include "ui_menu2.h"
 #include "mysocket.h"
+#include "widget.h"
 #include <QPainter>
 #include <QPainterPath>
 using json = nlohmann::json;
@@ -80,6 +81,7 @@ Menu2::Menu2(QWidget *parent, int sfd, const std::string& data)
 void Menu2::setFbtn(std::unordered_map<std::string,std::string> list){
     QVector<QToolButton*> vector;
     QVBoxLayout *layout = new QVBoxLayout();
+    qStack = new QStackedWidget(this);
 
     for(auto &t : list){
         if (t.first == " "){
@@ -104,6 +106,12 @@ void Menu2::setFbtn(std::unordered_map<std::string,std::string> list){
         vector.push_back(btn);
         FriendIsShow.push_back(false);
 
+
+        Widget *w = new Widget(nullptr, t.first.c_str(),fd);
+        qStack->addWidget(w);
+        ui->msgLayout->addWidget(qStack,0);
+
+
     }
     ui->listWidget->setLayout(layout);
 
@@ -111,12 +119,34 @@ void Menu2::setFbtn(std::unordered_map<std::string,std::string> list){
         connect(vector[i], &QToolButton::clicked,[=](){
 
             FriendIsShow[i] = true;
-            // 修改信息 示例
-            QWidget* widget = ui->msgWidget;
+            // 修改信息 待解决
+            qStack->setCurrentIndex(i); // 切换对话框
             ui->label->setText(vector[i]->text());
         });
     }
 
+}
+
+   // 复制widget及其布局
+QWidget* Menu2::copyWidget(QWidget* widget) {
+    QWidget* newWidget = new QWidget();
+    newWidget->setGeometry(widget->geometry());
+    newWidget->setStyleSheet(widget->styleSheet());
+
+    if (widget->layout()) {
+        QVBoxLayout* layout = new QVBoxLayout();
+        newWidget->setLayout(layout);
+
+        for (int i = 0; i < widget->layout()->count(); ++i) {
+            QWidget* originalChild = widget->layout()->itemAt(i)->widget();
+            if (originalChild) {
+                QWidget* newChild = copyWidget(originalChild);
+                layout->addWidget(newChild);
+            }
+        }
+    }
+
+    return newWidget;
 }
 
 Menu2::~Menu2()
