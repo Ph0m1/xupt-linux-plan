@@ -3,6 +3,7 @@
 #include <QDataStream>
 #include <QMessageBox>
 #include <QDateTime>
+
 Widget::Widget(QWidget *parent, QString name,int sfd)
     : QWidget(parent)
     , ui(new Ui::Widget)
@@ -21,6 +22,7 @@ Widget::Widget(QWidget *parent, QString name,int sfd)
     // 链接发送按钮
     connect(ui->sendButton,&QPushButton::clicked,[=](){
         sendMsg(Msg);
+        qDebug() << "Sender: "<< m_name ;
     });
 
     // 链接退出按钮

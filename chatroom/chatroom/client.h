@@ -3,6 +3,8 @@
 
 #include "msgtype.h"
 #include "mysocket.h"
+// #include <aes.h>
+#include <openssl/aes.h>
 #include <QWidget>
 
 
@@ -15,6 +17,7 @@ public:
 private:
     int m_sfd;
     struct sockaddr_in m_addr;
+    std::string key;
 
 };
 

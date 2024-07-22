@@ -17,13 +17,15 @@ Menu2::Menu2(QWidget *parent, int sfd, const std::string& data)
     json datajs = json::parse(data.data());
 
     json infojs = datajs["Info"].get<json>();
-
+    //fl id:name
+    //ml time(15位):<发送方id(9位)><接受方id(9位)><内容>
     std::unordered_map<std::string,std::string> fl = datajs["FriendList"].get<std::unordered_map<std::string,std::string>>();
     std::unordered_map<std::string,std::string> gl = datajs["GroupList"].get<std::unordered_map<std::string,std::string>>();
     std::unordered_map<std::string,std::string> ml = datajs["MsgList"].get<std::unordered_map<std::string,std::string>>();
 
     std::string user;
     user = infojs["username"].get<std::string>();
+    std::cout << user;
     std::string id;
     this->id = id;
     ui->setupUi(this);
@@ -70,19 +72,56 @@ Menu2::Menu2(QWidget *parent, int sfd, const std::string& data)
     ui->friendBtn->setIconSize(cpixmap.size());
     ui->settingBtn->setAutoRaise(true);
     ui->settingBtn->setIconSize(cpixmap.size());
+    Menu2::btnIsChecked[0] = false;
+    Menu2::btnIsChecked[1] = true;
 
+    Menu2::setFbtn(fl);
+    Menu2::setFbtn(ml);
     connect(ui->friendBtn,&QToolButton::clicked,[=](){
-        setFbtn(fl);
+        if(Menu2::btnIsChecked[0] == true || Menu2::btnIsChecked[1] == false){
+            return;
+        }
+        Menu2::btnIsChecked[1] = false;
+        Menu2::btnIsChecked[0] = true;
+        ui->msgBtn->setChecked(false);
+        // ui->friendBtn->setChecked(false);
+        ui->friendBtn->setChecked(true);
+
     });
+    connect(ui->msgBtn,&QToolButton::clicked,[=](){
+        if(Menu2::btnIsChecked[1] == true || Menu2::btnIsChecked[0] == false){
+            return;
+        }
+        Menu2::btnIsChecked[1] = true;
+        Menu2::btnIsChecked[0] = false;
+        ui->friendBtn->setChecked(false);
+    });
+}
 
-
+void Menu2::setMbtn(std::unordered_map<std::string,std::string> list){
+    for(auto &t : list){
+        if (t.first == " "){
+            break;
+        }
+        std::string msgInfo = t.second.c_str();
+        std::string sender;
+        std::string recver;
+        std::string msg = msgInfo.substr(18);
+        for(int i = 0; i < 9; i++){
+            sender.push_back(msgInfo[i]);
+            recver.push_back(msgInfo[i+9]);
+        }
+        if(sender == id){
+            // if(std::find(vector.begin(), vector.end(),))
+        }
+    }
 }
 
 void Menu2::setFbtn(std::unordered_map<std::string,std::string> list){
-    QVector<QToolButton*> vector;
-    QVBoxLayout *layout = new QVBoxLayout();
-    qStack = new QStackedWidget(this);
 
+    // QVector<QToolButton*> vector;
+    QVBoxLayout *layout = new QVBoxLayout();
+    qStack = new QStackedWidget();
     for(auto &t : list){
         if (t.first == " "){
             break;
@@ -100,28 +139,26 @@ void Menu2::setFbtn(std::unordered_map<std::string,std::string> list){
         // 设置网名
         btn->setText(QString(static_cast<QString>(t.second.c_str()) + "<" + static_cast<QString>(t.first.c_str())) + ">");
 
-        btn->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
-        btn->setAutoRepeat(true);
-        layout->addWidget(btn);
-        vector.push_back(btn);
+        btn->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);// 设置按钮样式为文字紧贴图片
+        // btn->setAutoRepeat(true)；
+        layout->addWidget(btn);// 将按钮添加到布局
+        this->vector.push_back(btn);
         FriendIsShow.push_back(false);
-
-
-        Widget *w = new Widget(nullptr, t.first.c_str(),fd);
+        // 添加聊天页面
+        Widget *w = new Widget(nullptr, t.first.data(), fd);
         qStack->addWidget(w);
         ui->msgLayout->addWidget(qStack,0);
-
-
+        lists.insert(std::pair<std::string, QToolButton*>(t.second, btn));
     }
     ui->listWidget->setLayout(layout);
 
     for(int i = 0; i < vector.count(); i++){
-        connect(vector[i], &QToolButton::clicked,[=](){
+        connect(vector[i], &QToolButton::clicked,[this, i](){
 
             FriendIsShow[i] = true;
-            // 修改信息 待解决
             qStack->setCurrentIndex(i); // 切换对话框
-            ui->label->setText(vector[i]->text());
+            ui->label->setText(this->vector[i]->text());
+            qDebug() << "Button clicked:" << i << vector[i]->text();
         });
     }
 

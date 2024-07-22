@@ -23,7 +23,7 @@ public:
     ~Menu2();
 private:
     void setFbtn(std::unordered_map<std::string,std::string> list);
-    // void setMbtn(std::unordered_map<std::string,std::string> list);
+    void setMbtn(std::unordered_map<std::string,std::string> list);
     // 复制widget及其布局
     QWidget* copyWidget(QWidget* widget);
 
@@ -34,12 +34,16 @@ private:
 
     QVector<bool> FriendIsShow;
     QVector<bool> GroupIsShow;
-    QVector<bool> IsRead;
+    QVector<bool> MsgIsShow;
+    QVector<bool> MsgIsOn;
+    bool btnIsChecked[2];
 
     QVector<QToolButton*> vector;
-    QMap<QToolButton*,QVBoxLayout*> lists;
+    std::unordered_map<std::string, QToolButton*> lists;
+    // QVector<QToolButton*>
 
-    QStackedWidget *qStack;
+    QStackedWidget *qStack; // 聊天窗口
+    // QStackedWidget *listStack; // 消息/好友列表
 };
 
 #endif // MENU2_H

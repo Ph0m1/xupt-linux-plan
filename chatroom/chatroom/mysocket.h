@@ -25,5 +25,7 @@ MsgType recvMsg(int sfd,std::string &str);
 int writen(int fd, std::string buf, int len);
 int readen(int fd, char* buf, int len);
 
+// to do
+// 使用 aes 算法实现信息的加解密
 
 #endif // MYSOCKET_H

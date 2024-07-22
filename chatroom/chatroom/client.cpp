@@ -1,5 +1,6 @@
 #include "client.h"
 #include "log.h"
+
 Client::Client(int argc,char *argv[]) {
     this->m_sfd = socket(AF_INET,SOCK_STREAM,0);
     if(this->m_sfd<0){
