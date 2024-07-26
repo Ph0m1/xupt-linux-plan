@@ -2,26 +2,22 @@
 #include "./ui_widget.h"
 #include <QDataStream>
 #include <QMessageBox>
+#include "mysocket.h"
 #include <QDateTime>
 
-Widget::Widget(QWidget *parent, QString name,int sfd)
+Widget::Widget(QWidget *parent, QString uname, QString uid, QString id, QString name,int sfd)
     : QWidget(parent)
     , ui(new Ui::Widget)
 {
     ui->setupUi(this);
     m_name = name;
-
-    this->port = 9999;
-    this->udpSocket = new QUdpSocket(this);
-
-    udpSocket->bind(this->port,QUdpSocket::ShareAddress | QUdpSocket::ReuseAddressHint);
-
-    //
-    connect(udpSocket, &QUdpSocket::readyRead,this,&Widget::RecvMsg);
+    m_id = id;
+    u_id = uid;
+    u_name = uname;
 
     // 链接发送按钮
     connect(ui->sendButton,&QPushButton::clicked,[=](){
-        sendMsg(Msg);
+        SendMsg();
         qDebug() << "Sender: "<< m_name ;
     });
 
@@ -71,92 +67,16 @@ Widget::Widget(QWidget *parent, QString name,int sfd)
     });
 }
 
-void Widget::sendMsg(Widget::MsgType type){
-    QByteArray array;
-    QDataStream stream(&array,QIODevice::WriteOnly);
-
-    stream<<type<<this->getName();
-    switch (type) {
-    case Msg:
-
-        if(this->ui->msgTextEdit->toPlainText() == ""){
-            QMessageBox::warning(this,"警告","发送的聊天内容不能为空！");
-            return;
-        }
-        stream<<this->getMsg();
-        break;
-    case UserEnter:
-        break;
-    case UserLeft:
-        break;
-    }
-    // 书写报文
-    udpSocket->writeDatagram(array.data(),array.size(),QHostAddress::Broadcast,this->port);// QHostAddress::Broadcast：要发送的ip地址，这里发送给所有人
-}
-
-void Widget::RecvMsg(){
-    qint64 size = udpSocket->pendingDatagramSize();// 获取发送过来的报文大小
-    //qint64转int
-    int m_size = static_cast<int>(size);
-    QByteArray *array=new QByteArray(m_size,0);
-    udpSocket->readDatagram(array->data(),size);//读取报文
-    QDataStream stream(array,QIODevice::ReadOnly);
-    int msgtype;
-    stream>>msgtype; // 读取消息类型
-    QString name,msg;
+void Widget::SendMsg(){
+    QString mm = getMsg();
+    std::string msg = m_id.toStdString() + u_id.toStdString() + mm.toStdString();
     QString time = QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss");
-    switch (msgtype) {
-    case Msg:
-        stream>>name>>msg; // 流出姓名和聊天内容
-
-        // 增加聊天记录
-        ui->MsgBrowser->setTextColor(Qt::blue);
-        ui->MsgBrowser->setCurrentFont(QFont("Times New Roman",10));
-        ui->MsgBrowser->append("["+name+"]"+time);
-        ui->MsgBrowser->append(msg);
-        break;
-    case UserEnter:
-        stream>>name;
-        userEnter(name);
-        break;
-    case UserLeft:
-        stream>>name;
-        userLeft(name,time);
-        break;
-    default:
-        break;
-    }
-}
-
-void Widget::userEnter(QString name){
-    bool isEmpty = ui->userTable->findItems(name,Qt::MatchExactly).isEmpty();//查找方式 MatchExactly
-
-    if(isEmpty){
-        QTableWidgetItem *usr = new QTableWidgetItem(name);
-        ui->userTable->insertRow(0);
-        ui->userTable->setItem(0,0,usr);
-        ui->MsgBrowser->setTextColor(Qt::gray);
-        ui->MsgBrowser->append(name+"已上线");
-        // ui->onlinepeople->setText(QString("在线人数：%1人").arg(ui->userTable->rowCount()));
-
-        sendMsg(UserEnter);
-    }
-}
-
-void Widget::userLeft(QString name,QString time){
-    bool isEmpty = ui->userTable->findItems(name,Qt::MatchExactly).isEmpty();
-
-    if(!isEmpty){
-        //寻找行
-        int row = ui->userTable->findItems(name,Qt::MatchExactly).first()->row();
-        //移除该行
-        ui->userTable->removeRow(row);
-        //追加信息
-        ui->MsgBrowser->setTextColor(Qt::gray);
-        ui->MsgBrowser->append(name+"于"+time+"下线");
-        // ui->onlinepeople->setText(QString("在线人数：%1人").arg(ui->userTable->rowCount()));
-
-    }
+    std::string t = time.toStdString();
+    Json stream;
+    stream["Time"] = t;
+    stream["Msg"] = msg;
+    std::string data = stream.dump();
+    sendMsg(fd, Msg, data);
 }
 
 QString Widget::getName(){
@@ -170,13 +90,32 @@ QString Widget::getMsg(){
     return msg;
 }
 
-
+void Widget::getData(std::string data){
+    Json js = Json::parse(data.data());
+    std::string msg = js["Msg"].get<std::string>();
+    std::string time = js["Time"].get<std::string>();
+    std::string sender = msg.substr(0,9);
+    std::string uid = u_id.toStdString();
+    if(uid != sender){
+        return;
+    }
+    prints(time, msg.substr(18));
+}
+// 打印通知
+void Widget::printinfo(std::string msg){
+    ui->MsgBrowser->setTextColor(Qt::gray);
+    ui->MsgBrowser->append(msg.c_str());
+}
+// 打印消息
+void Widget::prints(std::string time, std::string msg){
+    ui->MsgBrowser->setTextColor(Qt::blue);
+    ui->MsgBrowser->setCurrentFont(QFont("Times New Roman",10));
+    ui->MsgBrowser->append("["+u_name+"]" + static_cast<QString>(time.c_str()));
+    ui->MsgBrowser->append(msg.c_str());
+}
 void Widget::closeEvent(QCloseEvent *){
     emit this->closeWidget();
-    sendMsg(UserLeft);
-
-    udpSocket->close();
-    udpSocket->destroyed();
+    // sendMsg(UserLeft);
 }
 
 Widget::~Widget()

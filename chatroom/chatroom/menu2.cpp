@@ -1,8 +1,11 @@
 #include "menu2.h"
 #include "ui_menu2.h"
 #include "mysocket.h"
+#include "threadpool.h"
 #include "widget.h"
+#include "msgtype.h"
 #include <QPainter>
+#include <QToolButton>
 #include <QPainterPath>
 using json = nlohmann::json;
 
@@ -19,15 +22,19 @@ Menu2::Menu2(QWidget *parent, int sfd, const std::string& data)
     json infojs = datajs["Info"].get<json>();
     //fl id:name
     //ml time(15位):<发送方id(9位)><接受方id(9位)><内容>
+
     std::unordered_map<std::string,std::string> fl = datajs["FriendList"].get<std::unordered_map<std::string,std::string>>();
+    qDebug()<<"12";
     std::unordered_map<std::string,std::string> gl = datajs["GroupList"].get<std::unordered_map<std::string,std::string>>();
     std::unordered_map<std::string,std::string> ml = datajs["MsgList"].get<std::unordered_map<std::string,std::string>>();
 
-    std::string user;
-    user = infojs["username"].get<std::string>();
-    std::cout << user;
+    m_name = infojs["username"].get<std::string>();
+    qDebug() << m_name.c_str();
     std::string id;
-    this->id = id;
+
+    id = datajs["Uid"].get<std::string>();
+    qDebug() << id.c_str();
+    this->m_id = id;
     ui->setupUi(this);
 
     // 设置图标
@@ -75,8 +82,8 @@ Menu2::Menu2(QWidget *parent, int sfd, const std::string& data)
     Menu2::btnIsChecked[0] = false;
     Menu2::btnIsChecked[1] = true;
 
-    Menu2::setFbtn(fl);
-    Menu2::setFbtn(ml);
+    // Menu2::setFbtn(fl);
+    // Menu2::setFbtn(ml);
     connect(ui->friendBtn,&QToolButton::clicked,[=](){
         if(Menu2::btnIsChecked[0] == true || Menu2::btnIsChecked[1] == false){
             return;
@@ -96,24 +103,87 @@ Menu2::Menu2(QWidget *parent, int sfd, const std::string& data)
         Menu2::btnIsChecked[0] = false;
         ui->friendBtn->setChecked(false);
     });
+
+    connect(ui->addBtn, &QToolButton::clicked,[=](){
+        std::string line = ui->searchEdit->text().toStdString();
+        if(line.empty()){
+            QMessageBox::warning(this,"错误！","输入不能为空!");
+            return;
+        }
+        sendMsg(fd,FriendAdd,line);
+        std::string res;
+        MsgType status = recvMsg(fd,res);
+        if(status == Failure){
+            QMessageBox::warning(this,"错误！",res.c_str());
+            return;
+        }
+        if(status == Success){
+            QMessageBox::information(this, "提示", res.c_str());
+            return;
+        }
+        QMessageBox::information(this, "提示", "已发送好友请求！");
+    });
+    // ThreadPool pool(10);
+    // pool.init();
+    // pool.submit([this, sfd](){
+    //     readFromServer(sfd);
+    // });
+}
+void Menu2::readFromServer(int fd){
+    std::string buffer;
+    while(true){
+        try
+        {
+            MsgType type = recvMsg(fd,buffer);
+            switch (type){
+            case Msg:
+                printmsg(buffer);
+                break;
+            case ReFreshFriendList:
+
+                break;
+
+            }
+        }
+        catch(...){
+
+        }
+    }
 }
 
+void Menu2::printmsg(std::string msg){
+    emit sendData(msg);// 向聊天窗口发出信号
+}
 void Menu2::setMbtn(std::unordered_map<std::string,std::string> list){
     for(auto &t : list){
         if (t.first == " "){
             break;
         }
         std::string msgInfo = t.second.c_str();
-        std::string sender;
-        std::string recver;
+        std::string sender = msgInfo.substr(0,9);
+        std::string recver = msgInfo.substr(9,9);
         std::string msg = msgInfo.substr(18);
-        for(int i = 0; i < 9; i++){
-            sender.push_back(msgInfo[i]);
-            recver.push_back(msgInfo[i+9]);
+
+        // 获取flag 1为消息，2为通知
+        int flag = 1;
+        if(sender == this->m_id){
+            flag = 2;
         }
-        if(sender == id){
-            // if(std::find(vector.begin(), vector.end(),))
+        if(sender != this->m_id && recver != this->m_id){
+            flag = 3;
         }
+        std::string key = sender == this->m_id ? recver : sender;
+        msglist.push_front(lists[recver]);
+
+        auto it = std::find(vector.begin(),vector.end(),lists[recver]);
+        if(it == vector.end()){
+            return;
+        }
+        int index = std::distance(vector.begin(), it); // 拿到下标
+        qDebug() << "New msg form index: " << index << (*it)->text();
+
+        // Widget *currentWidget = qStack->widget(index);
+        // printmsg(key, msg, flag, currentWidget);
     }
 }
 
@@ -121,7 +191,6 @@ void Menu2::setFbtn(std::unordered_map<std::string,std::string> list){
 
     // QVector<QToolButton*> vector;
     QVBoxLayout *layout = new QVBoxLayout();
-    qStack = new QStackedWidget();
     for(auto &t : list){
         if (t.first == " "){
             break;
@@ -145,7 +214,8 @@ void Menu2::setFbtn(std::unordered_map<std::string,std::string> list){
         this->vector.push_back(btn);
         FriendIsShow.push_back(false);
         // 添加聊天页面
-        Widget *w = new Widget(nullptr, t.first.data(), fd);
+        Widget *w = new Widget(nullptr, t.second.data(), t.first.data(), m_name.data(), m_id.data(), fd);
+        connect(this,SIGNAL(sendData(std::string)),w,SLOT(getData(std::string)));
         qStack->addWidget(w);
         ui->msgLayout->addWidget(qStack,0);
         lists.insert(std::pair<std::string, QToolButton*>(t.second, btn));
@@ -188,5 +258,6 @@ QWidget* Menu2::copyWidget(QWidget* widget) {
 
 Menu2::~Menu2()
 {
+    sendMsg(fd,Logout,"1");
     delete ui;
 }

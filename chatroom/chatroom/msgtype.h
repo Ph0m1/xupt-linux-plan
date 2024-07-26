@@ -8,6 +8,7 @@ enum MsgType{
     MailError,
     Disconnent,
     OutLine,
+    Logout,
 
     Captcha,
 
@@ -31,7 +32,11 @@ enum MsgType{
     FriendAdd,
     FriendDelete,
     FriendBanned,
+    ReFreshFriendList,
 
+    // 消息状态
+    Unread,
+    Read
 };
 
 

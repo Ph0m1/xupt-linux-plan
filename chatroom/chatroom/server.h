@@ -4,9 +4,13 @@
 #include "threadpool.h"
 #include "mysocket.h"
 #include "msgtype.h"
+#include <openssl/evp.h>
 #include <curl/curl.h>
 #include <unordered_map>
 #include <cstring>
+#include <sstream>
+#include <string>
+#include <iomanip>
 
 #define UsernameHash "UsernameSet"
 #define UserInfo "UserInfo"
@@ -24,6 +28,8 @@ private:
     int epoll_fd;
     struct epoll_event ev, events[MAX_LINK];
 
+    // 在线列表
+    std::unordered_map<std::string, int> onlinelist;
     // 绑定fd和用户
     std::unordered_map<int, std::string> users;
     // 客户端状态
@@ -39,6 +45,7 @@ private:
 
     void broadcastMessage(int sender_fd, const std::string &message);
 
+    std::string sha256(const std::string& str);
     // 处理报文的函数
     void reg(int fd, std::string str);
     void login(int fd,std::string str);
@@ -57,13 +64,15 @@ private:
     void files(int fd, std::string str);
 
     void addFriend(int fd, std::string str);
+    void acceptAddFrined(int fd, std::string str);
     void deleteFriend(int fd, std::string str);
     void bannedFriend(int fd, std::string str);
 
     void logout(std::string id);
     // 校验验证码
     void captcha(int fd, std::string str);
-
+    // 获取用户名
+    std::string getusername(std::string uid);
 
     // 生成uid
     std::string generateUid();

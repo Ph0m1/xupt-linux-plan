@@ -8,6 +8,7 @@
 log::log(QWidget *parent,QString id,int sfd)
     : QWidget(parent)
     , ui(new Ui::log)
+    , fd(sfd)
 {
     ui->setupUi(this);
     // 设置图标
@@ -72,6 +73,7 @@ log::log(QWidget *parent,QString id,int sfd)
 log::log(QWidget *parent,int sfd)
     : QWidget(parent)
     , ui(new Ui::log)
+    , fd(sfd)
 {
     ui->setupUi(this);
     // 设置图标
@@ -106,7 +108,6 @@ log::log(QWidget *parent,int sfd)
         MsgType a = recvMsg(sfd,remsg);
         if(a == Success){
             this->close();
-            std::cout<<"12312sadqas"<<std::endl;
             Menu2 *wt = new Menu2(nullptr,sfd,remsg);
             wt->show();
         }

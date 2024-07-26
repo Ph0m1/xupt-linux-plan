@@ -1,8 +1,7 @@
 #include "redis.h"
 
 bool Redis::Hmset(std::string str,std::string value) {
-    std::string cmd = "HMSET " + str + " " + value;
-    m_reply = (redisReply *)redisCommand(m_context, cmd.c_str());
+    m_reply = (redisReply *)redisCommand(m_context, "HMSET %s %s",str.c_str(), value.c_str());
     if (m_reply->type == REDIS_REPLY_ERROR) {
         std::cout << "Error: " << m_reply->str << std::endl;
         return false;
@@ -40,8 +39,9 @@ bool Redis::Hdel(std::string key, std::string str) {
     return true;
 }
 bool Redis::Hmexists(int key, std::string value) {
+
     std::string cmd = "HMEXISTS " + std::to_string(key) + " " + value;
-    m_reply = (redisReply *)redisCommand(m_context, cmd.c_str());
+    m_reply = (redisReply *)redisCommand(m_context, "%s",cmd.c_str());
     if (m_reply->type == REDIS_REPLY_ERROR) {
         std::cout << "Error: " << m_reply->str << std::endl;
         return false;
@@ -65,8 +65,7 @@ std::unordered_map<std::string,std::string> Redis::Hmget(std::string key) {
 }
 
 bool Redis::Sadd(std::string str,std::string value){// 向集合添加成员
-    std::string cmd = "SADD " + str + " " + value;
-    redisReply *reply = (redisReply *)redisCommand(m_context, cmd.c_str());
+    redisReply *reply = (redisReply *)redisCommand(m_context, "SADD %s %s",str.c_str(),value.c_str());
     if (reply == nullptr) {
         std::cerr << "Redis SADD command failed." << std::endl;
         return false;

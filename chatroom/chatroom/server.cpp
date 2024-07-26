@@ -87,9 +87,9 @@ void Server::handleMessage(int fd, MsgType type, const std::string &msg) {
         // case UserLeft:
         //     left(fd,msg);
         //     break;
-        // case Msg:
-        //     Message(fd,msg);
-        //     break;
+        case Msg:
+            Message(fd,msg);
+            break;
         // case File:fd
         //     files(fd,msg);
         //     break;
@@ -139,8 +139,7 @@ std::string Server::generateUid(){
 
 
 void Server::logout(std::string id){
-    Redis r;
-    r.Srem("Online",id);
+    onlinelist.erase(id);
 }
 
 void Server::reg(int fd, std::string str){
@@ -204,13 +203,14 @@ void Server::login(int fd,std::string str){
     // Gruoplist: map
     std::cout<<"4"<<std::endl;
     json rec;
+    rec["Uid"] = uid;
     rec["FriendList"] = getFl(id);
     rec["GroupList"]= getGl(id);
     rec["MsgList"] = getMl(id);
     rec["Info"] = js;
     std::string data = rec.dump();
     sendMsg(fd,Success,data);
-    r.Sadd("Online", id);
+    onlinelist[uid] = fd;
 }
 void Server::foundAccount(int fd,std::string str){
     SMTPMailer mailer;
@@ -288,15 +288,117 @@ void exitGroup(int fd, std::string str);
 void enter(int fd, std::string str);
 void left(int fd, std::string str);
 
-void Message(int fd, std::string str);
+void Server::Message(int fd, std::string str){
+    Json js = json::parse(str);
+    std::string time = js["Time"].get<std::string>();
+    std::string msg = js["Msg"].get<std::string>();
+    std::string sender = msg.substr(0,9);
+    std::string recver = msg.substr(9,9);
+    js["Status"] = Unread;
+    std::string data = js.dump();
+    std::string hash = sha256(str);
+    Redis r;
+    r.Hmset(sender + "m", hash + " " + data);
+    r.Hmset(recver + "m", hash + " " + data);
+    if(onlinelist.find(recver) != onlinelist.end()){
+        sendMsg(onlinelist[recver],Msg,data);
+    }
+
+}
+// 哈系函数
+std::string Server::sha256(const std::string& str) {
+    EVP_MD_CTX* mdctx = EVP_MD_CTX_new(); //创建一个新的 EVP_MD_CTX 对象
+    if(mdctx == nullptr){
+        throw std::runtime_error("Failed to create EVP_MD_CTX");
+    }
+    if(1 != EVP_DigestInit_ex(mdctx, EVP_sha256(), nullptr))
+    {
+        EVP_MD_CTX_free(mdctx);
+        throw std::runtime_error("Failed to initialize EVP_DigestInit_ex");
+    }
+    // 更新哈希上下文，传递要哈希的字符串
+    if(1 != EVP_DigestUpdate(mdctx, str.c_str(), str.length()))
+    {
+        EVP_MD_CTX_free(mdctx);
+        throw std::runtime_error("Failed to update EVP_DigestUpdate");
+    }
+
+    unsigned char hash[EVP_MAX_MD_SIZE];
+    unsigned int len = 0;
+    // 完成哈希计算并获取结果
+    if(1 != EVP_DigestFinal_ex(mdctx, hash, &len)){
+        EVP_MD_CTX_free(mdctx);
+        throw std::runtime_error("Failed to finalize digest");
+    }
+    //  释放上下文
+    EVP_MD_CTX_free(mdctx);
+    // 将哈希结果转换为十六进制字符串
+    std::stringstream ss;
+    for(unsigned int i = 0; i < len; ++i){
+        ss << std::hex << std::setw(2) << std::setfill('0') << static_cast<int>(hash[i]);
+    }
+    return ss.str();
+}
 void files(int fd, std::string str);
 
-void addFriend(int fd, std::string str){
+void Server::addFriend(int fd, std::string str){
+    Redis r;
+    std::string uid = r.Hget(EmailHash,str);
+    std::cout << str.c_str() <<"  " <<uid.c_str() << std::endl;
+    if(uid == ""){
+        uid = str;
+    }
+    if(!r.Sismember("UidSet",uid) || uid == ""){
+        sendMsg(fd,Failure,"该用户不存在！");
+        return;
+    }
+    std::string mid = users[fd];
+    std::string uname = getusername(uid);
+    if(r.Sismember(mid+"000",uid )){
+        r.Hmset(mid + "f",uid+ " " + uname);
+        sendMsg(fd,Success,"已成功添加" + uname +"<" + uid + ">为好友！");
+        r.Srem(mid+"000", mid);
+        return;
+    }
+    if(onlinelist.count(uid)){
+        sendMsg(onlinelist[uid], FriendAdd, mid);
+    }
+    sendMsg(fd,Success,"已向" + uname +"<" + uid + "> 发送好友请求！");
+    std::string key = uid+"000";
+    r.Sadd(key,mid);
+}
 
+void Server::acceptAddFrined(int fd, std::string str){
+
+    std::string uid = str;
+    std::string mid = users[fd];
+    std::string uname = getusername(uid);
+    std::string mname = getusername(mid);
+    Redis r;
+    if(!r.Sismember(mid+"000",uid)){
+        sendMsg(fd,Failure,"111");
+        return;
+    }
+    r.Srem(mid+"000",uid);
+    r.Hmset(mid + "f", uid + " " + uname);
+    r.Hmset(uid + "f", mid + " " + mname);
+
+    std::unordered_map<std::string, std::string> mf = getFl(mid);
+    Json flist;
+    flist["FriendList"] = mf;
+    std::string data = flist.dump();
+    sendMsg(fd,ReFreshFriendList,data);
 }
 void deleteFriend(int fd, std::string str);
 void bannedFriend(int fd, std::string str);
 
+std::string Server::getusername(std::string uid){
+    Redis r;
+    std::string info = r.Hget(UserInfo,uid);
+    Json js = Json::parse(info.data());
+    std::string uname = js["username"].get<std::string>();
+    return uname;
+}
 
 std::unordered_map<std::string,std::string> getFl(const std::string &key){
     std::string str = key + "f";

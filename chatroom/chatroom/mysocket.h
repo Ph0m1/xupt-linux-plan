@@ -15,6 +15,8 @@
 #define C_PORT 7000
 #define IP "127.0.0.1"
 
+using Json = nlohmann::json;
+
 const int MAX_LINK = 100;
 MsgType recvMsg(int sfd);
 void sendMsg(int fd,MsgType type);

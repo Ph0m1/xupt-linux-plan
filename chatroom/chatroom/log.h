@@ -19,6 +19,7 @@ public:
 
 private:
     Ui::log *ui;
+    int fd;
 };
 
 #endif // LOG_H
