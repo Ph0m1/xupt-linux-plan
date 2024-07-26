@@ -5,7 +5,7 @@
 #include "mysocket.h"
 #include <QDateTime>
 
-Widget::Widget(QWidget *parent, QString uname, QString uid, QString id, QString name,int sfd)
+Widget::Widget(QWidget *parent, QString uname, QString uid, QString name, QString id,int sfd)
     : QWidget(parent)
     , ui(new Ui::Widget)
 {
@@ -14,7 +14,7 @@ Widget::Widget(QWidget *parent, QString uname, QString uid, QString id, QString 
     m_id = id;
     u_id = uid;
     u_name = uname;
-
+    fd = sfd;
     // 链接发送按钮
     connect(ui->sendButton,&QPushButton::clicked,[=](){
         SendMsg();
@@ -70,12 +70,13 @@ Widget::Widget(QWidget *parent, QString uname, QString uid, QString id, QString 
 void Widget::SendMsg(){
     QString mm = getMsg();
     std::string msg = m_id.toStdString() + u_id.toStdString() + mm.toStdString();
-    QString time = QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss");
+    QString time = QDateTime::currentDateTime().toString("yyyy-MM-dd[hh:mm:ss]");
     std::string t = time.toStdString();
     Json stream;
     stream["Time"] = t;
     stream["Msg"] = msg;
     std::string data = stream.dump();
+    qDebug() << fd;
     sendMsg(fd, Msg, data);
 }
 
@@ -84,7 +85,7 @@ QString Widget::getName(){
 }
 
 QString Widget::getMsg(){
-    QString msg = ui->msgTextEdit->toHtml();// 返回输入框的内容
+    QString msg = ui->msgTextEdit->toMarkdown();// 返回输入框的内容
     ui->msgTextEdit->clear();
     ui->msgTextEdit->setFocus();
     return msg;

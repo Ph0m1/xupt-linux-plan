@@ -1,7 +1,8 @@
 #include "redis.h"
 
 bool Redis::Hmset(std::string str,std::string value) {
-    m_reply = (redisReply *)redisCommand(m_context, "HMSET %s %s",str.c_str(), value.c_str());
+    std::string cmd = "HMSET " + str + " " + value;
+    m_reply = (redisReply *)redisCommand(m_context, cmd.c_str());
     if (m_reply->type == REDIS_REPLY_ERROR) {
         std::cout << "Error: " << m_reply->str << std::endl;
         return false;

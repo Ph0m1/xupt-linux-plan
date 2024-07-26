@@ -7,18 +7,24 @@ Client::Client(int argc,char *argv[]) {
         std::cout<<"Socket error!"<<std::endl;
         exit(-1);
     }
-    memset(&this->m_addr,0,sizeof(this->m_addr));
-    this->m_addr.sin_family = AF_INET;
-    if(argc <= 1){
-        this->m_addr.sin_port = htons(C_PORT);
-        this->m_addr.sin_addr.s_addr = inet_addr(IP);
+    struct sockaddr_in addr;
+    memset(&addr,0,sizeof(addr));
+    addr.sin_family = AF_INET;
+    std::string default_ip = "127.0.0.1";
+    int port = 7000;
+
+    if(argc >= 3){
+        port = std::stoi(argv[2]);
     }
-    else if(argc >1){
-        int port = atoi(argv[2]);
-        this->m_addr.sin_port = htons(port);
-        this->m_addr.sin_addr.s_addr = inet_addr(argv[1]);
+    if(argc >=2){
+        default_ip = argv[2];
     }
-    if(connect(this->m_sfd,(struct sockaddr*)&this->m_addr,sizeof(this->m_addr)) < 0){ //链接服务端
+    addr.sin_port = htons(port);
+    if(inet_pton(AF_INET, default_ip.c_str(), &addr.sin_addr) <= 0){
+        std::cout << "Invalid address/ Address not supported" << std::endl;
+        exit(-1);
+    }
+    if(connect(this->m_sfd,(struct sockaddr*)&addr,sizeof(addr)) < 0){ //链接服务端
         std::cout<<"connect error"<<std::endl;
         exit(-1);
     }

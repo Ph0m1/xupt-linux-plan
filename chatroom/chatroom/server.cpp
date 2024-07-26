@@ -19,14 +19,22 @@ void Server::handleClient(int client_fd) {
         MsgType msgType = recvMsg(client_fd, message);
         if (msgType == Failure) {
             // 客户端断开连接
+            onlinelist.erase(users[client_fd]);
+            users.erase(client_fd);
             close(client_fd);
             std::cout<<message<<std::endl;
             epoll_ctl(epoll_fd, EPOLL_CTL_DEL, client_fd, NULL);
             clients.erase(client_fd);
-            std::cout << "Client disconnected: " << client_fd << std::endl;
+            std::cout << "Client disconnected: " << client_fd << std::endl; 
         } else {
             // 处理收到的消息
             handleMessage(client_fd, msgType, message);
+
+            ev.events = EPOLLIN | EPOLLET;
+            ev.data.fd = client_fd;
+            if (epoll_ctl(epoll_fd, EPOLL_CTL_MOD, client_fd, &ev) == -1) {
+                perror("epoll_ctl: client_fd");
+            }
         }
     }
 
@@ -35,6 +43,8 @@ void Server::handleMessage(int fd, MsgType type, const std::string &msg) {
         switch (type) {
         case Disconnent:
             // 客户端断开连接
+            onlinelist.erase(users[fd]);
+            users.erase(fd);
             close(fd);
             std::cout<<msg<<std::endl;
             epoll_ctl(epoll_fd, EPOLL_CTL_DEL, fd, NULL);
@@ -254,7 +264,7 @@ void Server::resetpasswd(int fd, std::string str){
     std::cout<<a<<std::endl;
     r.Hmset(UserInfo" "+ id, a);
     found_queue.erase(fd);
-    sendMsg(fd,Success,"1");
+    sendMsg(fd,Success,"11");
 }
 
 void Server::infoReset(int fd,std::string str){

@@ -46,19 +46,29 @@ Menu2::Menu2(QWidget *parent, int sfd, const std::string& data)
     // 加载图像
     QPixmap pixmap(":/Header/Header.jpeg");
 
+    if (pixmap.isNull()) {
+        qDebug() << "Failed to load pixmap.";
+        return;
+    }
     // 裁剪成圆形
     QPixmap circularPixmap(pixmap.size());
     circularPixmap.fill(Qt::transparent);
 
-    QPainter painter(&circularPixmap);
-    painter.setRenderHint(QPainter::Antialiasing);
-    painter.setRenderHint(QPainter::SmoothPixmapTransform);
+    {
+        QPainter painter(&circularPixmap);
+        if (!painter.isActive()) {
+            qDebug() << "Failed to create QPainter.";
+            return;
+        }
+        painter.setRenderHint(QPainter::Antialiasing);
+        painter.setRenderHint(QPainter::SmoothPixmapTransform);
 
-    QPainterPath path1;
-    path1.addEllipse(0, 0, pixmap.width(), pixmap.height());
-    painter.setClipPath(path1);
-    painter.drawPixmap(0, 0, pixmap);
-
+        QPainterPath path1;
+        path1.addEllipse(0, 0, pixmap.width(), pixmap.height());
+        painter.setClipPath(path1);
+        painter.drawPixmap(0, 0, pixmap);
+        painter.end();
+    }
     // 设置按钮图标
     ui->infoBtn->setIcon(QIcon(circularPixmap));
 
@@ -82,8 +92,8 @@ Menu2::Menu2(QWidget *parent, int sfd, const std::string& data)
     Menu2::btnIsChecked[0] = false;
     Menu2::btnIsChecked[1] = true;
 
-    // Menu2::setFbtn(fl);
-    // Menu2::setFbtn(ml);
+    Menu2::setFbtn(fl);
+    Menu2::setFbtn(ml);
     connect(ui->friendBtn,&QToolButton::clicked,[=](){
         if(Menu2::btnIsChecked[0] == true || Menu2::btnIsChecked[1] == false){
             return;
@@ -155,6 +165,7 @@ void Menu2::printmsg(std::string msg){
     emit sendData(msg);// 向聊天窗口发出信号
 }
 void Menu2::setMbtn(std::unordered_map<std::string,std::string> list){
+    // QVBoxLayout *layout = new QVBoxLayout();
     for(auto &t : list){
         if (t.first == " "){
             break;
@@ -258,6 +269,7 @@ QWidget* Menu2::copyWidget(QWidget* widget) {
 
 Menu2::~Menu2()
 {
+    // close(fd);
     sendMsg(fd,Logout,"1");
     delete ui;
 }

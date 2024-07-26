@@ -16,7 +16,7 @@ public:
 
 private:
     int m_sfd;
-    struct sockaddr_in m_addr;
+    // struct sockaddr_in m_addr;
     std::string key;
 
 };

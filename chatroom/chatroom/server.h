@@ -102,7 +102,7 @@ public:
 
         server_addr.sin_family = AF_INET;
         server_addr.sin_port = htons(S_PORT);
-        server_addr.sin_addr.s_addr = inet_addr(IP);
+        server_addr.sin_addr.s_addr = htonl(INADDR_ANY);
 
         if (bind(server_fd, (struct sockaddr *)&server_addr, sizeof(server_addr)) == -1) {
             perror("bind");
@@ -161,10 +161,15 @@ public:
                     std::cout << "Client connected: " << client_fd << std::endl;
                 } else {
                     int client_fd = events[n].data.fd;
+                    epoll_ctl(epoll_fd, EPOLL_CTL_DEL, client_fd, NULL);
                     threadPool.submit([this, client_fd]() {
                         setNonBlocking(client_fd);
-                        std::cout<<"shdgasjd"<<std::endl;
-                        handleClient(client_fd); });
+                        std::cout<<client_fd<<std::endl;
+                        // int count = getdtablesize() - close(0);
+                        // std::cout << "Current open file descriptors: " << count << std::endl;
+                        handleClient(client_fd);
+                    });
+
                 }
             }
         }
