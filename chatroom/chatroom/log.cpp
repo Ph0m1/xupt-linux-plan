@@ -42,9 +42,13 @@ log::log(QWidget *parent,QString id,int sfd)
         js["id"] = id;
         js["passwd"] = passwd;
         std::string data = js.dump();
+        qDebug() << 'jsd';
         sendMsg(sfd, UserLogin,data);
+        qDebug()<<"adadad";
         std::string remsg;
+        qDebug() << "dsuyaudgha";
         MsgType a = recvMsg(sfd,remsg);
+        qDebug() << "dasuidha";
         if(a == Success){
             this->close();
             Menu2 *wt = new Menu2(nullptr,sfd,remsg);
@@ -54,6 +58,7 @@ log::log(QWidget *parent,QString id,int sfd)
             ui->passwd_input->clear();
             QMessageBox::warning(this,"警告","帐号或密码错误，请重试!");
         }else if(a == Refuse){
+            qDebug() << "dasdad";
             ui->passwd_input->clear();
             QMessageBox::warning(this,"警告",remsg.c_str());
         }
@@ -117,6 +122,10 @@ log::log(QWidget *parent,int sfd)
         else if (a == Failure){
             ui->passwd_input->clear();
             QMessageBox::warning(this,"警告","帐号或密码错误，请重试");
+        }else if(a == Refuse){
+            qDebug() << "dasdad";
+            ui->passwd_input->clear();
+            QMessageBox::warning(this,"警告",remsg.c_str());
         }
         }catch (const std::exception& e) {
             QMessageBox::critical(this, "错误", QString::fromStdString(e.what()));
