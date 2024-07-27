@@ -3,7 +3,7 @@
 
 #include <QWidget>
 #include "mysocket.h"
-
+#include <QDebug>
 using Json = nlohmann::json;
 
 QT_BEGIN_NAMESPACE

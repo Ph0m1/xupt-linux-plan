@@ -9,6 +9,7 @@
 #include <QVBoxLayout>
 #include <QStackedLayout>
 #include <QStackedWidget>
+#include <QDebug>
 
 #include "threadpool.h"
 
@@ -58,7 +59,7 @@ private:
     std::unordered_map<std::string, QToolButton*> lists;
     QVector<QToolButton*> msglist;
     QStackedWidget *qStack = new QStackedWidget(this); // 聊天窗口
-    QStackedLayout *listStack = new QStackedLayout(this); // 消息/好友列表
+    // QStackedLayout *listStack = new QStackedLayout(this); // 消息/好友列表
 };
 
 #endif // MENU2_H

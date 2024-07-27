@@ -17,7 +17,7 @@ Client::Client(int argc,char *argv[]) {
         port = std::stoi(argv[1]);
     }
     if(argc >= 3){
-        port = std::stoi(argv[2])
+        port = std::stoi(argv[2]);
     }
     if(argc >=3){
         default_ip = argv[1];
