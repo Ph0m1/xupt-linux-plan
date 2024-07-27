@@ -1,7 +1,6 @@
 #include "menu2.h"
 #include "ui_menu2.h"
 #include "mysocket.h"
-#include "threadpool.h"
 #include "widget.h"
 #include "msgtype.h"
 #include <QPainter>
@@ -13,6 +12,8 @@ Menu2::Menu2(QWidget *parent, int sfd, const std::string& data)
     : QWidget(parent)
     , fd(sfd)
     , ui(new Ui::Menu2)
+    ,threadPool(new ThreadPool(4))
+    ,pauseThread(false)
 {
 
     //解析data数据包
@@ -133,15 +134,31 @@ Menu2::Menu2(QWidget *parent, int sfd, const std::string& data)
         }
         QMessageBox::information(this, "提示", "已发送好友请求！");
     });
-    // ThreadPool pool(10);
-    // pool.init();
-    // pool.submit([this, sfd](){
-    //     readFromServer(sfd);
-    // });
+
+    // 启动线程池
+    threadPool->init();
+
+    // 启动一个线程来接收服务器消息
+    threadPool->submit([this] { readFromServer(this->fd); });
 }
+
+void Menu2::pauseMsgThread(){
+    std::unique_lock<std::mutex> lock(pauseMutex);
+    pauseThread = true;
+}
+void Menu2::resumeMsgThread() {
+    {
+        std::unique_lock<std::mutex> lock(pauseMutex);
+        pauseThread = false;
+    }
+    pauseCondition.notify_one();
+}
+
 void Menu2::readFromServer(int fd){
     std::string buffer;
     while(true){
+        std::unique_lock<std::mutex> lock(pauseMutex);
+        pauseCondition.wait(lock, [this] { return !pauseThread; });
         try
         {
             MsgType type = recvMsg(fd,buffer);
@@ -231,7 +248,11 @@ void Menu2::setFbtn(std::unordered_map<std::string,std::string> list){
         ui->msgLayout->addWidget(qStack,0);
         lists.insert(std::pair<std::string, QToolButton*>(t.second, btn));
     }
-    ui->listWidget->setLayout(layout);
+    // listStack->addWidget(layout->widget());
+    // listStack->addItem(layout);
+    ui->listLayout->insertLayout(0,layout);
+    // ui->listWidget->setLayout(layout);
+
 
     for(int i = 0; i < vector.count(); i++){
         connect(vector[i], &QToolButton::clicked,[this, i](){
@@ -269,6 +290,21 @@ QWidget* Menu2::copyWidget(QWidget* widget) {
 
 Menu2::~Menu2()
 {
+    // 确保删除所有动态分配的对象
+    for (auto &btn : vector) {
+        delete btn;
+    }
+    vector.clear();
+
+    // 清理qStack中的页面
+    while (qStack->count() > 0) {
+        QWidget *w = qStack->widget(0);
+        qStack->removeWidget(w);
+        delete w;
+    }
+
+    // 删除qStack
+    delete qStack;
     // close(fd);
     sendMsg(fd,Logout,"1");
     delete ui;

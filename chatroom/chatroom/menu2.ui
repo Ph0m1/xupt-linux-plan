@@ -306,7 +306,9 @@
              <number>0</number>
             </property>
             <item>
-             <widget class="QWidget" name="listWidget" native="true"/>
+             <widget class="QWidget" name="listWidget" native="true">
+              <layout class="QVBoxLayout" name="listLayout"/>
+             </widget>
             </item>
            </layout>
           </widget>

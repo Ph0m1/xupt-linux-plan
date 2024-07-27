@@ -67,6 +67,7 @@ private:
     void acceptAddFrined(int fd, std::string str);
     void deleteFriend(int fd, std::string str);
     void bannedFriend(int fd, std::string str);
+    void accountInit( std::string str);
 
     void logout(std::string id);
     // 校验验证码

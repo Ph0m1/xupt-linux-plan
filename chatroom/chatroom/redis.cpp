@@ -26,7 +26,10 @@ std::string Redis::Hget(std::string key,std::string str) {
     m_reply = (redisReply *)redisCommand(m_context, cmd.c_str());
     if (m_reply->type == REDIS_REPLY_ERROR) {
         std::cout << "Error: " << m_reply->str << std::endl;
-        return " ";
+        return "";
+    }
+    if(m_reply->type == REDIS_REPLY_NIL){
+        return "";
     }
     return m_reply->str;
 }

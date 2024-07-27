@@ -30,9 +30,9 @@ void Server::handleClient(int client_fd) {
             // 处理收到的消息
             handleMessage(client_fd, msgType, message);
 
-            ev.events = EPOLLIN | EPOLLET;
+            ev.events = EPOLLIN;
             ev.data.fd = client_fd;
-            if (epoll_ctl(epoll_fd, EPOLL_CTL_MOD, client_fd, &ev) == -1) {
+            if (epoll_ctl(epoll_fd, EPOLL_CTL_ADD, client_fd, &ev) == -1) {
                 perror("epoll_ctl: client_fd");
             }
         }
@@ -49,6 +49,10 @@ void Server::handleMessage(int fd, MsgType type, const std::string &msg) {
             std::cout<<msg<<std::endl;
             epoll_ctl(epoll_fd, EPOLL_CTL_DEL, fd, NULL);
             clients.erase(fd);
+            if(onlinelist.find(users[fd]) != onlinelist.end()){
+                onlinelist.erase(users[fd]);
+            }
+            users.erase(fd);
             std::cout << "Client disconnected: " << fd << std::endl;
             break;
         case UserAccount:
@@ -103,9 +107,10 @@ void Server::handleMessage(int fd, MsgType type, const std::string &msg) {
         // case File:fd
         //     files(fd,msg);
         //     break;
-        // case FriendAdd:
-        //     addFriend(fd,msg);
-        //     break;
+        case FriendAdd:
+            std::cout << "User add frined: "<< msg << std::endl;
+            addFriend(fd,msg);
+            break;
         // case FriendDelete:
         //     deleteFriend(fd,msg);
         //     break;
@@ -149,6 +154,7 @@ std::string Server::generateUid(){
 
 
 void Server::logout(std::string id){
+    users.erase(onlinelist[id]);
     onlinelist.erase(id);
 }
 
@@ -175,6 +181,8 @@ void Server::reg(int fd, std::string str){
     redis.Hmset(cmd,str);
 
     redis.Sadd(UidSet,uid);
+
+    accountInit(uid);
 
     sendMsg(fd,Success,uid);
 }
@@ -237,7 +245,17 @@ void Server::foundAccount(int fd,std::string str){
     }
     found_queue[fd] = str;
 }
+void Server::accountInit(std::string str){
+    std::cout<<"正在初始化账户"<<std::endl;
+    std::string superid = "000000001";
+    Redis r;
+    std::string str1 = superid + str + "欢迎来到PH0M的聊天室!";
+    r.Hmset(str+"m",sha256(str1) + " " + str1);
 
+    r.Hmset(str+ "f",superid + " " + "小H");
+
+    std::cout<<"账户初始化完成"<<std::endl;
+}
 void Server::captcha(int fd,std::string buf){
 
     if (buf == capts[fd]){
@@ -274,7 +292,7 @@ void Server::deleteAccount(int fd,std::string str){
     Redis r;
     std::string Info;
     Info = r.Hget(UserInfo,str);
-    if(Info == " "){
+    if(Info == ""){
         sendMsg(fd,Refuse);
         return;
     }
@@ -352,6 +370,7 @@ std::string Server::sha256(const std::string& str) {
 void files(int fd, std::string str);
 
 void Server::addFriend(int fd, std::string str){
+    std::cout<< "666"<<std::endl;
     Redis r;
     std::string uid = r.Hget(EmailHash,str);
     std::cout << str.c_str() <<"  " <<uid.c_str() << std::endl;
@@ -364,10 +383,15 @@ void Server::addFriend(int fd, std::string str){
     }
     std::string mid = users[fd];
     std::string uname = getusername(uid);
+    std::string mname = getusername(mid);
+    std::cout << mid <<" " << mname << std::endl;
+    std::cout << uid << " " << uname <<std::endl;
     if(r.Sismember(mid+"000",uid )){
         r.Hmset(mid + "f",uid+ " " + uname);
+        r.Hmset(uid + "f",mid+ " " + mname);
         sendMsg(fd,Success,"已成功添加" + uname +"<" + uid + ">为好友！");
         r.Srem(mid+"000", mid);
+
         return;
     }
     if(onlinelist.count(uid)){
@@ -386,7 +410,7 @@ void Server::acceptAddFrined(int fd, std::string str){
     std::string mname = getusername(mid);
     Redis r;
     if(!r.Sismember(mid+"000",uid)){
-        sendMsg(fd,Failure,"111");
+        sendMsg(fd,Refuse,"111");
         return;
     }
     r.Srem(mid+"000",uid);
