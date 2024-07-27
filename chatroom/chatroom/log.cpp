@@ -53,6 +53,9 @@ log::log(QWidget *parent,QString id,int sfd)
         else if (a == Failure){
             ui->passwd_input->clear();
             QMessageBox::warning(this,"警告","帐号或密码错误，请重试!");
+        }else if(a == Refuse){
+            ui->passwd_input->clear();
+            QMessageBox::warning(this,"警告",remsg.c_str());
         }
     });
     // 设置注册按钮

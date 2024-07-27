@@ -18,6 +18,7 @@ Widget::Widget(QWidget *parent, QString uname, QString uid, QString name, QStrin
     // 链接发送按钮
     connect(ui->sendButton,&QPushButton::clicked,[=](){
         SendMsg();
+
         qDebug() << "Sender: "<< m_name ;
     });
 
