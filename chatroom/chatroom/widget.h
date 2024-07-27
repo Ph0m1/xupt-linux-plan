@@ -2,7 +2,6 @@
 #define WIDGET_H
 
 #include <QWidget>
-#include <QUdpSocket>
 #include "mysocket.h"
 
 using Json = nlohmann::json;
