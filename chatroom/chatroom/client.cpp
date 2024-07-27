@@ -13,11 +13,14 @@ Client::Client(int argc,char *argv[]) {
     std::string default_ip = "127.0.0.1";
     int port = 7000;
 
-    if(argc >= 3){
-        port = std::stoi(argv[2]);
+    if(argc >= 2){
+        port = std::stoi(argv[1]);
     }
-    if(argc >=2){
-        default_ip = argv[2];
+    if(argc >= 3){
+        port = std::stoi(argv[2])
+    }
+    if(argc >=3){
+        default_ip = argv[1];
     }
     addr.sin_port = htons(port);
     if(inet_pton(AF_INET, default_ip.c_str(), &addr.sin_addr) <= 0){

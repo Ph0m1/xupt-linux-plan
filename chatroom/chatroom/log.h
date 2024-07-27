@@ -14,7 +14,6 @@ class log : public QWidget
 public:
     explicit log(QWidget *parent,QString id,int sfd);
     explicit log(QWidget *parent,int sfd);
-    explicit log(QWidget*parent = nullptr);
     ~log();
 
 private:
