@@ -13,7 +13,6 @@ Menu2::Menu2(QWidget *parent, int sfd, const std::string& data)
     , fd(sfd)
     , ui(new Ui::Menu2)
     ,threadPool(new ThreadPool(4))
-    ,pauseThread(false)
 {
     // 注册常用类型
     qRegisterMetaType<std::string>("std::string");
@@ -144,18 +143,7 @@ Menu2::Menu2(QWidget *parent, int sfd, const std::string& data)
     // readFromServer(fd);
 }
 
-void Menu2::pauseMsgThread(){
-    std::unique_lock<std::mutex> lock(pauseMutex);
-    pauseThread = true;
-    pauseCondition.wait(lock, [this] { return !pauseThread; });
-}
-void Menu2::resumeMsgThread() {
-    {
-        std::unique_lock<std::mutex> lock(pauseMutex);
-        pauseThread = false;
-    }
-    pauseCondition.notify_one();
-}
+
 
 void Menu2::readFromServer(int fd){
     std::string buffer;
@@ -167,7 +155,7 @@ void Menu2::readFromServer(int fd){
             MsgType type = recvMsg(fd,buffer);
             switch (type){
             case Msg:
-                printmsg(buffer);
+                emit sendData(buffer);
                 break;
             case ReFreshFriendList:
                 emit refreshFriendList(buffer);
@@ -204,9 +192,6 @@ void Menu2::friendAdd(std::string msg){
     QMessageBox::information(this, "提示", "已发送好友请求！");
 }
 
-void Menu2::printmsg(std::string msg){
-    emit sendData(msg);// 向聊天窗口发出信号
-}
 void Menu2::setMbtn(std::unordered_map<std::string,std::string> list){
     // QVBoxLayout *layout = new QVBoxLayout();
     for(auto &t : list){
