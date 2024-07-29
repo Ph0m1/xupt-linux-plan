@@ -86,9 +86,9 @@ MsgType recvMsg(int sfd,std::string &str){
     }
     buf[len] = '\0';
     nlohmann::json js = nlohmann::json::parse(buf.data());
-    str.append(js["Msg"]);
+    str.append(js["Msg"].get<std::string>());
     if (ret > 0)
-    return js["MsgType"];
+        return js["MsgType"].get<MsgType>();
     return Failure;
 }
 

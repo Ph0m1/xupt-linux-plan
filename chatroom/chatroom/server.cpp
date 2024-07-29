@@ -15,9 +15,10 @@ int main() {
 
 
 void Server::handleClient(int client_fd) {
+        try{
         std::string message;
         MsgType msgType = recvMsg(client_fd, message);
-        if (msgType == Failure) {
+        if (msgType == Failure || msgType == Disconnent) {
             // 客户端断开连接
             onlinelist.erase(users[client_fd]);
             users.erase(client_fd);
@@ -29,12 +30,16 @@ void Server::handleClient(int client_fd) {
         } else {
             // 处理收到的消息
             handleMessage(client_fd, msgType, message);
-
-            ev.events = EPOLLIN;
+            ev.events = EPOLLIN | EPOLLET;
             ev.data.fd = client_fd;
             if (epoll_ctl(epoll_fd, EPOLL_CTL_ADD, client_fd, &ev) == -1) {
-                perror("epoll_ctl: client_fd");
+                perror("11epoll_ctl: client_fd");
             }
+        }
+        }catch(const std::exception &e){
+            std::cerr << "Expection in handleClient: " << e.what() << std::endl;
+            epoll_ctl(epoll_fd, EPOLL_CTL_DEL, client_fd, NULL);
+            close(client_fd);
         }
     }
 
@@ -207,7 +212,7 @@ void Server::login(int fd,std::string str){
     js = nlohmann::json::parse(r.Hget(UserInfo,id));
     std::cout<<"3"<<std::endl;
     if(!(js["passwd"] == passwd)){
-        sendMsg(fd, Refuse,"帐号或密码错误");
+        sendMsg(fd,Refuse,"帐号或密码错误");
         return;
     }
 
@@ -370,7 +375,6 @@ std::string Server::sha256(const std::string& str) {
 void files(int fd, std::string str);
 
 void Server::addFriend(int fd, std::string str){
-    std::cout<< "666"<<std::endl;
     Redis r;
     std::string uid = r.Hget(EmailHash,str);
     std::cout << str.c_str() <<"  " <<uid.c_str() << std::endl;
@@ -378,7 +382,11 @@ void Server::addFriend(int fd, std::string str){
         uid = str;
     }
     if(!r.Sismember("UidSet",uid) || uid == ""){
-        sendMsg(fd,Failure,"该用户不存在！");
+        Json js;
+        js["Msg"] = "该用户不存在";
+        js["Status"] = Failure;
+        std::string data = js.dump();
+        sendMsg(fd,FriendAdd,data);
         return;
     }
     std::string mid = users[fd];
@@ -389,15 +397,23 @@ void Server::addFriend(int fd, std::string str){
     if(r.Sismember(mid+"000",uid )){
         r.Hmset(mid + "f",uid+ " " + uname);
         r.Hmset(uid + "f",mid+ " " + mname);
-        sendMsg(fd,Success,"已成功添加" + uname +"<" + uid + ">为好友！");
+        Json js;
+        js["Msg"] = "已成功添加" + uname +"<" + uid + ">为好友！";
+        js["Status"] = Success;
+        std::string data = js.dump();
+        sendMsg(fd,FriendAdd,data);
         r.Srem(mid+"000", mid);
 
         return;
     }
     if(onlinelist.count(uid)){
-        sendMsg(onlinelist[uid], FriendAdd, mid);
+        sendMsg(onlinelist[uid], FriendAddMsg, mid);
     }
-    sendMsg(fd,Success,"已向" + uname +"<" + uid + "> 发送好友请求！");
+    Json js;
+    js["Msg"] = "已向" + uname +"<" + uid + "> 发送好友请求！";
+    js["Status"] = Success;
+    std::string data = js.dump();
+    sendMsg(fd,FriendAdd,data);
     std::string key = uid+"000";
     r.Sadd(key,mid);
 }

@@ -122,17 +122,7 @@ Menu2::Menu2(QWidget *parent, int sfd, const std::string& data)
             return;
         }
         sendMsg(fd,FriendAdd,line);
-        std::string res;
-        MsgType status = recvMsg(fd,res);
-        if(status == Failure){
-            QMessageBox::warning(this,"错误！",res.c_str());
-            return;
-        }
-        if(status == Success){
-            QMessageBox::information(this, "提示", res.c_str());
-            return;
-        }
-        QMessageBox::information(this, "提示", "已发送好友请求！");
+
     });
 
     // 启动线程池
@@ -140,11 +130,13 @@ Menu2::Menu2(QWidget *parent, int sfd, const std::string& data)
 
     // 启动一个线程来接收服务器消息
     threadPool->submit([this] { readFromServer(this->fd); });
+    // readFromServer(fd);
 }
 
 void Menu2::pauseMsgThread(){
     std::unique_lock<std::mutex> lock(pauseMutex);
     pauseThread = true;
+    pauseCondition.wait(lock, [this] { return !pauseThread; });
 }
 void Menu2::resumeMsgThread() {
     {
@@ -157,8 +149,8 @@ void Menu2::resumeMsgThread() {
 void Menu2::readFromServer(int fd){
     std::string buffer;
     while(true){
-        std::unique_lock<std::mutex> lock(pauseMutex);
-        pauseCondition.wait(lock, [this] { return !pauseThread; });
+        // std::unique_lock<std::mutex> lock(pauseMutex);
+        // pauseCondition.wait(lock, [this] { return !pauseThread; });
         try
         {
             MsgType type = recvMsg(fd,buffer);
@@ -169,6 +161,9 @@ void Menu2::readFromServer(int fd){
             case ReFreshFriendList:
 
                 break;
+            case FriendAdd:
+                friendAdd(buffer);
+                break;
 
             }
         }
@@ -176,6 +171,22 @@ void Menu2::readFromServer(int fd){
 
         }
     }
+}
+
+void Menu2::friendAdd(std::string msg){
+    Json js = Json::parse(msg.data());
+    MsgType status = js["Status"].get<MsgType>();
+    std::string res = js["Msg"].get<std::string>();
+    qDebug() << res.c_str();
+    if(status == Failure){
+        QMessageBox::warning(this,"错误！",res.c_str());
+        return;
+    }
+    if(status == Success){
+        QMessageBox::information(this, "提示", res.c_str());
+        return;
+    }
+    QMessageBox::information(this, "提示", "已发送好友请求！");
 }
 
 void Menu2::printmsg(std::string msg){

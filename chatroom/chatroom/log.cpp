@@ -42,7 +42,7 @@ log::log(QWidget *parent,QString id,int sfd)
         js["id"] = id;
         js["passwd"] = passwd;
         std::string data = js.dump();
-        qDebug() << 'jsd';
+        qDebug() << "jsd";
         sendMsg(sfd, UserLogin,data);
         qDebug()<<"adadad";
         std::string remsg;

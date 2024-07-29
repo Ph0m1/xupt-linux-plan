@@ -10,6 +10,7 @@
 #include <QStackedLayout>
 #include <QStackedWidget>
 #include <QDebug>
+#include <sys/fcntl.h>
 
 #include "threadpool.h"
 
@@ -60,6 +61,8 @@ private:
     QVector<QToolButton*> msglist;
     QStackedWidget *qStack = new QStackedWidget(this); // 聊天窗口
     // QStackedLayout *listStack = new QStackedLayout(this); // 消息/好友列表
+private:
+    void friendAdd(std::string msg);
 };
 
 #endif // MENU2_H

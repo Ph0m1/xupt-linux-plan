@@ -30,6 +30,7 @@ enum MsgType{
     File,
 
     FriendAdd,
+    FriendAddMsg,
     FriendDelete,
     FriendBanned,
     ReFreshFriendList,

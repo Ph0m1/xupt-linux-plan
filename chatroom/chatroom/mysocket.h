@@ -17,7 +17,7 @@
 
 using Json = nlohmann::json;
 
-const int MAX_LINK = 100;
+const int MAX_LINK = 10;
 MsgType recvMsg(int sfd);
 void sendMsg(int fd,MsgType type);
 std::string getInfo();

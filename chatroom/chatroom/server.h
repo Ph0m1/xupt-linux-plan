@@ -46,6 +46,7 @@ private:
     void broadcastMessage(int sender_fd, const std::string &message);
 
     std::string sha256(const std::string& str);
+
     // 处理报文的函数
     void reg(int fd, std::string str);
     void login(int fd,std::string str);
@@ -142,6 +143,13 @@ public:
             }
 
             for (int n = 0; n < nfds; ++n) {
+                if(events[n].events & (EPOLLERR | EPOLLHUP | EPOLLRDHUP)){
+                    int client_fd = events[n].data.fd;
+                    epoll_ctl(epoll_fd, EPOLL_CTL_DEL, client_fd, NULL);
+                    close(client_fd);
+                    clients.erase(client_fd);
+                    std::cout << "Client disconnected: " << client_fd << std::endl;
+                }
                 if (events[n].data.fd == server_fd) {
                     struct sockaddr_in client_addr;
                     socklen_t client_len = sizeof(client_addr);
@@ -150,8 +158,9 @@ public:
                         perror("accept");
                         continue;
                     }
-
+                    std::cout << "\033[41m1567890898"<< " \033[0m";
                     clients[client_fd] = client_addr;
+                    setNonBlocking(client_fd);
                     ev.events = EPOLLIN | EPOLLET;
                     ev.data.fd = client_fd;
                     if (epoll_ctl(epoll_fd, EPOLL_CTL_ADD, client_fd, &ev) == -1) {
@@ -164,7 +173,7 @@ public:
                     int client_fd = events[n].data.fd;
                     epoll_ctl(epoll_fd, EPOLL_CTL_DEL, client_fd, NULL);
                     threadPool.submit([this, client_fd]() {
-                        setNonBlocking(client_fd);
+
                         std::cout<<client_fd<<std::endl;
                         // int count = getdtablesize() - close(0);
                         // std::cout << "Current open file descriptors: " << count << std::endl;
@@ -181,6 +190,7 @@ public:
         close(epoll_fd);
     }
 };
+
 void sendFriendsList(int fd,std::string id);
 std::unordered_map<std::string,std::string> getFl(const std::string &key);
 std::unordered_map<std::string,std::string> getGl(const std::string &key);
