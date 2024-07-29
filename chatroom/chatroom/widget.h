@@ -28,7 +28,7 @@ signals:
     //关闭窗口信号
     void closeWidget();
 
-    public slots:
+public slots:
     void getData(std::string data);
 
 private:

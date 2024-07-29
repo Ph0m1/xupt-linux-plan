@@ -15,6 +15,10 @@ Menu2::Menu2(QWidget *parent, int sfd, const std::string& data)
     ,threadPool(new ThreadPool(4))
     ,pauseThread(false)
 {
+    // 注册常用类型
+    qRegisterMetaType<std::string>("std::string");
+    qRegisterMetaType<std::vector<std::string>>("std::vector<std::string>");
+    qRegisterMetaType<std::unordered_map<std::string, std::string>>("std::unordered_map<std::string, std::string>");
 
     //解析data数据包
     std::cout<<data<<std::endl;
@@ -125,6 +129,13 @@ Menu2::Menu2(QWidget *parent, int sfd, const std::string& data)
 
     });
 
+    // 绑定信号和槽
+    connect(this, SIGNAL(friendsg(std::string)), this,  SLOT(friendAdd(std::string)));
+    connect(this, SIGNAL(refreshFriendList(std::string)),
+            this, SLOT(updateFriendList(std::string)));
+    connect(this, SIGNAL(refreshMsgList(std::string)),
+            this, SLOT(upadteMsgList(std::string)));
+
     // 启动线程池
     threadPool->init();
 
@@ -159,10 +170,10 @@ void Menu2::readFromServer(int fd){
                 printmsg(buffer);
                 break;
             case ReFreshFriendList:
-
+                emit refreshFriendList(buffer);
                 break;
             case FriendAdd:
-                friendAdd(buffer);
+                emit friendsg(buffer);
                 break;
 
             }
@@ -171,6 +182,10 @@ void Menu2::readFromServer(int fd){
 
         }
     }
+}
+
+void Menu2::updateFriendList(std::string msg){
+
 }
 
 void Menu2::friendAdd(std::string msg){

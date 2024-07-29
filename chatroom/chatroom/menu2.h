@@ -36,12 +36,8 @@ private:
     void resumeMsgThread();//重新唤醒
 
     void readFromServer(int fd);
-    void printmsg(std::string msg);
     ThreadPool *threadPool;
-    std::mutex pauseMutex;
-    std::condition_variable pauseCondition;
-signals:
-    void sendData(std::string msg);
+
 private:
     Ui::Menu2 *ui;
     int fd;
@@ -54,15 +50,21 @@ private:
     QVector<bool> MsgIsOn;
     QVector<Widget*> ww;
     bool btnIsChecked[2];
-    bool pauseThread;
 
     QVector<QToolButton*> vector;// 好友按钮
     std::unordered_map<std::string, QToolButton*> lists;
     QVector<QToolButton*> msglist;
     QStackedWidget *qStack = new QStackedWidget(this); // 聊天窗口
     // QStackedLayout *listStack = new QStackedLayout(this); // 消息/好友列表
-private:
+signals:
+    void sendData(std::string msg);
+    void friendsg(std::string msg);
+    void refreshMsgList(std::string list);
+    void refreshFriendList(std::string list);
+public slots:
     void friendAdd(std::string msg);
+    void updateFriendList(std::string list);
+    void updateMsgList(std::string list);
 };
 
 #endif // MENU2_H
