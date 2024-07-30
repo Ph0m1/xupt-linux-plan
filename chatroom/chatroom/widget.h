@@ -29,6 +29,7 @@ signals:
     void closeWidget();
 
 public slots:
+    void inithistory(std::vector<std::string> ll);
     void getData(std::string data);
 private:
     Ui::Widget *ui;

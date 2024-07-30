@@ -37,7 +37,7 @@ enum MsgType{
 
     // 消息状态
     Unread,
-    Read
+    AccountDeleted
 };
 
 

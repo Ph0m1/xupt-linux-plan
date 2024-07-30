@@ -57,6 +57,7 @@ private:
     QStackedWidget *qStack = new QStackedWidget(this); // 聊天窗口
     // QStackedLayout *listStack = new QStackedLayout(this); // 消息/好友列表
 signals:
+    void sendlist(std::vector<std::string> ll);
     void sendData(std::string msg);
     void friendsg(std::string msg);
     void refreshMsgList(std::string list);

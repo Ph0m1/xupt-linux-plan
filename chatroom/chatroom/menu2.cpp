@@ -16,7 +16,7 @@ Menu2::Menu2(QWidget *parent, int sfd, const std::string& data)
 {
     // 注册常用类型
     qRegisterMetaType<std::string>("std::string");
-
+    qRegisterNormalizedMetaType<std::vector<std::string>>("std::vector<std::string>");
     //解析data数据包
     std::cout<<data<<std::endl;
     json datajs = json::parse(data.data());
@@ -95,7 +95,8 @@ Menu2::Menu2(QWidget *parent, int sfd, const std::string& data)
     Menu2::btnIsChecked[1] = true;
 
     Menu2::setFbtn(fl);
-    Menu2::setFbtn(ml);
+    Menu2::setMbtn(ml);
+    // Menu2::setFbtn(ml);
     connect(ui->friendBtn,&QToolButton::clicked,[=](){
         if(Menu2::btnIsChecked[0] == true || Menu2::btnIsChecked[1] == false){
             return;
@@ -132,6 +133,7 @@ Menu2::Menu2(QWidget *parent, int sfd, const std::string& data)
             this, SLOT(updateFriendList(std::string)));
     connect(this, SIGNAL(refreshMsgList(std::string)),
             this, SLOT(upadteMsgList(std::string)));
+
 
     // 启动线程池
     threadPool->init();
@@ -196,6 +198,7 @@ void Menu2::friendAdd(std::string msg){
 
 void Menu2::setMbtn(std::unordered_map<std::string,std::string> list){
     // QVBoxLayout *layout = new QVBoxLayout();
+    std::vector<std::string> mlist;
     for(auto &t : list){
         if (t.first == " "){
             break;
@@ -205,30 +208,32 @@ void Menu2::setMbtn(std::unordered_map<std::string,std::string> list){
         std::string sender = msgInfo.substr(0,9);
         std::string recver = msgInfo.substr(9,9);
         std::string msg = msgInfo.substr(18);
+        mlist.push_back(t.second);
+        // MsgType status = js["Status"].get<MsgType>();
+        // std::string time = js["Time"].get<std::string>();
+        // // 获取flag 0,1为消息，2为通知
+        // int flag = 1;
+        // if(sender == this->m_id){
+        //     flag = 0;
+        // }
+        // if(sender != this->m_id && recver != this->m_id){
+        //     flag = 2;
+        // }
+        // std::string key = sender == this->m_id ? recver : sender;
+        // msglist.push_front(lists[recver]);
 
-        MsgType status = js["Status"].get<MsgType>();
-        std::string time = js["Time"].get<std::string>();
-        // 获取flag 1为消息，2为通知
-        int flag = 1;
-        if(sender == this->m_id){
-            flag = 2;
-        }
-        if(sender != this->m_id && recver != this->m_id){
-            flag = 3;
-        }
-        std::string key = sender == this->m_id ? recver : sender;
-        msglist.push_front(lists[recver]);
-
-        auto it = std::find(vector.begin(),vector.end(),lists[recver]);
-        if(it == vector.end()){
-            return;
-        }
-        int index = std::distance(vector.begin(), it); // 拿到下标
-        qDebug() << "New msg form index: " << index << (*it)->text();
+        // auto it = std::find(vector.begin(),vector.end(),lists[recver]);
+        // if(it == vector.end()){
+        //     return;
+        // }
+        // int index = std::distance(vector.begin(), it); // 拿到下标
+        // qDebug() << "New msg form index: " << index << (*it)->text();
 
         // Widget *currentWidget = qStack->widget(index);
         // printmsg(key, msg, flag, currentWidget);
     }
+    std::reverse(mlist.begin(),mlist.end());
+    emit sendlist(mlist);
 }
 
 void Menu2::resetFbtn(const std::string& str){
@@ -257,6 +262,9 @@ void Menu2::resetFbtn(const std::string& str){
     FriendIsShow.push_back(false);
     Widget *w = new Widget(nullptr, uname.data(), uid.data(), m_name.data(), m_id.data(), fd);
     qStack->addWidget(w);
+
+    connect(this, SIGNAL(sendlist(std::vector<std::string>)), w, SLOT(inithistory(std::vector<std::string>)));
+    connect(this,SIGNAL(sendData(std::string)),w,SLOT(getData(std::string)));
     connect(btn, &QToolButton::clicked,[this, i = vector.count() - 1](){
 
         FriendIsShow[i] = true;
@@ -294,6 +302,7 @@ void Menu2::setFbtn(std::unordered_map<std::string,std::string> list){
         FriendIsShow.push_back(false);
         // 添加聊天页面
         Widget *w = new Widget(nullptr, t.second.data(), t.first.data(), m_name.data(), m_id.data(), fd);
+        connect(this, SIGNAL(sendlist(std::vector<std::string>)), w, SLOT(inithistory(std::vector<std::string>)));
         connect(this,SIGNAL(sendData(std::string)),w,SLOT(getData(std::string)));
         qStack->addWidget(w);
         ui->msgLayout->addWidget(qStack,0);
@@ -316,6 +325,7 @@ void Menu2::setFbtn(std::unordered_map<std::string,std::string> list){
     }
 
 }
+
 
    // 复制widget及其布局
 QWidget* Menu2::copyWidget(QWidget* widget) {

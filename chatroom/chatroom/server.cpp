@@ -228,7 +228,7 @@ void Server::login(int fd,std::string str){
     rec["Info"] = js;
     std::string data = rec.dump();
     sendMsg(fd,Success,data);
-    onlinelist[id] = fd;
+    onlinelist[ id] = fd;
     {
         for(auto &t : onlinelist){
             std::cout << t.first << " : " << t.second << std::endl;
@@ -341,15 +341,12 @@ void Server::Message(int fd, std::string str){
     std::string msg = js["Msg"].get<std::string>();
     std::string sender = msg.substr(0,9);
     std::string recver = msg.substr(9,9);
-    js["Status"] = Unread;
     std::string data = js.dump();
     std::string hash = sha256(str);
     Redis r;
     r.Hmset(sender + "m", hash + " " + data);
     r.Hmset(recver + "m", hash + " " + data);
-    std::cout << onlinelist[recver];
     if(onlinelist.find(recver) != onlinelist.end()){
-        std::cout<<"乃东乃代打是假的"<<std::endl;
         sendMsg(onlinelist[recver],Msg,data);
     }
 

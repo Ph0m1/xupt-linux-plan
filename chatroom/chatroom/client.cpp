@@ -11,7 +11,7 @@ Client::Client(int argc,char *argv[]) {
     memset(&addr,0,sizeof(addr));
     addr.sin_family = AF_INET;
     std::string default_ip = "127.0.0.1";
-    int port = 7000;
+    int port = 9098;
 
     if(argc >= 2){
         port = std::stoi(argv[1]);

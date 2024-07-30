@@ -11,8 +11,8 @@
 #include <arpa/inet.h>
 #include <unistd.h>
 #include "msgtype.h"
-#define S_PORT 7000
-#define C_PORT 7000
+#define S_PORT 9098
+#define C_PORT 9098
 #define IP "127.0.0.1"
 
 using Json = nlohmann::json;

@@ -75,9 +75,9 @@ void Widget::SendMsg(){
     std::string msg = m_id.toStdString() + u_id.toStdString() + mm.toStdString();
     QString time = QDateTime::currentDateTime().toString("yyyy-MM-dd[hh:mm:ss]");
     std::string t = time.toStdString();
-    Json stream;
-    stream["Time"] = t;
-    stream["Msg"] = msg;
+    Json stream = {{"Time",t},{"Msg",msg},{"Status",Unread}};
+    // stream["Time"] = t;
+    // stream["Msg"] = msg;
     std::string data = stream.dump();
     getData(data);
     qDebug() << fd;
@@ -89,30 +89,58 @@ QString Widget::getName(){
 }
 
 QString Widget::getMsg(){
-    QString msg = ui->msgTextEdit->toMarkdown();// 返回输入框的内容
+    QString msg = ui->msgTextEdit->toPlainText();// 返回输入框的内容
     ui->msgTextEdit->clear();
     ui->msgTextEdit->setFocus();
     return msg;
 }
 
 void Widget::getData(std::string data){
-    std::cout<<"啊被窝儿爱我耳机带我"<<std::endl;
-    qDebug()<< data.c_str();
     Json js = Json::parse(data.data());
     std::string msg = js["Msg"].get<std::string>();
     std::string time = js["Time"].get<std::string>();
     std::string sender = msg.substr(0,9);
+    std::string recver = msg.substr(9,9);
     std::string uid = u_id.toStdString();
     std::string mid = m_id.toStdString();
-    if(uid != sender){
-        if(mid == sender){
-            prints(time, msg.substr(18),0);
-            return;
-        }else
-            return;
+    // 0表示自己发出的，1表示别人发给自己的
+    if(uid == sender){
+        prints(time, msg.substr(18), 1);
     }
-    prints(time, msg.substr(18), 1);
+    else if(uid == recver){
+        prints(time, msg.substr(18), 0);
+    }
+
 }
+void Widget::inithistory(std::vector<std::string> ml){
+    std::unordered_map<std::string ,std::string> mp;
+    for(auto & t: ml)
+    {
+        Json js = Json::parse(t.data());
+        mp[js["Time"].get<std::string>()] = t.data();
+    }
+    std::vector<std::pair<std::string, std::string>> mv(mp.begin(),mp.end());
+    std::sort(mv.begin(),mv.end(), [](const auto& a, const auto& b) {
+        return a.first < b.first;
+    });
+    for(auto &t : mv){
+        Json js = Json::parse(t.second.data());
+        std::string msg = js["Msg"].get<std::string>();
+        std::string time = js["Time"].get<std::string>();
+        std::string sender = msg.substr(0,9);
+        std::string recver = msg.substr(9,9);
+        std::string uid = u_id.toStdString();
+        std::string mid = m_id.toStdString();
+        // 0表示自己发出的，1表示别人发给自己的
+        if(uid == sender){
+            prints(time, msg.substr(18), 1);
+        }
+        else if(uid == recver){
+            prints(time, msg.substr(18), 0);
+        }
+    }
+}
+
 // 打印通知
 void Widget::printinfo(std::string msg){
     ui->MsgBrowser->setTextColor(Qt::gray);
@@ -126,6 +154,7 @@ void Widget::prints(std::string time, std::string msg, int flag){
         ui->MsgBrowser->append("["+u_name+"]" + static_cast<QString>(time.c_str()));
     }
     else if(flag == 0){
+        ui->MsgBrowser->setTextColor(Qt::green);
         ui->MsgBrowser->append("["+m_name+"]" + static_cast<QString>(time.c_str()));
     }
     ui->MsgBrowser->append(msg.c_str());
