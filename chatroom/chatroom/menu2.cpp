@@ -200,11 +200,14 @@ void Menu2::setMbtn(std::unordered_map<std::string,std::string> list){
         if (t.first == " "){
             break;
         }
-        std::string msgInfo = t.second.c_str();
+        Json js = Json::parse(t.second.c_str());
+        std::string msgInfo = js["Msg"].get<std::string>();
         std::string sender = msgInfo.substr(0,9);
         std::string recver = msgInfo.substr(9,9);
         std::string msg = msgInfo.substr(18);
 
+        MsgType status = js["Status"].get<MsgType>();
+        std::string time = js["Time"].get<std::string>();
         // 获取flag 1为消息，2为通知
         int flag = 1;
         if(sender == this->m_id){

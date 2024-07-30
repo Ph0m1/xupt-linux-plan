@@ -13,6 +13,8 @@ Widget::Widget(QWidget *parent, QString uname, QString uid, QString name, QStrin
     m_name = name;
     m_id = id;
     u_id = uid;
+    qDebug()<<m_id;
+    qDebug()<<u_id;
     u_name = uname;
     fd = sfd;
     // 链接发送按钮
@@ -77,6 +79,7 @@ void Widget::SendMsg(){
     stream["Time"] = t;
     stream["Msg"] = msg;
     std::string data = stream.dump();
+    getData(data);
     qDebug() << fd;
     sendMsg(fd, Msg, data);
 }
@@ -93,15 +96,22 @@ QString Widget::getMsg(){
 }
 
 void Widget::getData(std::string data){
+    std::cout<<"啊被窝儿爱我耳机带我"<<std::endl;
+    qDebug()<< data.c_str();
     Json js = Json::parse(data.data());
     std::string msg = js["Msg"].get<std::string>();
     std::string time = js["Time"].get<std::string>();
     std::string sender = msg.substr(0,9);
     std::string uid = u_id.toStdString();
+    std::string mid = m_id.toStdString();
     if(uid != sender){
-        return;
+        if(mid == sender){
+            prints(time, msg.substr(18),0);
+            return;
+        }else
+            return;
     }
-    prints(time, msg.substr(18));
+    prints(time, msg.substr(18), 1);
 }
 // 打印通知
 void Widget::printinfo(std::string msg){
@@ -109,10 +119,15 @@ void Widget::printinfo(std::string msg){
     ui->MsgBrowser->append(msg.c_str());
 }
 // 打印消息
-void Widget::prints(std::string time, std::string msg){
+void Widget::prints(std::string time, std::string msg, int flag){
     ui->MsgBrowser->setTextColor(Qt::blue);
     ui->MsgBrowser->setCurrentFont(QFont("Times New Roman",10));
-    ui->MsgBrowser->append("["+u_name+"]" + static_cast<QString>(time.c_str()));
+    if(flag == 1){
+        ui->MsgBrowser->append("["+u_name+"]" + static_cast<QString>(time.c_str()));
+    }
+    else if(flag == 0){
+        ui->MsgBrowser->append("["+m_name+"]" + static_cast<QString>(time.c_str()));
+    }
     ui->MsgBrowser->append(msg.c_str());
 }
 void Widget::closeEvent(QCloseEvent *){

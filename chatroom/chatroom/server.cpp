@@ -199,7 +199,6 @@ void Server::login(int fd,std::string str){
     std::string uid = r.Hget(EmailHash,id);
 
     std::cout<<uid<<std::endl;
-    std::cout<<"1"<<std::endl;
     if(uid != ""){
         id = uid;
     }
@@ -207,9 +206,7 @@ void Server::login(int fd,std::string str){
     if (info == ""){
         sendMsg(fd,Refuse,"该账户不存在");
     }
-    std::cout<<"2"<<std::endl;
     js = nlohmann::json::parse(r.Hget(UserInfo,id));
-    std::cout<<"3"<<std::endl;
     if(!(js["passwd"] == passwd)){
         sendMsg(fd,Refuse,"帐号或密码错误");
         return;
@@ -223,16 +220,22 @@ void Server::login(int fd,std::string str){
     // Msglist: map
     // Friendlist: map
     // Gruoplist: map
-    std::cout<<"4"<<std::endl;
     json rec;
-    rec["Uid"] = uid;
+    rec["Uid"] = id;
     rec["FriendList"] = getFl(id);
     rec["GroupList"]= getGl(id);
     rec["MsgList"] = getMl(id);
     rec["Info"] = js;
     std::string data = rec.dump();
     sendMsg(fd,Success,data);
-    onlinelist[uid] = fd;
+    onlinelist[id] = fd;
+    {
+        for(auto &t : onlinelist){
+            std::cout << t.first << " : " << t.second << std::endl;
+        }
+
+    }
+    users[fd] = id;
 }
 void Server::foundAccount(int fd,std::string str){
     SMTPMailer mailer;
@@ -254,6 +257,18 @@ void Server::accountInit(std::string str){
     std::string superid = "000000001";
     Redis r;
     std::string str1 = superid + str + "欢迎来到PH0M的聊天室!";
+    Json js;
+    {
+        auto now = std::chrono::system_clock::now();
+        std::time_t now_c = std::chrono::system_clock::to_time_t(now);
+
+        std::tm* now_tm = std::localtime(&now_c);
+
+        std::ostringstream oss;
+        oss << std::put_time(now_tm, "%Y-%m-%d[%H:%M:%S]");
+        js["Time"] = oss.str();
+    }
+    js["Msg"] = str1;
     r.Hmset(str+"m",sha256(str1) + " " + str1);
 
     r.Hmset(str+ "f",superid + " " + "小H");
@@ -332,12 +347,14 @@ void Server::Message(int fd, std::string str){
     Redis r;
     r.Hmset(sender + "m", hash + " " + data);
     r.Hmset(recver + "m", hash + " " + data);
+    std::cout << onlinelist[recver];
     if(onlinelist.find(recver) != onlinelist.end()){
+        std::cout<<"乃东乃代打是假的"<<std::endl;
         sendMsg(onlinelist[recver],Msg,data);
     }
 
 }
-// 哈系函数
+// Hash函数
 std::string Server::sha256(const std::string& str) {
     EVP_MD_CTX* mdctx = EVP_MD_CTX_new(); //创建一个新的 EVP_MD_CTX 对象
     if(mdctx == nullptr){
@@ -402,7 +419,7 @@ void Server::addFriend(int fd, std::string str){
             js["Status"] = Success;
             std::string data = js.dump();
             sendMsg(fd,FriendAdd,data);
-            r.Srem(mid+"000", mid);
+            r.Srem(mid+"000", uid);
         }
         Json json;
         json["Uid"] = uid;
@@ -411,7 +428,7 @@ void Server::addFriend(int fd, std::string str){
         sendMsg(fd, ReFreshFriendList, data2.data());
         return;
     }
-    if(onlinelist.count(uid)){
+    if(onlinelist.find(uid) != onlinelist.end()){
         sendMsg(onlinelist[uid], FriendAddMsg, mid);
     }
     Json js;
@@ -438,7 +455,7 @@ void Server::acceptAddFrined(int fd, std::string str){
     r.Srem(mid+"000",uid);
     r.Hmset(mid + "f", uid + " " + uname);
     r.Hmset(uid + "f", mid + " " + mname);
-    if(onlinelist.count(uid)){
+    if(onlinelist.find(uid) != onlinelist.end()){
         Json js;
         js["Uid"] = mid;
         js["Uname"] = mname;

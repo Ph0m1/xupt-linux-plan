@@ -21,7 +21,7 @@ public:
     QString getName();// 获取名字
     QString getMsg();// 获取信息
     void SendMsg();
-    void prints(std::string time, std::string msg);
+    void prints(std::string time, std::string msg, int flag);
     void printinfo(std::string msg);
     ~Widget();
 signals:
@@ -30,7 +30,6 @@ signals:
 
 public slots:
     void getData(std::string data);
-
 private:
     Ui::Widget *ui;
     QString m_name;
