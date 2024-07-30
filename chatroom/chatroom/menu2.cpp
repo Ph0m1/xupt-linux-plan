@@ -16,8 +16,6 @@ Menu2::Menu2(QWidget *parent, int sfd, const std::string& data)
 {
     // 注册常用类型
     qRegisterMetaType<std::string>("std::string");
-    qRegisterMetaType<std::vector<std::string>>("std::vector<std::string>");
-    qRegisterMetaType<std::unordered_map<std::string, std::string>>("std::unordered_map<std::string, std::string>");
 
     //解析data数据包
     std::cout<<data<<std::endl;
@@ -143,15 +141,18 @@ Menu2::Menu2(QWidget *parent, int sfd, const std::string& data)
     // readFromServer(fd);
 }
 
+void Menu2::updateMsgList(std::string list){
 
+}
 
 void Menu2::readFromServer(int fd){
-    std::string buffer;
+
     while(true){
         // std::unique_lock<std::mutex> lock(pauseMutex);
         // pauseCondition.wait(lock, [this] { return !pauseThread; });
         try
         {
+            std::string buffer;
             MsgType type = recvMsg(fd,buffer);
             switch (type){
             case Msg:
@@ -173,7 +174,8 @@ void Menu2::readFromServer(int fd){
 }
 
 void Menu2::updateFriendList(std::string msg){
-
+    qDebug() << msg.c_str();
+    resetFbtn(msg);
 }
 
 void Menu2::friendAdd(std::string msg){
@@ -224,6 +226,41 @@ void Menu2::setMbtn(std::unordered_map<std::string,std::string> list){
         // Widget *currentWidget = qStack->widget(index);
         // printmsg(key, msg, flag, currentWidget);
     }
+}
+
+void Menu2::resetFbtn(const std::string& str){
+    qDebug() << str.c_str();
+
+    Json js = Json::parse(str.data());
+    std::string uid = js["Uid"].get<std::string>();
+    std::string uname = js["Uname"].get<std::string>();
+    QToolButton *btn = new QToolButton(this);
+    // 加载图标
+    btn -> setIcon(QPixmap(":/Header/Header.jpeg"));
+    // 设置图片大小
+    QPixmap h(":/Header/Header.jpeg") ;
+    h = h.scaled(48,48,Qt::KeepAspectRatio, Qt::SmoothTransformation);
+
+    btn->setIconSize(h.size());
+    // 设置按钮样式 透明
+    btn->setAutoRaise(true);
+    // 设置网名
+    btn->setText(QString(static_cast<QString>(uname.c_str()) + "<" + static_cast<QString>(uid.c_str())) + ">");
+
+    btn->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);// 设置按钮样式为文字紧贴图片
+    // btn->setAutoRepeat(true)；
+    ui->listLayout->addWidget(btn);
+    this->vector.push_back(btn);
+    FriendIsShow.push_back(false);
+    Widget *w = new Widget(nullptr, uname.data(), uid.data(), m_name.data(), m_id.data(), fd);
+    qStack->addWidget(w);
+    connect(btn, &QToolButton::clicked,[this, i = vector.count() - 1](){
+
+        FriendIsShow[i] = true;
+        qStack->setCurrentIndex(i); // 切换对话框
+        ui->label->setText(this->vector[i]->text());
+        qDebug() << "Button clicked:" << i << vector[i]->text();
+    });
 }
 
 void Menu2::setFbtn(std::unordered_map<std::string,std::string> list){

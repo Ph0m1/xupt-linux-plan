@@ -47,6 +47,7 @@ private:
 
     std::string sha256(const std::string& str);
 
+
     // 处理报文的函数
     void reg(int fd, std::string str);
     void login(int fd,std::string str);
@@ -69,6 +70,8 @@ private:
     void deleteFriend(int fd, std::string str);
     void bannedFriend(int fd, std::string str);
     void accountInit( std::string str);
+    void refreshFriendlist(int fd, std::string);
+    std::unordered_map<std::string, std::string> regetFriendlist(std::string id);
 
     void logout(std::string id);
     // 校验验证码

@@ -10,7 +10,6 @@
 #include <QStackedLayout>
 #include <QStackedWidget>
 #include <QDebug>
-#include <sys/fcntl.h>
 
 #include "threadpool.h"
 
@@ -27,6 +26,7 @@ public:
     explicit Menu2(QWidget *parent, int sfd,const std::string &data);
     ~Menu2();
 private:
+    void resetFbtn(const std::string &str);
     void setFbtn(std::unordered_map<std::string,std::string> list);
     void setMbtn(std::unordered_map<std::string,std::string> list);
     void printmsg(std::string user, std::string msg, int flag, Widget* w);

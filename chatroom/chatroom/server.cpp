@@ -122,7 +122,6 @@ void Server::handleMessage(int fd, MsgType type, const std::string &msg) {
         // case FriendBanned:
         //     bannedFriend(fd,msg);
         //     break;
-
         default:
             std::cout << "Unknown message type: " << type << std::endl;
             break;
@@ -397,13 +396,19 @@ void Server::addFriend(int fd, std::string str){
     if(r.Sismember(mid+"000",uid )){
         r.Hmset(mid + "f",uid+ " " + uname);
         r.Hmset(uid + "f",mid+ " " + mname);
-        Json js;
-        js["Msg"] = "已成功添加" + uname +"<" + uid + ">为好友！";
-        js["Status"] = Success;
-        std::string data = js.dump();
-        sendMsg(fd,FriendAdd,data);
-        r.Srem(mid+"000", mid);
-
+        {
+            Json js;
+            js["Msg"] = "已成功添加" + uname +"<" + uid + ">为好友！";
+            js["Status"] = Success;
+            std::string data = js.dump();
+            sendMsg(fd,FriendAdd,data);
+            r.Srem(mid+"000", mid);
+        }
+        Json json;
+        json["Uid"] = uid;
+        json["Uname"] = uname;
+        std::string data2 = json.dump();
+        sendMsg(fd, ReFreshFriendList, data2.data());
         return;
     }
     if(onlinelist.count(uid)){
@@ -417,6 +422,7 @@ void Server::addFriend(int fd, std::string str){
     std::string key = uid+"000";
     r.Sadd(key,mid);
 }
+
 
 void Server::acceptAddFrined(int fd, std::string str){
 
@@ -432,12 +438,18 @@ void Server::acceptAddFrined(int fd, std::string str){
     r.Srem(mid+"000",uid);
     r.Hmset(mid + "f", uid + " " + uname);
     r.Hmset(uid + "f", mid + " " + mname);
-
-    std::unordered_map<std::string, std::string> mf = getFl(mid);
-    Json flist;
-    flist["FriendList"] = mf;
-    std::string data = flist.dump();
-    sendMsg(fd,ReFreshFriendList,data);
+    if(onlinelist.count(uid)){
+        Json js;
+        js["Uid"] = mid;
+        js["Uname"] = mname;
+        std::string data = js.dump();
+        sendMsg(onlinelist[uid], ReFreshFriendList, data);
+    }
+    Json js;
+    js["Uid"] = uid;
+    js["Uname"] = uname;
+    std::string data = js.dump();
+    sendMsg(fd, ReFreshFriendList, data);
 }
 void deleteFriend(int fd, std::string str);
 void bannedFriend(int fd, std::string str);
