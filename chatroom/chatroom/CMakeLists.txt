@@ -82,6 +82,8 @@ else()
         add_executable(client
             ${CLIENT_SOURCES}
             settings.h settings.cpp settings.ui
+            informations.h informations.cpp informations.ui
+            badgetoolbutton.h
 
 
         )

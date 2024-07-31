@@ -71,8 +71,14 @@ Widget::Widget(QWidget *parent, QString uname, QString uid, QString name, QStrin
 }
 
 void Widget::SendMsg(){
+    if(ui->msgTextEdit->toPlainText().isEmpty()){
+        QMessageBox::warning(this,"警告","输入不可为空");
+        return;
+    }
     QString mm = getMsg();
+
     std::string msg = m_id.toStdString() + u_id.toStdString() + mm.toStdString();
+
     QString time = QDateTime::currentDateTime().toString("yyyy-MM-dd[hh:mm:ss]");
     std::string t = time.toStdString();
     Json stream = {{"Time",t},{"Msg",msg},{"Status",Unread}};
@@ -89,7 +95,7 @@ QString Widget::getName(){
 }
 
 QString Widget::getMsg(){
-    QString msg = ui->msgTextEdit->toPlainText();// 返回输入框的内容
+    QString msg = ui->msgTextEdit->toHtml();// 返回输入框的内容
     ui->msgTextEdit->clear();
     ui->msgTextEdit->setFocus();
     return msg;
@@ -105,6 +111,8 @@ void Widget::getData(std::string data){
     std::string mid = m_id.toStdString();
     // 0表示自己发出的，1表示别人发给自己的
     if(uid == sender){
+        emit readmsg(uid);
+        // std::cout<<uid;
         prints(time, msg.substr(18), 1);
     }
     else if(uid == recver){

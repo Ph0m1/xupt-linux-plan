@@ -37,7 +37,7 @@ public:
     // 析构函数
     ~Redis() = default;
 
-    bool Hmset(std::string str, std::string value);
+    bool Hmset(std::string str,std::string key, std::string value);
     bool Hget(std::string str);
     std::string Hget(std::string key,std::string str);
     bool Hdel(std::string key, std::string str);
@@ -49,6 +49,7 @@ public:
     bool Srem(std::string key, std::string str);
     bool Sscan(int key, std::string str);
     bool Sismember( std::string str,std::string value);
+    std::vector<std::string> Smembers(std::string msg);
 };
 
 #endif // REDIS_H

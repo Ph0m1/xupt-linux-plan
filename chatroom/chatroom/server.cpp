@@ -122,6 +122,11 @@ void Server::handleMessage(int fd, MsgType type, const std::string &msg) {
         // case FriendBanned:
         //     bannedFriend(fd,msg);
         //     break;
+        case FriendAddYes:
+            acceptAddFrined(fd,msg);
+            break;
+        case FriendAddNo:
+            break;
         default:
             std::cout << "Unknown message type: " << type << std::endl;
             break;
@@ -169,20 +174,16 @@ void Server::reg(int fd, std::string str){
     std::string mail = js["mail"];
 
     Redis redis;
-    std::string cmd,cmd1,cmd2;
-    cmd1 = UsernameHash" " + name;
-    cmd2 = EmailHash" " + mail;
-    if(redis.Hget(cmd1)){
+    if(redis.Hget(UsernameHash, name) != ""){
         sendMsg(fd,Refuse,"该用户名已注册");
         return;
-    }else if(redis.Hget(cmd2)){
+    }else if(redis.Hget(EmailHash, mail) != ""){
         sendMsg(fd,Refuse,"该邮箱已注册");
         return;
     }
-    redis.Hmset(cmd1,uid);
-    redis.Hmset(cmd2,uid);
-    cmd = UserInfo" " + uid;
-    redis.Hmset(cmd,str);
+    redis.Hmset(UsernameHash, name, uid);
+    redis.Hmset(EmailHash, mail, uid);
+    redis.Hmset(UserInfo, uid, str);
 
     redis.Sadd(UidSet,uid);
 
@@ -211,6 +212,9 @@ void Server::login(int fd,std::string str){
         sendMsg(fd,Refuse,"帐号或密码错误");
         return;
     }
+    if(onlinelist.find(id) != onlinelist.end()){
+        sendMsg(fd,Refuse,"帐号已登陆");
+    }
 
     users[fd] = id;
     //发送个人信息
@@ -226,6 +230,7 @@ void Server::login(int fd,std::string str){
     rec["GroupList"]= getGl(id);
     rec["MsgList"] = getMl(id);
     rec["Info"] = js;
+    rec["FriendAdd"] = r.Smembers(id+"000");
     std::string data = rec.dump();
     sendMsg(fd,Success,data);
     onlinelist[ id] = fd;
@@ -269,9 +274,9 @@ void Server::accountInit(std::string str){
         js["Time"] = oss.str();
     }
     js["Msg"] = str1;
-    r.Hmset(str+"m",sha256(str1) + " " + str1);
+    r.Hmset(str+"m",sha256(str1), str1);
 
-    r.Hmset(str+ "f",superid + " " + "小H");
+    r.Hmset(str+ "f", superid, "小H");
 
     std::cout<<"账户初始化完成"<<std::endl;
 }
@@ -299,7 +304,7 @@ void Server::resetpasswd(int fd, std::string str){
 
     std::string a = infojs.dump();
     std::cout<<a<<std::endl;
-    r.Hmset(UserInfo" "+ id, a);
+    r.Hmset(UserInfo, id, a);
     found_queue.erase(fd);
     sendMsg(fd,Success,"11");
 }
@@ -339,16 +344,19 @@ void Server::Message(int fd, std::string str){
     Json js = json::parse(str);
     std::string time = js["Time"].get<std::string>();
     std::string msg = js["Msg"].get<std::string>();
+
     std::string sender = msg.substr(0,9);
     std::string recver = msg.substr(9,9);
     std::string data = js.dump();
     std::string hash = sha256(str);
     Redis r;
-    r.Hmset(sender + "m", hash + " " + data);
-    r.Hmset(recver + "m", hash + " " + data);
+
     if(onlinelist.find(recver) != onlinelist.end()){
         sendMsg(onlinelist[recver],Msg,data);
+        js["Status"] = Readen;
     }
+    r.Hmset(sender + "m", hash, data);
+    r.Hmset(recver + "m", hash, data);
 
 }
 // Hash函数
@@ -408,14 +416,15 @@ void Server::addFriend(int fd, std::string str){
     std::cout << mid <<" " << mname << std::endl;
     std::cout << uid << " " << uname <<std::endl;
     if(r.Sismember(mid+"000",uid )){
-        r.Hmset(mid + "f",uid+ " " + uname);
-        r.Hmset(uid + "f",mid+ " " + mname);
+        r.Hmset(mid + "f",uid, uname);
+        r.Hmset(uid + "f",mid, mname);
         {
             Json js;
             js["Msg"] = "已成功添加" + uname +"<" + uid + ">为好友！";
             js["Status"] = Success;
             std::string data = js.dump();
             sendMsg(fd,FriendAdd,data);
+
             r.Srem(mid+"000", uid);
         }
         Json json;
@@ -450,8 +459,8 @@ void Server::acceptAddFrined(int fd, std::string str){
         return;
     }
     r.Srem(mid+"000",uid);
-    r.Hmset(mid + "f", uid + " " + uname);
-    r.Hmset(uid + "f", mid + " " + mname);
+    r.Hmset(mid + "f", uid, uname);
+    r.Hmset(uid + "f", mid, mname);
     if(onlinelist.find(uid) != onlinelist.end()){
         Json js;
         js["Uid"] = mid;

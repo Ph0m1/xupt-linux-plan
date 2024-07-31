@@ -1,8 +1,7 @@
 #include "redis.h"
 
-bool Redis::Hmset(std::string str,std::string value) {
-    std::string cmd = "HMSET " + str + " " + value;
-    m_reply = (redisReply *)redisCommand(m_context, cmd.c_str());
+bool Redis::Hmset(std::string str, std::string key, std::string value) {
+    m_reply = (redisReply *)redisCommand(m_context, "HMSET %s %s %s", str.c_str(), key.c_str(), value.c_str());
     if (m_reply->type == REDIS_REPLY_ERROR) {
         std::cout << "Error: " << m_reply->str << std::endl;
         return false;
@@ -22,8 +21,7 @@ bool Redis::Hget(std::string str){
     return true;
 }
 std::string Redis::Hget(std::string key,std::string str) {
-    std::string cmd = "HGET " + key + " " + str;
-    m_reply = (redisReply *)redisCommand(m_context, cmd.c_str());
+    m_reply = (redisReply *)redisCommand(m_context, "HGET %s %s",key.c_str(),str.c_str());
     if (m_reply->type == REDIS_REPLY_ERROR) {
         std::cout << "Error: " << m_reply->str << std::endl;
         return "";
@@ -34,8 +32,7 @@ std::string Redis::Hget(std::string key,std::string str) {
     return m_reply->str;
 }
 bool Redis::Hdel(std::string key, std::string str) {
-    std::string cmd = "HDEL " + key + " " + str;
-    m_reply = (redisReply *)redisCommand(m_context, cmd.c_str());
+    m_reply = (redisReply *)redisCommand(m_context, "HDEL %s %s", key.c_str(), str.c_str());
     if (m_reply->type == REDIS_REPLY_ERROR) {
         std::cout << "Error: " << m_reply->str << std::endl;
         return false;
@@ -90,8 +87,7 @@ bool Redis::Srem(std::string key, std::string str){
 }
 bool Sscan(int key, std::string str);
 bool Redis::Sismember( std::string str,std::string value){
-    std::string cmd = "SISMEMBER " + str + " " + value;
-    redisReply *reply = (redisReply*)redisCommand(m_context,cmd.c_str());
+    redisReply *reply = (redisReply*)redisCommand(m_context,"SISMEMBER %s %s",str.c_str(),value.c_str());
     if(reply == nullptr){
         std::cerr << "Redis SISMEMBER command failed." << std::endl;
         return false;
@@ -99,4 +95,17 @@ bool Redis::Sismember( std::string str,std::string value){
     bool result = reply->integer == 1;
     freeReplyObject(reply);
     return result;
+}
+std::vector<std::string> Redis::Smembers(std::string str){
+    redisReply *reply = (redisReply*)redisCommand(m_context, "SMEMBERS %s",str.c_str());
+    std::vector<std::string> vector;
+    if(reply->type == REDIS_REPLY_ARRAY){
+        for(size_t i = 0; i < reply->elements; ++i){
+            vector.push_back(reply->element[i]->str);
+        }
+    }else{
+        std::cerr << "Unexpected reply type: " << reply->type << std::endl;
+    }
+    return vector;
+
 }

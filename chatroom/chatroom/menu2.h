@@ -12,6 +12,7 @@
 #include <QDebug>
 
 #include "threadpool.h"
+#include "badgetoolbutton.h"
 
 #include "widget.h"
 namespace Ui {
@@ -43,7 +44,9 @@ private:
     int fd;
     std::string m_id;
     std::string m_name;
+    std::vector<std::string> friendaddlist;
 
+    QVBoxLayout *layout;
     QVector<bool> FriendIsShow;
     QVector<bool> GroupIsShow;
     QVector<bool> MsgIsShow;
@@ -51,18 +54,21 @@ private:
     QVector<Widget*> ww;
     bool btnIsChecked[2];
 
-    QVector<QToolButton*> vector;// 好友按钮
-    std::unordered_map<std::string, QToolButton*> lists;
+    QVector<BadgeToolButton*> vector;// 好友按钮
+    std::unordered_map<std::string, BadgeToolButton*> lists;
     QVector<QToolButton*> msglist;
     QStackedWidget *qStack = new QStackedWidget(this); // 聊天窗口
     // QStackedLayout *listStack = new QStackedLayout(this); // 消息/好友列表
 signals:
+    void sendinfos(std::string ll);
     void sendlist(std::vector<std::string> ll);
     void sendData(std::string msg);
     void friendsg(std::string msg);
     void refreshMsgList(std::string list);
     void refreshFriendList(std::string list);
+
 public slots:
+    void updateList(std::string id);
     void friendAdd(std::string msg);
     void updateFriendList(std::string list);
     void updateMsgList(std::string list);

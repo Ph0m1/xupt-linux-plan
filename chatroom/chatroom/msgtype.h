@@ -30,6 +30,8 @@ enum MsgType{
     File,
 
     FriendAdd,
+    FriendAddYes,
+    FriendAddNo,
     FriendAddMsg,
     FriendDelete,
     FriendBanned,
@@ -37,6 +39,7 @@ enum MsgType{
 
     // 消息状态
     Unread,
+    Readen,
     AccountDeleted
 };
 

@@ -27,7 +27,8 @@ public:
 signals:
     //关闭窗口信号
     void closeWidget();
-
+    void unreadmsg();
+    void readmsg(std::string id);
 public slots:
     void inithistory(std::vector<std::string> ll);
     void getData(std::string data);

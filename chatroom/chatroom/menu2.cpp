@@ -3,6 +3,8 @@
 #include "mysocket.h"
 #include "widget.h"
 #include "msgtype.h"
+#include "informations.h"
+#include "badgetoolbutton.h"
 #include <QPainter>
 #include <QToolButton>
 #include <QPainterPath>
@@ -14,6 +16,7 @@ Menu2::Menu2(QWidget *parent, int sfd, const std::string& data)
     , ui(new Ui::Menu2)
     ,threadPool(new ThreadPool(4))
 {
+    layout = new QVBoxLayout();
     // 注册常用类型
     qRegisterMetaType<std::string>("std::string");
     qRegisterNormalizedMetaType<std::vector<std::string>>("std::vector<std::string>");
@@ -24,7 +27,7 @@ Menu2::Menu2(QWidget *parent, int sfd, const std::string& data)
     json infojs = datajs["Info"].get<json>();
     //fl id:name
     //ml time(15位):<发送方id(9位)><接受方id(9位)><内容>
-
+    friendaddlist = datajs["FriendAdd"].get<std::vector<std::string>>();
     std::unordered_map<std::string,std::string> fl = datajs["FriendList"].get<std::unordered_map<std::string,std::string>>();
     qDebug()<<"12";
     std::unordered_map<std::string,std::string> gl = datajs["GroupList"].get<std::unordered_map<std::string,std::string>>();
@@ -93,9 +96,19 @@ Menu2::Menu2(QWidget *parent, int sfd, const std::string& data)
     ui->settingBtn->setIconSize(cpixmap.size());
     Menu2::btnIsChecked[0] = false;
     Menu2::btnIsChecked[1] = true;
-
+    BadgeToolButton *friendaddbtn = new BadgeToolButton;
     Menu2::setFbtn(fl);
     Menu2::setMbtn(ml);
+    friendaddbtn->setText("新朋友    ");
+    friendaddbtn->setUnreadCount(friendaddlist.size());
+    connect(friendaddbtn, &BadgeToolButton::clicked, [=](){
+        informations *w = new informations(nullptr, fd, friendaddlist);
+        w->show();
+        friendaddbtn->setUnreadCount(0);
+    });
+    ui->framelayout->addWidget(friendaddbtn);
+
+
     // Menu2::setFbtn(ml);
     connect(ui->friendBtn,&QToolButton::clicked,[=](){
         if(Menu2::btnIsChecked[0] == true || Menu2::btnIsChecked[1] == false){
@@ -127,7 +140,7 @@ Menu2::Menu2(QWidget *parent, int sfd, const std::string& data)
 
     });
 
-    // 绑定信号和槽
+    // 绑定信号和槽         
     connect(this, SIGNAL(friendsg(std::string)), this,  SLOT(friendAdd(std::string)));
     connect(this, SIGNAL(refreshFriendList(std::string)),
             this, SLOT(updateFriendList(std::string)));
@@ -141,6 +154,28 @@ Menu2::Menu2(QWidget *parent, int sfd, const std::string& data)
     // 启动一个线程来接收服务器消息
     threadPool->submit([this] { readFromServer(this->fd); });
     // readFromServer(fd);
+}
+
+void Menu2::updateList(std::string id){
+    std::cout<<id<<" "<< " adaadasgdhajsdasd" <<std::endl;
+    // while (QLayoutItem* item = layout->takeAt(0)) {
+    //     if (QWidget* widget = item->widget()) {
+    //         widget->deleteLater();
+    //     }
+    // }
+    QVBoxLayout *layout = new QVBoxLayout;
+    while (QLayoutItem* item = ui->listLayout->takeAt(0)) {
+        if (QWidget* widget = item->widget()) {
+            widget->deleteLater();
+        }
+    }
+    for(auto &t : lists){
+        if(t.first == id){
+            t.second->addUnreadCount(1);
+        }
+        layout->addWidget(t.second);
+    }
+    ui->listLayout->addLayout(layout);
 }
 
 void Menu2::updateMsgList(std::string list){
@@ -242,7 +277,8 @@ void Menu2::resetFbtn(const std::string& str){
     Json js = Json::parse(str.data());
     std::string uid = js["Uid"].get<std::string>();
     std::string uname = js["Uname"].get<std::string>();
-    QToolButton *btn = new QToolButton(this);
+    BadgeToolButton* btn = new BadgeToolButton(this);
+    // QToolButton *btn = new QToolButton(this);
     // 加载图标
     btn -> setIcon(QPixmap(":/Header/Header.jpeg"));
     // 设置图片大小
@@ -251,6 +287,9 @@ void Menu2::resetFbtn(const std::string& str){
 
     btn->setIconSize(h.size());
     // 设置按钮样式 透明
+    btn->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
+    btn->setFixedHeight(50);
+    btn->setMinimumWidth(60);
     btn->setAutoRaise(true);
     // 设置网名
     btn->setText(QString(static_cast<QString>(uname.c_str()) + "<" + static_cast<QString>(uid.c_str())) + ">");
@@ -265,6 +304,7 @@ void Menu2::resetFbtn(const std::string& str){
 
     connect(this, SIGNAL(sendlist(std::vector<std::string>)), w, SLOT(inithistory(std::vector<std::string>)));
     connect(this,SIGNAL(sendData(std::string)),w,SLOT(getData(std::string)));
+    connect(w, SIGNAL(readmsg(std::string)), this, SLOT(updateList(std::string)));
     connect(btn, &QToolButton::clicked,[this, i = vector.count() - 1](){
 
         FriendIsShow[i] = true;
@@ -277,12 +317,12 @@ void Menu2::resetFbtn(const std::string& str){
 void Menu2::setFbtn(std::unordered_map<std::string,std::string> list){
 
     // QVector<QToolButton*> vector;
-    QVBoxLayout *layout = new QVBoxLayout();
+
     for(auto &t : list){
         if (t.first == " "){
             break;
         }
-        QToolButton *btn = new QToolButton(this);
+        BadgeToolButton *btn = new BadgeToolButton(this);
         // 加载图标
         btn -> setIcon(QPixmap(":/Header/Header.jpeg"));
         // 设置图片大小
@@ -291,6 +331,9 @@ void Menu2::setFbtn(std::unordered_map<std::string,std::string> list){
 
         btn->setIconSize(h.size());
         // 设置按钮样式 透明
+        btn->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
+        btn->setFixedHeight(50);
+        btn->setMinimumWidth(60);
         btn->setAutoRaise(true);
         // 设置网名
         btn->setText(QString(static_cast<QString>(t.second.c_str()) + "<" + static_cast<QString>(t.first.c_str())) + ">");
@@ -304,23 +347,25 @@ void Menu2::setFbtn(std::unordered_map<std::string,std::string> list){
         Widget *w = new Widget(nullptr, t.second.data(), t.first.data(), m_name.data(), m_id.data(), fd);
         connect(this, SIGNAL(sendlist(std::vector<std::string>)), w, SLOT(inithistory(std::vector<std::string>)));
         connect(this,SIGNAL(sendData(std::string)),w,SLOT(getData(std::string)));
+        connect(w, SIGNAL(readmsg(std::string)), this, SLOT(updateList(std::string)));
         qStack->addWidget(w);
         ui->msgLayout->addWidget(qStack,0);
-        lists.insert(std::pair<std::string, QToolButton*>(t.second, btn));
+        lists.insert(std::pair<std::string, BadgeToolButton*>(t.first, btn));
     }
     // listStack->addWidget(layout->widget());
     // listStack->addItem(layout);
-    ui->listLayout->insertLayout(0,layout);
+    ui->listLayout->addLayout(layout);
     // ui->listWidget->setLayout(layout);
 
 
     for(int i = 0; i < vector.count(); i++){
         connect(vector[i], &QToolButton::clicked,[this, i](){
-
+            vector[i]->setUnreadCount(0);
             FriendIsShow[i] = true;
             qStack->setCurrentIndex(i); // 切换对话框
             ui->label->setText(this->vector[i]->text());
             qDebug() << "Button clicked:" << i << vector[i]->text();
+
         });
     }
 
@@ -363,7 +408,7 @@ Menu2::~Menu2()
         qStack->removeWidget(w);
         delete w;
     }
-
+    delete layout;
     // 删除qStack
     delete qStack;
     // close(fd);
