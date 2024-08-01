@@ -13,6 +13,7 @@
 
 #include "threadpool.h"
 #include "badgetoolbutton.h"
+#include "informations.h"
 
 #include "widget.h"
 namespace Ui {
@@ -46,6 +47,8 @@ private:
     std::string m_name;
     std::vector<std::string> friendaddlist;
 
+    informations *w;
+    BadgeToolButton *friendaddbtn;
     QVBoxLayout *layout;
     QVector<bool> FriendIsShow;
     QVector<bool> GroupIsShow;
@@ -64,14 +67,15 @@ signals:
     void sendlist(std::vector<std::string> ll);
     void sendData(std::string msg);
     void friendsg(std::string msg);
-    void refreshMsgList(std::string list);
     void refreshFriendList(std::string list);
-
+    void friendaddmsg(std::string str);
+    void addRowList(std::string str);
 public slots:
+    void updatefriendaddbtn(std::string id);
     void updateList(std::string id);
     void friendAdd(std::string msg);
     void updateFriendList(std::string list);
-    void updateMsgList(std::string list);
+
 };
 
 #endif // MENU2_H

@@ -29,7 +29,7 @@ void informations::removeRow(QWidget* rowWidget){
     delete rowWidget;
 }
 
-void informations::addRow(const std::string &info)
+void informations::addRow(std::string info)
 {
     QHBoxLayout* rowLayout = new QHBoxLayout;
         QWidget* rowWidget = new QWidget(this);

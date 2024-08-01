@@ -27,6 +27,7 @@ signals:
     // void remove();
 public slots:
     // void showinfos(std::vector<std::string>);
+    void addRow(std::string info);
     void removeRow(QWidget* rowWidget);
 private:
     Ui::informations *ui;
@@ -34,7 +35,7 @@ private:
     int fd;
     QVBoxLayout* mainLayout;
 
-    void addRow(const std::string &info);
+    // void addRow(const std::string &info);
 };
 
 #endif // INFORMATIONS_H

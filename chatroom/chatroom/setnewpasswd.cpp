@@ -24,13 +24,13 @@ SetNewPasswd::SetNewPasswd(QWidget *parent,int sfd)
         }
         QMessageBox::information(this,"成功！","点击ok返回登陆页面");
         this->close();
-        class log *w = new class log(this,sfd);
+        class log *w = new class log(nullptr,sfd);
         w->show();
     });
 
     connect(ui->quitBtn,&QPushButton::clicked,[=](){
         this->close();
-        class log *w = new class log(this,sfd);
+        class log *w = new class log(nullptr,sfd);
         w->show();
     });
 }

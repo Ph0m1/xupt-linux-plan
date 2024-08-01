@@ -67,6 +67,7 @@ private:
 
     void addFriend(int fd, std::string str);
     void acceptAddFrined(int fd, std::string str);
+    void refuseAddFriend(int fd, std::string msg);
     void deleteFriend(int fd, std::string str);
     void bannedFriend(int fd, std::string str);
     void accountInit( std::string str);

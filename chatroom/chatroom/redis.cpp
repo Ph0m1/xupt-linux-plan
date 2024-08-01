@@ -39,9 +39,9 @@ bool Redis::Hdel(std::string key, std::string str) {
     }
     return true;
 }
-bool Redis::Hmexists(int key, std::string value) {
+bool Redis::Hmexists(std::string key, std::string value) {
 
-    std::string cmd = "HMEXISTS " + std::to_string(key) + " " + value;
+    std::string cmd = "HMEXISTS " + key + " " + value;
     m_reply = (redisReply *)redisCommand(m_context, "%s",cmd.c_str());
     if (m_reply->type == REDIS_REPLY_ERROR) {
         std::cout << "Error: " << m_reply->str << std::endl;

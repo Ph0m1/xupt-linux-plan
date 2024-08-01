@@ -126,6 +126,7 @@ void Server::handleMessage(int fd, MsgType type, const std::string &msg) {
             acceptAddFrined(fd,msg);
             break;
         case FriendAddNo:
+            refuseAddFriend(fd, msg);
             break;
         default:
             std::cout << "Unknown message type: " << type << std::endl;
@@ -228,7 +229,16 @@ void Server::login(int fd,std::string str){
     rec["Uid"] = id;
     rec["FriendList"] = getFl(id);
     rec["GroupList"]= getGl(id);
-    rec["MsgList"] = getMl(id);
+    std::unordered_map<std::string, std::string> ml = getMl(id);
+    rec["MsgList"] = ml;
+    {
+        for(auto & t : ml){
+            Json js = Json::parse(t.second.data());
+            js["Status"] = Readen;
+            std::string data = js.dump();
+            r.Hmset(id+"m", t.first, data);
+        }
+    }
     rec["Info"] = js;
     rec["FriendAdd"] = r.Smembers(id+"000");
     std::string data = rec.dump();
@@ -410,11 +420,18 @@ void Server::addFriend(int fd, std::string str){
         sendMsg(fd,FriendAdd,data);
         return;
     }
+
     std::string mid = users[fd];
     std::string uname = getusername(uid);
     std::string mname = getusername(mid);
-    std::cout << mid <<" " << mname << std::endl;
-    std::cout << uid << " " << uname <<std::endl;
+    if(r.Hmexists(mid + "f", uid)){
+        Json js;
+        js["Msg"] = "该用户已是您的好友";
+        js["Status"] = Failure;
+        std::string data = js.dump();
+        sendMsg(fd, FriendAdd, data);
+        return;
+    }
     if(r.Sismember(mid+"000",uid )){
         r.Hmset(mid + "f",uid, uname);
         r.Hmset(uid + "f",mid, mname);
@@ -424,7 +441,6 @@ void Server::addFriend(int fd, std::string str){
             js["Status"] = Success;
             std::string data = js.dump();
             sendMsg(fd,FriendAdd,data);
-
             r.Srem(mid+"000", uid);
         }
         Json json;
@@ -432,6 +448,12 @@ void Server::addFriend(int fd, std::string str){
         json["Uname"] = uname;
         std::string data2 = json.dump();
         sendMsg(fd, ReFreshFriendList, data2.data());
+        if(onlinelist.find(uid) != onlinelist.end()){
+            json["Uid"] = mid;
+            json["Uname"] = mname;
+            data2 = json.dump();
+            sendMsg(onlinelist[uid], ReFreshFriendList, data2);
+        }
         return;
     }
     if(onlinelist.find(uid) != onlinelist.end()){
@@ -446,6 +468,11 @@ void Server::addFriend(int fd, std::string str){
     r.Sadd(key,mid);
 }
 
+void Server::refuseAddFriend(int fd, std::string str){
+    Redis r;
+    std::string id = users[fd];
+    r.Srem(id + "000", str);
+}
 
 void Server::acceptAddFrined(int fd, std::string str){
 

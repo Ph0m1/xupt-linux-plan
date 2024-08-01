@@ -96,13 +96,13 @@ Menu2::Menu2(QWidget *parent, int sfd, const std::string& data)
     ui->settingBtn->setIconSize(cpixmap.size());
     Menu2::btnIsChecked[0] = false;
     Menu2::btnIsChecked[1] = true;
-    BadgeToolButton *friendaddbtn = new BadgeToolButton;
+    friendaddbtn = new BadgeToolButton;
     Menu2::setFbtn(fl);
     Menu2::setMbtn(ml);
     friendaddbtn->setText("新朋友    ");
     friendaddbtn->setUnreadCount(friendaddlist.size());
+    w = new informations(nullptr, fd, friendaddlist);
     connect(friendaddbtn, &BadgeToolButton::clicked, [=](){
-        informations *w = new informations(nullptr, fd, friendaddlist);
         w->show();
         friendaddbtn->setUnreadCount(0);
     });
@@ -140,13 +140,14 @@ Menu2::Menu2(QWidget *parent, int sfd, const std::string& data)
 
     });
 
-    // 绑定信号和槽         
+    // 绑定信号和槽
+    connect(this, SIGNAL(addRowList(std::string)), w, SLOT(addRow(std::string)));
     connect(this, SIGNAL(friendsg(std::string)), this,  SLOT(friendAdd(std::string)));
     connect(this, SIGNAL(refreshFriendList(std::string)),
             this, SLOT(updateFriendList(std::string)));
-    connect(this, SIGNAL(refreshMsgList(std::string)),
-            this, SLOT(upadteMsgList(std::string)));
 
+    connect(this, SIGNAL(friendaddmsg(std::string)),
+            this, SLOT(updatefriendaddbtn(std::string)));
 
     // 启动线程池
     threadPool->init();
@@ -155,6 +156,19 @@ Menu2::Menu2(QWidget *parent, int sfd, const std::string& data)
     threadPool->submit([this] { readFromServer(this->fd); });
     // readFromServer(fd);
 }
+
+void Menu2::updatefriendaddbtn(std::string id){
+    while(QLayoutItem * item = ui->framelayout->takeAt(0))
+    {
+        if(QWidget* w = item->widget()){
+            w->deleteLater();
+        }
+    }
+    friendaddbtn->addUnreadCount(1);
+    ui->framelayout->addWidget(friendaddbtn);
+    emit addRowList(id);
+}
+
 
 void Menu2::updateList(std::string id){
     std::cout<<id<<" "<< " adaadasgdhajsdasd" <<std::endl;
@@ -178,10 +192,6 @@ void Menu2::updateList(std::string id){
     ui->listLayout->addLayout(layout);
 }
 
-void Menu2::updateMsgList(std::string list){
-
-}
-
 void Menu2::readFromServer(int fd){
 
     while(true){
@@ -201,7 +211,9 @@ void Menu2::readFromServer(int fd){
             case FriendAdd:
                 emit friendsg(buffer);
                 break;
-
+            case FriendAddMsg:
+                emit friendaddmsg(buffer);
+                break;
             }
         }
         catch(...){
@@ -209,6 +221,7 @@ void Menu2::readFromServer(int fd){
         }
     }
 }
+
 
 void Menu2::updateFriendList(std::string msg){
     qDebug() << msg.c_str();
