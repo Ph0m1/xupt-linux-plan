@@ -285,6 +285,10 @@
               <property name="text">
                <string>...</string>
               </property>
+              <property name="icon">
+               <iconset resource="log.qrc">
+                <normaloff>:/Header/images/magnifying.png</normaloff>:/Header/images/magnifying.png</iconset>
+              </property>
              </widget>
             </item>
            </layout>
@@ -477,7 +481,8 @@
                <string>...</string>
               </property>
               <property name="icon">
-               <iconset theme="QIcon::ThemeIcon::ProcessStop"/>
+               <iconset resource="log.qrc">
+                <normaloff>:/Header/images/remove.png</normaloff>:/Header/images/remove.png</iconset>
               </property>
              </widget>
             </item>
