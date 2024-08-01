@@ -40,7 +40,9 @@ enum MsgType{
     // 消息状态
     Unread,
     Readen,
-    AccountDeleted
+    AccountDeleted,
+
+    PopFriendAddList
 };
 
 

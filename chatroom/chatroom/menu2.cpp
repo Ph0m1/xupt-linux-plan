@@ -158,15 +158,12 @@ Menu2::Menu2(QWidget *parent, int sfd, const std::string& data)
 }
 
 void Menu2::updatefriendaddbtn(std::string id){
-    while(QLayoutItem * item = ui->framelayout->takeAt(0))
-    {
-        if(QWidget* w = item->widget()){
-            w->deleteLater();
-        }
-    }
     friendaddbtn->addUnreadCount(1);
-    ui->framelayout->addWidget(friendaddbtn);
-    emit addRowList(id);
+    auto t = std::find(friendaddlist.begin(), friendaddlist.end(), id);
+    if(t == friendaddlist.end()){
+        friendaddlist.push_back(id);
+        emit addRowList(id);
+    }
 }
 
 
@@ -213,6 +210,10 @@ void Menu2::readFromServer(int fd){
                 break;
             case FriendAddMsg:
                 emit friendaddmsg(buffer);
+                break;
+            case PopFriendAddList:
+                auto t = std::remove(friendaddlist.begin(), friendaddlist.end(), buffer);
+                friendaddlist.erase(t);
                 break;
             }
         }

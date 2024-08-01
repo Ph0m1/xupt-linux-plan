@@ -175,10 +175,10 @@ void Server::reg(int fd, std::string str){
     std::string mail = js["mail"];
 
     Redis redis;
-    if(redis.Hget(UsernameHash, name) != ""){
+    if(redis.Hget(UsernameHash, name) != " "){
         sendMsg(fd,Refuse,"该用户名已注册");
         return;
-    }else if(redis.Hget(EmailHash, mail) != ""){
+    }else if(redis.Hget(EmailHash, mail) != " "){
         sendMsg(fd,Refuse,"该邮箱已注册");
         return;
     }
@@ -201,11 +201,11 @@ void Server::login(int fd,std::string str){
     std::string uid = r.Hget(EmailHash,id);
 
     std::cout<<uid<<std::endl;
-    if(uid != ""){
+    if(uid != " "){
         id = uid;
     }
     std::string info = r.Hget(UserInfo,id);
-    if (info == ""){
+    if (info == " "){
         sendMsg(fd,Refuse,"该账户不存在");
     }
     js = nlohmann::json::parse(r.Hget(UserInfo,id));
@@ -233,6 +233,7 @@ void Server::login(int fd,std::string str){
     rec["MsgList"] = ml;
     {
         for(auto & t : ml){
+            if(t.first == " ") break;
             Json js = Json::parse(t.second.data());
             js["Status"] = Readen;
             std::string data = js.dump();
@@ -326,7 +327,7 @@ void Server::deleteAccount(int fd,std::string str){
     Redis r;
     std::string Info;
     Info = r.Hget(UserInfo,str);
-    if(Info == ""){
+    if(Info == " "){
         sendMsg(fd,Refuse);
         return;
     }
@@ -409,10 +410,10 @@ void Server::addFriend(int fd, std::string str){
     Redis r;
     std::string uid = r.Hget(EmailHash,str);
     std::cout << str.c_str() <<"  " <<uid.c_str() << std::endl;
-    if(uid == ""){
+    if(uid == " "){
         uid = str;
     }
-    if(!r.Sismember("UidSet",uid) || uid == ""){
+    if(!r.Sismember("UidSet",uid) || uid == " "){
         Json js;
         js["Msg"] = "该用户不存在";
         js["Status"] = Failure;
@@ -469,13 +470,14 @@ void Server::addFriend(int fd, std::string str){
 }
 
 void Server::refuseAddFriend(int fd, std::string str){
+    sendMsg(fd, PopFriendAddList, str);
     Redis r;
     std::string id = users[fd];
     r.Srem(id + "000", str);
 }
 
 void Server::acceptAddFrined(int fd, std::string str){
-
+    sendMsg(fd, PopFriendAddList, str);
     std::string uid = str;
     std::string mid = users[fd];
     std::string uname = getusername(uid);
@@ -516,7 +518,10 @@ std::unordered_map<std::string,std::string> getFl(const std::string &key){
     std::string str = key + "f";
     Redis redis;
     std::unordered_map<std::string,std::string> list = redis.Hmget(str);
-
+    if(list.empty()){
+        std::string a = " ";
+        return {{a,a}};
+    }
     return list;
 }
 std::unordered_map<std::string,std::string> getGl(const std::string &key){
@@ -524,13 +529,21 @@ std::unordered_map<std::string,std::string> getGl(const std::string &key){
     Redis redis;
 
     std::unordered_map<std::string,std::string> list = redis.Hmget(str);
-
+    if(list.empty()){
+        std::string a = " ";
+        return {{a,a}};
+    }
     return list;
 }
 std::unordered_map<std::string,std::string> getMl(const std::string &key){
     std::string str = key + "m";
     Redis redis;
+
     std::unordered_map<std::string,std::string> list = redis.Hmget(str);
+    if(list.empty()){
+        std::string a = " ";
+        return {{a,a}};
+    }
 
     return list;
 }
