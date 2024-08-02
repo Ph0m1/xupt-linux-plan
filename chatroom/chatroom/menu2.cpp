@@ -4,6 +4,7 @@
 #include "widget.h"
 #include "msgtype.h"
 #include "informations.h"
+#include "settings.h"
 #include "badgetoolbutton.h"
 #include <QPainter>
 #include <QToolButton>
@@ -129,7 +130,9 @@ Menu2::Menu2(QWidget *parent, int sfd, const std::string& data)
         Menu2::btnIsChecked[0] = false;
         ui->friendBtn->setChecked(false);
     });
-
+    connect(ui->settingBtn,&QToolButton::clicked, [=](){
+        setting->show();
+    });
     connect(ui->addBtn, &QToolButton::clicked,[=](){
         std::string line = ui->searchEdit->text().toStdString();
         if(line.empty()){
@@ -141,6 +144,7 @@ Menu2::Menu2(QWidget *parent, int sfd, const std::string& data)
     });
 
     // 绑定信号和槽
+    connect(setting, SIGNAL(deleteAccont()), this, SLOT(deleteAccont()));
     connect(this, SIGNAL(addRowList(std::string)), w, SLOT(addRow(std::string)));
     connect(this, SIGNAL(friendsg(std::string)), this,  SLOT(friendAdd(std::string)));
     connect(this, SIGNAL(refreshFriendList(std::string)),
@@ -148,7 +152,7 @@ Menu2::Menu2(QWidget *parent, int sfd, const std::string& data)
 
     connect(this, SIGNAL(friendaddmsg(std::string)),
             this, SLOT(updatefriendaddbtn(std::string)));
-
+    connect(setting, SIGNAL(exit()), this, SLOT(exit()));
     // 启动线程池
     threadPool->init();
 
@@ -179,6 +183,7 @@ void Menu2::updateList(std::string id){
         if (QWidget* widget = item->widget()) {
             widget->deleteLater();
         }
+        delete item;
     }
     for(auto &t : lists){
         if(t.first == id){
@@ -408,6 +413,16 @@ QWidget* Menu2::copyWidget(QWidget* widget) {
     return newWidget;
 }
 
+void Menu2::deleteAccont(){
+    sendMsg(fd, AccountDelete, m_id);
+    QMessageBox::information(this, "提示", "您的账号已注销！");
+    this->close();
+}
+void Menu2::exit(){
+    sendMsg(fd, Disconnent, m_id);
+    this->close();
+}
+
 Menu2::~Menu2()
 {
     // 确保删除所有动态分配的对象
@@ -422,6 +437,7 @@ Menu2::~Menu2()
         qStack->removeWidget(w);
         delete w;
     }
+    delete setting;
     delete layout;
     // 删除qStack
     delete qStack;

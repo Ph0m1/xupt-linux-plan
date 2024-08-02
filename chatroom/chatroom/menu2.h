@@ -11,6 +11,7 @@
 #include <QStackedWidget>
 #include <QDebug>
 
+#include "settings.h"
 #include "threadpool.h"
 #include "badgetoolbutton.h"
 #include "informations.h"
@@ -47,6 +48,7 @@ private:
     std::string m_name;
     std::vector<std::string> friendaddlist;
 
+    Settings *setting = new Settings;
     informations *w;
     BadgeToolButton *friendaddbtn;
     QVBoxLayout *layout;
@@ -75,7 +77,8 @@ public slots:
     void updateList(std::string id);
     void friendAdd(std::string msg);
     void updateFriendList(std::string list);
-
+    void deleteAccont();
+    void exit();
 };
 
 #endif // MENU2_H

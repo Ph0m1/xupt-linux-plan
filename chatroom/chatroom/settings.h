@@ -15,6 +15,11 @@ public:
     explicit Settings(QWidget *parent = nullptr);
     ~Settings();
 
+signals:
+    void deleteAccont();
+    void exit();
+public slots:
+
 private:
     Ui::Settings *ui;
 };

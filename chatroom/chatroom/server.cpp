@@ -244,7 +244,7 @@ void Server::login(int fd,std::string str){
     rec["FriendAdd"] = r.Smembers(id+"000");
     std::string data = rec.dump();
     sendMsg(fd,Success,data);
-    onlinelist[ id] = fd;
+    onlinelist[id] = fd;
     {
         for(auto &t : onlinelist){
             std::cout << t.first << " : " << t.second << std::endl;
@@ -327,21 +327,38 @@ void Server::deleteAccount(int fd,std::string str){
     Redis r;
     std::string Info;
     Info = r.Hget(UserInfo,str);
+    std::cout<<"111"<<std::endl;
     if(Info == " "){
         sendMsg(fd,Refuse);
         return;
     }
-    json ijs = json::parse(Info);
+    std::cout<<"2222"<<std::endl;
+    json ijs = json::parse(Info.data());
     std::string username = ijs["username"].get<std::string>();
-    std::string mail = ijs["username"].get<std::string>();
+    std::string mail = ijs["mail"].get<std::string>();
     std::string id = r.Hget(EmailHash,mail);
+
     r.Hdel(EmailHash,mail);
     r.Hdel(UserInfo,id);
     r.Srem(UidSet,id);
+    r.Hdel(UsernameHash,username);
     // ...
     // 删除信息
-
-    sendMsg(fd,Success);
+    std::unordered_map<std::string, std::string> fl = r.Hmget(id + "f");
+    for(auto &t : fl){
+        r.Hdel(t.first+"f",id);
+        if(onlinelist.find(t.first) != onlinelist.end()){
+            Json js;
+            js["Time"]="00000000";
+            js["Msg"] = id+"000000000该用户已注销！";
+            js["Status"] = Readen;
+            std::string data = js.dump();
+            sendMsg(onlinelist[t.first], Msg, data);
+        }
+    }
+    r.Del(id+"f");
+    r.Del(id+"m");
+    r.Del(id+"000");
 }
 
 void creatGroup(int fd, std::string str);

@@ -50,6 +50,7 @@ public:
     bool Sscan(int key, std::string str);
     bool Sismember( std::string str,std::string value);
     std::vector<std::string> Smembers(std::string msg);
+    bool Del(std::string str);
 };
 
 #endif // REDIS_H

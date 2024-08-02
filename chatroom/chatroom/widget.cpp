@@ -109,14 +109,23 @@ void Widget::getData(std::string data){
     std::string recver = msg.substr(9,9);
     std::string uid = u_id.toStdString();
     std::string mid = m_id.toStdString();
-    // 0表示自己发出的，1表示别人发给自己的
+    // 0表示自己发出的，1表示别人发给自己的，2表示通知
     if(uid == sender){
         emit readmsg(uid);
         // std::cout<<uid;
-        prints(time, msg.substr(18), 1);
+        if(recver == mid){
+            prints(time, msg.substr(18), 1);
+        }
+        else{
+            prints(time, msg.substr(18),2);
+        }
     }
     else if(uid == recver){
-        prints(time, msg.substr(18), 0);
+        if(mid == sender){
+            prints(time, msg.substr(18), 0);
+        }else{
+            prints(time,msg.substr(18),2);
+        }
     }
 
 }
@@ -164,6 +173,9 @@ void Widget::prints(std::string time, std::string msg, int flag){
     else if(flag == 0){
         ui->MsgBrowser->setTextColor(Qt::green);
         ui->MsgBrowser->append("["+m_name+"]" + static_cast<QString>(time.c_str()));
+    }
+    else if(flag == 2){
+        printinfo(msg);
     }
     ui->MsgBrowser->append(msg.c_str());
 }

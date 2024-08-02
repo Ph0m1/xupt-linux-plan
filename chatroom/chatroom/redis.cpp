@@ -72,6 +72,16 @@ bool Redis::Sadd(std::string str,std::string value){// 向集合添加成员
     freeReplyObject(reply);
     return result;
 }
+
+bool Redis::Del(std::string str){
+    redisReply *reply = (redisReply*) redisCommand(m_context,"DEL %s",str.c_str());
+    if(reply->type==REDIS_REPLY_ERROR){
+        freeReplyObject(reply);
+        return false;
+    }
+    freeReplyObject(reply);
+    return true;
+}
 bool Scard(int key);
 bool Redis::Srem(std::string key, std::string str){
     std::string cmd = "SREM "+ key + " " + str;
