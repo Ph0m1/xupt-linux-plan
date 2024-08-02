@@ -272,7 +272,8 @@ void Server::accountInit(std::string str){
     std::cout<<"正在初始化账户"<<std::endl;
     std::string superid = "000000001";
     Redis r;
-    std::string str1 = superid + str + "欢迎来到PH0M的聊天室!";
+
+    std::string str1 =superid + str + "欢迎来到PH0M的聊天室!";
     Json js;
     {
         auto now = std::chrono::system_clock::now();
@@ -285,7 +286,8 @@ void Server::accountInit(std::string str){
         js["Time"] = oss.str();
     }
     js["Msg"] = str1;
-    r.Hmset(str+"m",sha256(str1), str1);
+    std::string dt = js.dump();
+    r.Hmset(str+"m",sha256(dt), dt);
 
     r.Hmset(str+ "f", superid, "小H");
 

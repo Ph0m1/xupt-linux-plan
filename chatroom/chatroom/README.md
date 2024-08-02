@@ -23,12 +23,14 @@
 archlinux：
 
 ```shell
-    sudo pacman -S hiredis openssl qt5 qt6
+    sudo pacman -S hiredis openssl qt5 qt6 nlohmann-json
+```
 ```
 ubuntu：
     
 ```shell
-    sudo apt install libhiredis-dev libssl-dev qt6-base-dev qtbase5-dev qttools5-dev-tools qt6-tools-dev qt6-linguist-tools
+    sudo apt install libhiredis-dev libssl-dev qt6-base-dev qtbase5-dev qttools5-dev-tools qttools5-dev qt6-tools-dev qt6-tools-dev-tools qt6-linguist-tools nlohmann-json-dev
+```
 ```
 
 - 编译运行
