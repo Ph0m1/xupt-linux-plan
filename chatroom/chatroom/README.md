@@ -28,7 +28,7 @@ archlinux：
 ubuntu：
     
 ```shell
-    sudo apt-get install libhiredis-dev libssl-dev qt6-base-dev qt5-base-dev
+    sudo apt install libhiredis-dev libssl-dev qt6-base-dev qt6-tools-dev-tools qtbase5-dev qttools5-dev-tools
 ```
 
 - 编译运行
@@ -36,15 +36,10 @@ ubuntu：
 ```shell
     mkdir build && cd build
     cmake .. 
-    make
+    make -j20
     ./server
     ./client
 ```
 
 ## 项目结构
 
-    - src
-        - client
-            - main.cpp
-            - mainwindow.cpp
-            - mainwindow.h
