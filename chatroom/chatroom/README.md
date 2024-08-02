@@ -28,7 +28,7 @@ archlinux：
 ubuntu：
     
 ```shell
-    sudo apt install libhiredis-dev libssl-dev qt6-base-dev qt6-tools-dev-tools qtbase5-dev qttools5-dev-tools
+    sudo apt install libhiredis-dev libssl-dev qt6-base-dev qtbase5-dev qttools5-dev-tools qt6-tools-dev qt6-linguist-tools
 ```
 
 - 编译运行
