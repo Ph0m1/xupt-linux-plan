@@ -363,7 +363,10 @@ void Server::deleteAccount(int fd,std::string str){
     r.Del(id+"000");
 }
 
-void creatGroup(int fd, std::string str);
+void Server::creatGroup(int fd, std::string str){
+    Json js =  Json::parse(str.data());
+
+}
 void joinGroup(int fd, std::string str);
 void exitGroup(int fd, std::string str);
 
@@ -419,7 +422,7 @@ std::string Server::sha256(const std::string& str) {
     // 将哈希结果转换为十六进制字符串
     std::stringstream ss;
     for(unsigned int i = 0; i < len; ++i){
-        ss << std::hex << std::setw(2) << std::setfill('0') << static_cast<int>(hash[i]);
+        ss << std::hex << std::setw(2) << std::setfill('0') << static_cast<int>(hash[i]);    
     }
     return ss.str();
 }
