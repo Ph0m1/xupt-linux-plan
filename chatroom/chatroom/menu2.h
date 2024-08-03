@@ -15,6 +15,7 @@
 #include "threadpool.h"
 #include "badgetoolbutton.h"
 #include "informations.h"
+#include "creategroupdialog.h"
 
 #include "widget.h"
 namespace Ui {
@@ -37,6 +38,8 @@ private:
     QWidget* copyWidget(QWidget* widget);
     void pauseMsgThread();//暂停
     void resumeMsgThread();//重新唤醒
+
+    void createGroup(const std::vector<std::string> &ll);
 
     void readFromServer(int fd);
     ThreadPool *threadPool;
@@ -61,7 +64,7 @@ private:
 
     QVector<BadgeToolButton*> vector;// 好友按钮
     std::unordered_map<std::string, BadgeToolButton*> lists;
-    QVector<QToolButton*> msglist;
+    std::unordered_map<std::string, std::string> friendlist;
     QStackedWidget *qStack = new QStackedWidget(this); // 聊天窗口
     // QStackedLayout *listStack = new QStackedLayout(this); // 消息/好友列表
 signals:
@@ -79,6 +82,8 @@ public slots:
     void updateFriendList(std::string list);
     void deleteAccont();
     void exit();
+private slots:
+    void showCreateGroupDialog();
 };
 
 #endif // MENU2_H

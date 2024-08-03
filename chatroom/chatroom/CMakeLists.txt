@@ -85,6 +85,7 @@ else()
     else()
         add_executable(client
             ${CLIENT_SOURCES}
+            creategroupdialog.h creategroupdialog.cpp
 
 
         )
