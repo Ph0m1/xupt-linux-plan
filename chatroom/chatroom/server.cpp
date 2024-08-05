@@ -363,9 +363,20 @@ void Server::deleteAccount(int fd,std::string str){
     r.Del(id+"000");
 }
 
-void Server::creatGroup(int fd, std::string str){
+void Server::createGroup(int fd, std::string str){
     Json js =  Json::parse(str.data());
+    std::string gid = generateUid();
+    std::vector<std::string> friends = js.get<std::vector<std::string>>();
 
+    for(auto& t : friends){
+        addmember(t, gid);
+    }
+}
+
+void Server::addmember(std::string id, std::string gid){
+    std::string key = gid + "member";
+    Redis r;
+    r.Sadd(key, id+"0");
 }
 void joinGroup(int fd, std::string str);
 void exitGroup(int fd, std::string str);

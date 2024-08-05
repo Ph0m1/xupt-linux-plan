@@ -55,7 +55,7 @@ private:
     void infoReset(int fd,std::string str);
     void deleteAccount(int fd,std::string str);
     void resetpasswd(int fd,std::string str);
-    void creatGroup(int fd, std::string str);
+    void createGroup(int fd, std::string str);
     void joinGroup(int fd, std::string str);
     void exitGroup(int fd, std::string str);
 
@@ -91,6 +91,7 @@ private:
         return fcntl(fd, F_SETFL, flags | O_NONBLOCK);
     }
 
+    void addmember(std::string id, std::string gid);
 public:
 
 
