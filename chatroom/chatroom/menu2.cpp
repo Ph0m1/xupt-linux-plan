@@ -352,6 +352,7 @@ void Menu2::resetFbtn(const std::string& str){
     FriendIsShow.push_back(false);
     Widget *w = new Widget(nullptr, uname.data(), uid.data(), m_name.data(), m_id.data(), fd);
     qStack->addWidget(w);
+    lists[uid] = btn;
 
     connect(this, SIGNAL(sendlist(std::vector<std::string>)), w, SLOT(inithistory(std::vector<std::string>)));
     connect(this,SIGNAL(sendData(std::string)),w,SLOT(getData(std::string)));
