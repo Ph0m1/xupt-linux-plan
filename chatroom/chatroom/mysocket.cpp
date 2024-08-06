@@ -30,10 +30,10 @@ void sendMsg(int sfd,MsgType type,const std::string &msg){
 
     std::cout << "JSON prepared: " << data << std::endl;
     int len = htonl(data.size());
-    std::string buf(4 + data.size(), '\0');
+    std::string buf(9 + data.size(), '\0');
 
-    memcpy(&buf[0], &len, 4);
-    memcpy(&buf[4], data.data(), data.size());
+    memcpy(&buf[0], &len, 9);
+    memcpy(&buf[9], data.data(), data.size());
 
     std::cout << "Buffer prepared, sending message" << std::endl;
     int ret = writen(sfd, buf, buf.size());
@@ -74,7 +74,7 @@ MsgType recvMsg(int sfd,std::string &str){
 
 
     int len = 0;
-    read(sfd,&len,4);
+    read(sfd,&len,9);
     len = ntohl(len);
     std::vector<char> buf(len+1);
     int ret = readen(sfd,buf.data(), len);

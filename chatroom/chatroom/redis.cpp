@@ -39,7 +39,7 @@ bool Redis::Hdel(std::string key, std::string str) {
     }
     return true;
 }
-bool Redis::Hmexists(std::string key, std::string value) {
+bool Redis::Hexists(std::string key, std::string value) {
 
     std::string cmd = "HMEXISTS " + key + " " + value;
     m_reply = (redisReply *)redisCommand(m_context, "%s",cmd.c_str());
@@ -47,7 +47,7 @@ bool Redis::Hmexists(std::string key, std::string value) {
         std::cout << "Error: " << m_reply->str << std::endl;
         return false;
     }
-    return true;
+    return m_reply;
 }
 std::unordered_map<std::string,std::string> Redis::Hmget(std::string key) {
     std::string cmd = "HGETALL " + key;

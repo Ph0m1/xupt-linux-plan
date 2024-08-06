@@ -97,17 +97,25 @@ Menu2::Menu2(QWidget *parent, int sfd, const std::string& data)
     Menu2::btnIsChecked[0] = false;
     Menu2::btnIsChecked[1] = true;
     friendaddbtn = new BadgeToolButton;
+    groupinfobtn = new BadgeToolButton;
     Menu2::setFbtn(fl);
     Menu2::setMbtn(ml);
     friendaddbtn->setText("新朋友    ");
+    groupinfobtn->setText("群通知    ");
     friendaddbtn->setUnreadCount(friendaddlist.size());
-    w = new informations(nullptr, fd, friendaddlist);
+    groupinfobtn->setUnreadCount(groupinfolist.size());
+    w = new informations(nullptr, fd, friendaddlist, 0);
+    w2 = new informations(nullptr, fd, groupinfolist, 1);
     connect(friendaddbtn, &BadgeToolButton::clicked, [=](){
         w->show();
         friendaddbtn->setUnreadCount(0);
     });
+    connect(groupinfobtn, &BadgeToolButton::clicked,[=](){
+        w2->show();
+        groupinfobtn->setUnreadCount(0);
+    });
     ui->framelayout->addWidget(friendaddbtn);
-
+    ui->framelayout->addWidget(groupinfobtn);
 
     // Menu2::setFbtn(ml);
     connect(ui->friendBtn,&QToolButton::clicked,[=](){
@@ -170,11 +178,12 @@ void Menu2::showCreateGroupDialog(){
     CreateGroupDialog dialog(this, friendlist); // 传递好友列表
     if(dialog.exec() == QDialog::Accepted){
         std::vector<std::string> selectedFriends = dialog.getSelectedFriends();
+        std::string gname = dialog.getGroupName();
         // 处理选择的好友并创建群聊
 
         if(!selectedFriends.empty()){
             // 将好友id传递到创建群聊的函数
-            createGroup(selectedFriends);
+            createGroup(selectedFriends, gname);
         }
         else {
             QMessageBox::warning(this, "警告", "请至少选择一个好友来创建群聊!");
@@ -182,10 +191,10 @@ void Menu2::showCreateGroupDialog(){
     }
 }
 
-void Menu2::createGroup(const std::vector<std::string> &friends){
+void Menu2::createGroup(const std::vector<std::string> &friends, const std::string &name){
     Json js;
     js["Members"] = friends;
-    // js["Gname"] =
+    js["Gname"] = name;
     js["Owner"] = m_id;
     std::string data = js.dump();
     sendMsg(fd, GroupCreat, data);

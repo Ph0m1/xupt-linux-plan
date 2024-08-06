@@ -90,10 +90,10 @@ void Server::handleMessage(int fd, MsgType type, const std::string &msg) {
             std::cout << "User delete account: " << msg << std::endl;
             deleteAccount(fd,msg);
             break;
-        // case GroupCreat:
-        //     std::cout << "User creat group message: " << msg << std::endl;
-        //     creatGroup(fd,msg);
-        //     break;
+        case GroupCreat:
+            std::cout << "User create group message: " << msg << std::endl;
+            createGroup(fd,msg);
+            break;
         // case GroupJoin:
         //     joinGroup(fd,msg);
         //     break;
@@ -363,11 +363,21 @@ void Server::deleteAccount(int fd,std::string str){
     r.Del(id+"000");
 }
 
+// 创建群聊
 void Server::createGroup(int fd, std::string str){
     Json js =  Json::parse(str.data());
-    std::string gid = generateUid();
+    std::string gid = generateUid(); // 分配群聊ID
+    std::string owner = js["Owner"].get<std::string>();
     std::vector<std::string> friends = js.get<std::vector<std::string>>();
-
+    // 添加群聊信息
+    Json info;
+    info["Owner"] = js["Owner"].get<std::string>();
+    info["Gid"] = gid;
+    info["Gname"] = js["Gname"].get<std::string>();
+    // 添加群主 2
+    Redis r;
+    r.Sadd(gid + "member", owner + "2");
+    // 添加普通成员 0
     for(auto& t : friends){
         addmember(t, gid);
     }
@@ -378,7 +388,17 @@ void Server::addmember(std::string id, std::string gid){
     Redis r;
     r.Sadd(key, id+"0");
 }
-void joinGroup(int fd, std::string str);
+void Server::joinGroup(int fd, std::string str){
+    Redis r;
+    if(r.Hexists(str + "member", users[fd] + "0")
+        || r.Hexists(str + "member", users[fd] + "1")
+        || r.Hexists(str + "member", users[fd] + "2")){
+        sendMsg(fd, GroupJoinNo, "你已加入该群聊！");
+    }
+    // 初始按照普通用户存储
+    r.Sadd(str + "member", users[fd] + "0");
+
+}
 void exitGroup(int fd, std::string str);
 
 void enter(int fd, std::string str);
@@ -458,7 +478,7 @@ void Server::addFriend(int fd, std::string str){
     std::string mid = users[fd];
     std::string uname = getusername(uid);
     std::string mname = getusername(mid);
-    if(r.Hmexists(mid + "f", uid)){
+    if(r.Hexists(mid + "f", uid)){
         Json js;
         js["Msg"] = "该用户已是您的好友";
         js["Status"] = Failure;
@@ -512,7 +532,7 @@ void Server::refuseAddFriend(int fd, std::string str){
 void Server::acceptAddFrined(int fd, std::string str){
     sendMsg(fd, PopFriendAddList, str);
     std::string uid = str;
-    std::string mid = users[fd];
+    std::string mid = users[fd];s
     std::string uname = getusername(uid);
     std::string mname = getusername(mid);
     Redis r;

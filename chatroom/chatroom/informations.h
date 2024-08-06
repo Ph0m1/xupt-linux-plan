@@ -20,14 +20,15 @@ class informations : public QWidget
     Q_OBJECT
 
 public:
-    explicit informations(QWidget *parent, int fd, std::vector<std::string> ll);
+    explicit informations(QWidget *parent, int fd, std::vector<std::string> ll, int flag);
     ~informations();
 
 signals:
     // void remove();
 public slots:
     // void showinfos(std::vector<std::string>);
-    void addRow(std::string info);
+    void addgroupRow(std::string info);
+    void addfriendRow(std::string info);
     void removeRow(QWidget* rowWidget);
 private:
     Ui::informations *ui;

@@ -39,7 +39,7 @@ private:
     void pauseMsgThread();//暂停
     void resumeMsgThread();//重新唤醒
 
-    void createGroup(const std::vector<std::string> &ll);
+    void createGroup(const std::vector<std::string> &ll, const std::string & name);
 
     void readFromServer(int fd);
     ThreadPool *threadPool;
@@ -49,11 +49,14 @@ private:
     int fd;
     std::string m_id;
     std::string m_name;
-    std::vector<std::string> friendaddlist;
+    std::vector<std::string> friendaddlist;// 好友申请列表
+    std::vector<std::string> groupinfolist;// 群通知按钮
 
     Settings *setting = new Settings;
-    informations *w;
+    informations *w; // 好友申请处理界面
+    informations *w2; // 群通知处理界面
     BadgeToolButton *friendaddbtn;
+    BadgeToolButton * groupinfobtn;
     QVBoxLayout *layout;
     QVector<bool> FriendIsShow;
     QVector<bool> GroupIsShow;
@@ -63,7 +66,7 @@ private:
     bool btnIsChecked[2];
 
     QVector<BadgeToolButton*> vector;// 好友按钮
-    std::unordered_map<std::string, BadgeToolButton*> lists;
+    std::unordered_map<std::string, BadgeToolButton*> lists; // 按钮
     std::unordered_map<std::string, std::string> friendlist;
     QStackedWidget *qStack = new QStackedWidget(this); // 聊天窗口
     // QStackedLayout *listStack = new QStackedLayout(this); // 消息/好友列表

@@ -41,7 +41,7 @@ public:
     bool Hget(std::string str);
     std::string Hget(std::string key,std::string str);
     bool Hdel(std::string key, std::string str);
-    bool Hmexists(std::string key, std::string value);
+    bool Hexists(std::string key, std::string value);
     std::unordered_map<std::string,std::string> Hmget(std::string key);
 
     bool Sadd(std::string str,std::string value);// 向集合添加一个或多个成员

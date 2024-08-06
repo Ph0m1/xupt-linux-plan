@@ -42,7 +42,10 @@ enum MsgType{
     Readen,
     AccountDeleted,
 
-    PopFriendAddList
+    PopFriendAddList,
+
+    GroupJoinYes,
+    GroupJoinNo
 };
 
 
