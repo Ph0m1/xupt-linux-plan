@@ -9,9 +9,10 @@ informations::informations(QWidget *parent, int fd, std::vector<std::string> ll,
     ui->setupUi(this);
     mainLayout = new QVBoxLayout(this);
     if(flag == 0){
-    for(auto & id : ll){
-        addfriendRow(id);
-    }}
+        for(auto & id : ll){
+            addfriendRow(id);
+        }
+    }
     else if(flag == 1){
         for(auto&t : ll){
             addgroupRow(t);

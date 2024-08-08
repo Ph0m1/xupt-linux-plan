@@ -18,6 +18,7 @@ public:
                                const std::unordered_map<std::string, std::string> &friends);
     std::vector<std::string> getSelectedFriends() const;
     std::string getGroupName();
+
 private:
     QListWidget *friendListWidget;
     QPushButton *creatBtn;

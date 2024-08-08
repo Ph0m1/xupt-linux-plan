@@ -476,7 +476,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QToolButton" name="deletefriend">
+             <widget class="QToolButton" name="deletefriendBtn">
               <property name="text">
                <string>...</string>
               </property>

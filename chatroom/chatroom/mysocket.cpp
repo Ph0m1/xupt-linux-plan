@@ -13,6 +13,34 @@ MsgType recvMsg(int sfd){
     return Failure;
 }
 
+void sendFile(int sfd,const std::string &filePath){
+    int file_fd = open(filePath.c_str(), O_RDONLY);
+    if(file_fd < 0){
+        std::cerr <<"Failed to open file: " << filePath << std::endl;
+        return;
+    }
+
+    struct stat file_stat;
+    if(fstat(file_fd, &file_stat) < 0){
+        std::cerr << "Failed to get file stats" <<std::endl;
+        close(file_fd);
+        return;
+    }
+    sendMsg(sfd, File, std::to_string(file_stat.st_size));
+
+    off_t offset = 0;
+    ssize_t sent_bytes = 0;
+    while(offset < file_stat.st_size){
+        sent_bytes = sendfile(sfd,file_fd, &offset, file_stat.st_size - offset);
+        std::cout << "File is sending: " << offset / file_stat.st_size << "%" << std::endl;
+        if(sent_bytes < 0){
+            std::cerr << "Failed to send file" <<std::endl;
+            close(file_fd);
+            return;
+        }
+    }
+    std::cout<< "File sent successfully" << std::endl;
+}
 void sendMsg(int sfd,MsgType type,const std::string &msg){
 
 
@@ -30,10 +58,10 @@ void sendMsg(int sfd,MsgType type,const std::string &msg){
 
     std::cout << "JSON prepared: " << data << std::endl;
     int len = htonl(data.size());
-    std::string buf(9 + data.size(), '\0');
+    std::string buf(4 + data.size(), '\0');
 
-    memcpy(&buf[0], &len, 9);
-    memcpy(&buf[9], data.data(), data.size());
+    memcpy(&buf[0], &len, 4);
+    memcpy(&buf[4], data.data(), data.size());
 
     std::cout << "Buffer prepared, sending message" << std::endl;
     int ret = writen(sfd, buf, buf.size());
@@ -74,7 +102,7 @@ MsgType recvMsg(int sfd,std::string &str){
 
 
     int len = 0;
-    read(sfd,&len,9);
+    read(sfd,&len,4);
     len = ntohl(len);
     std::vector<char> buf(len+1);
     int ret = readen(sfd,buf.data(), len);

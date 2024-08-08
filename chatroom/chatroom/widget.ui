@@ -301,6 +301,13 @@
                    </widget>
                   </item>
                   <item>
+                   <widget class="QToolButton" name="invitebtn">
+                    <property name="text">
+                     <string>邀</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
                    <widget class="QToolButton" name="clikeButton">
                     <property name="toolTip">
                      <string>窗口抖动</string>

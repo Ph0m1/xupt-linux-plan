@@ -41,13 +41,15 @@ bool Redis::Hdel(std::string key, std::string str) {
 }
 bool Redis::Hexists(std::string key, std::string value) {
 
-    std::string cmd = "HMEXISTS " + key + " " + value;
-    m_reply = (redisReply *)redisCommand(m_context, "%s",cmd.c_str());
+    // std::string cmd = "HEXISTS " + key + " " + value;
+    m_reply = (redisReply *)redisCommand(m_context, "HEXISTS %s %s",key.c_str(),value.c_str());
     if (m_reply->type == REDIS_REPLY_ERROR) {
         std::cout << "Error: " << m_reply->str << std::endl;
         return false;
     }
-    return m_reply;
+     bool exists = m_reply->integer == 1;
+    // freeReplyObject()
+    return exists;
 }
 std::unordered_map<std::string,std::string> Redis::Hmget(std::string key) {
     std::string cmd = "HGETALL " + key;

@@ -4,6 +4,8 @@
 #include <QWidget>
 #include "mysocket.h"
 #include <QDebug>
+#include "createfrienddialog.h"
+
 using Json = nlohmann::json;
 
 QT_BEGIN_NAMESPACE
@@ -18,22 +20,30 @@ class Widget : public QWidget
 
 public:
     Widget(QWidget *parent,QString uname, QString uid, QString id, QString name,int sfd);
+    Widget(QWidget *parent,QString gname, QString gid, QString id, QString name,int sfd,
+           std::unordered_map<std::string, std::string> list);
     QString getName();// 获取名字
     QString getMsg();// 获取信息
     void SendMsg();
     void prints(std::string time, std::string msg, int flag);
     void printinfo(std::string msg);
+    void adduser(std::string id, std::string name);
+    void deleteuser(std::string id, std::string name);
     ~Widget();
 signals:
     //关闭窗口信号
     void closeWidget();
-    void unreadmsg();
     void readmsg(std::string id);
 public slots:
+    void addmember(std::string id, std::string name);
     void inithistory(std::vector<std::string> ll);
     void getData(std::string data);
+
 private:
     Ui::Widget *ui;
+    CreateFriendDialog *w;
+    std::unordered_map<std::string, std::string> members;
+    // std::unordered_map<std::string, std::string> friends;
     QString m_name;
     QString m_id;
     QString u_id;

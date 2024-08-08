@@ -151,14 +151,14 @@ Menu2::Menu2(QWidget *parent, int sfd, const std::string& data)
     });
     // 绑定删除按键
     //
-    connect(ui->deletefriend, &QToolButton::clicked, [=](){
 
-    });
     connect(ui->inviteBtn, &QToolButton::clicked, this, &Menu2::showCreateGroupDialog);
+    connect(ui->deletefriendBtn, &QToolButton::clicked, this, &Menu2::showDeleteFriendDialog);
 
     // 绑定信号和槽
     connect(setting, SIGNAL(deleteAccont()), this, SLOT(deleteAccont()));
-    connect(this, SIGNAL(addRowList(std::string)), w, SLOT(addRow(std::string)));
+    connect(this, SIGNAL(addRowList(std::string)), w, SLOT(addFriendRow(std::string)));
+    connect(this, SIGNAL(addgroupRow(std::string)), w2, SLOT(addgroupRow(std::string)));
     connect(this, SIGNAL(friendsg(std::string)), this,  SLOT(friendAdd(std::string)));
     connect(this, SIGNAL(refreshFriendList(std::string)),
             this, SLOT(updateFriendList(std::string)));
@@ -172,65 +172,6 @@ Menu2::Menu2(QWidget *parent, int sfd, const std::string& data)
     // 启动一个线程来接收服务器消息
     threadPool->submit([this] { readFromServer(this->fd); });
     // readFromServer(fd);
-}
-
-void Menu2::showCreateGroupDialog(){
-    CreateGroupDialog dialog(this, friendlist); // 传递好友列表
-    if(dialog.exec() == QDialog::Accepted){
-        std::vector<std::string> selectedFriends = dialog.getSelectedFriends();
-        std::string gname = dialog.getGroupName();
-        // 处理选择的好友并创建群聊
-
-        if(!selectedFriends.empty()){
-            // 将好友id传递到创建群聊的函数
-            createGroup(selectedFriends, gname);
-        }
-        else {
-            QMessageBox::warning(this, "警告", "请至少选择一个好友来创建群聊!");
-        }
-    }
-}
-
-void Menu2::createGroup(const std::vector<std::string> &friends, const std::string &name){
-    Json js;
-    js["Members"] = friends;
-    js["Gname"] = name;
-    js["Owner"] = m_id;
-    std::string data = js.dump();
-    sendMsg(fd, GroupCreat, data);
-}
-
-void Menu2::updatefriendaddbtn(std::string id){
-    friendaddbtn->addUnreadCount(1);
-    auto t = std::find(friendaddlist.begin(), friendaddlist.end(), id);
-    if(t == friendaddlist.end()){
-        friendaddlist.push_back(id);
-        emit addRowList(id);
-    }
-}
-
-
-void Menu2::updateList(std::string id){
-    std::cout<<id<<" "<< " adaadasgdhajsdasd" <<std::endl;
-    // while (QLayoutItem* item = layout->takeAt(0)) {
-    //     if (QWidget* widget = item->widget()) {
-    //         widget->deleteLater();
-    //     }
-    // }
-    QVBoxLayout *layout = new QVBoxLayout;
-    while (QLayoutItem* item = ui->listLayout->takeAt(0)) {
-        if (QWidget* widget = item->widget()) {
-            widget->deleteLater();
-        }
-        delete item;
-    }
-    for(auto &t : lists){
-        if(t.first == id){
-            t.second->addUnreadCount(1);
-        }
-        layout->addWidget(t.second);
-    }
-    ui->listLayout->addLayout(layout);
 }
 
 void Menu2::readFromServer(int fd){
@@ -266,6 +207,87 @@ void Menu2::readFromServer(int fd){
         }
     }
 }
+
+void Menu2::showCreateGroupDialog(){
+    CreateGroupDialog dialog(this, friendlist); // 传递好友列表
+    if(dialog.exec() == QDialog::Accepted){
+        std::vector<std::string> selectedFriends = dialog.getSelectedFriends();
+        std::string gname = dialog.getGroupName();
+        // 处理选择的好友并创建群聊
+
+        if(!selectedFriends.empty()){
+            // 将好友id传递到创建群聊的函数
+            createGroup(selectedFriends, gname);
+        }
+        else {
+            QMessageBox::warning(this, "警告", "请至少选择一个好友来创建群聊!");
+        }
+    }
+}
+
+void Menu2::showDeleteFriendDialog(){
+    CreateFriendDialog dialog(this, friendlist);
+    if(dialog.exec() == QDialog::Accepted){
+        std::vector<std::string> selectedFriends = dialog.getSelectedFriends();
+
+        if(!selectedFriends.empty()){
+            // 传递至删除好友的函数
+            deletefriends(selectedFriends);
+        }
+    }
+}
+
+void Menu2::createGroup(const std::vector<std::string> &friends, const std::string &name){
+    Json js;
+    js["Members"] = friends;
+    js["Gname"] = name;
+    js["Owner"] = m_id;
+    std::string data = js.dump();
+    sendMsg(fd, GroupCreat, data);
+}
+
+void Menu2::deletefriends(const std::vector<std::string> &friends){
+    Json js;
+    js["Info"] = friends;
+    std::string data = js.dump();
+    sendMsg(fd, FriendDelete, data);
+    // removefbtn();
+}
+
+void Menu2::updatefriendaddbtn(std::string id){
+    friendaddbtn->addUnreadCount(1);
+    auto t = std::find(friendaddlist.begin(), friendaddlist.end(), id);
+    if(t == friendaddlist.end()){
+        friendaddlist.push_back(id);
+        emit addRowList(id);
+    }
+}
+
+
+void Menu2::updateList(std::string id){
+
+    for(auto &t : lists){
+        if(t.first == id){
+            t.second->addUnreadCount(1);
+        }
+    }
+    // QVBoxLayout *layout = new QVBoxLayout;
+    // while (QLayoutItem* item = ui->listLayout->takeAt(0)) {
+    //     if (QWidget* widget = item->widget()) {
+    //         widget->deleteLater();
+    //     }
+    //     delete item;
+    // }
+    // for(auto &t : lists){
+    //     if(t.first == id){
+    //         t.second->addUnreadCount(1);
+    //     }
+    //     layout->addWidget(t.second);
+    // }
+    // ui->listLayout->addLayout(layout);
+}
+
+
 
 
 void Menu2::updateFriendList(std::string msg){
@@ -361,13 +383,13 @@ void Menu2::resetFbtn(const std::string& str){
     FriendIsShow.push_back(false);
     Widget *w = new Widget(nullptr, uname.data(), uid.data(), m_name.data(), m_id.data(), fd);
     qStack->addWidget(w);
-    lists[uid] = btn;
+    lists.insert(std::pair<std::string, BadgeToolButton*>(uid, btn));
 
     connect(this, SIGNAL(sendlist(std::vector<std::string>)), w, SLOT(inithistory(std::vector<std::string>)));
     connect(this,SIGNAL(sendData(std::string)),w,SLOT(getData(std::string)));
     connect(w, SIGNAL(readmsg(std::string)), this, SLOT(updateList(std::string)));
     connect(btn, &QToolButton::clicked,[this, i = vector.count() - 1](){
-
+        vector[i]->setUnreadCount(0);
         FriendIsShow[i] = true;
         qStack->setCurrentIndex(i); // 切换对话框
         ui->label->setText(this->vector[i]->text());
@@ -403,7 +425,7 @@ void Menu2::setFbtn(std::unordered_map<std::string,std::string> list){
         btn->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);// 设置按钮样式为文字紧贴图片
         // btn->setAutoRepeat(true)；
         layout->addWidget(btn);// 将按钮添加到布局
-        this->vector.push_back(btn);
+        this->vector.push_back(btn);// 将按钮添加到容器
         FriendIsShow.push_back(false);
         // 添加聊天页面
         Widget *w = new Widget(nullptr, t.second.data(), t.first.data(), m_name.data(), m_id.data(), fd);

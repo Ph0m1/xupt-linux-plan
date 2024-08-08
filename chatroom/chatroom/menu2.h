@@ -16,6 +16,7 @@
 #include "badgetoolbutton.h"
 #include "informations.h"
 #include "creategroupdialog.h"
+#include "createfrienddialog.h"
 
 #include "widget.h"
 namespace Ui {
@@ -40,7 +41,7 @@ private:
     void resumeMsgThread();//重新唤醒
 
     void createGroup(const std::vector<std::string> &ll, const std::string & name);
-
+    void deletefriends(const std::vector<std::string> &ll);
     void readFromServer(int fd);
     ThreadPool *threadPool;
 
@@ -87,6 +88,7 @@ public slots:
     void exit();
 private slots:
     void showCreateGroupDialog();
+    void showDeleteFriendDialog();
 };
 
 #endif // MENU2_H

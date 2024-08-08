@@ -43,7 +43,7 @@ private:
 
     void handleMessage(int client_fd, MsgType type, const std::string &message);
 
-    void broadcastMessage(int sender_fd, const std::string &message);
+    void broadcastMessage(int fd, const std::string &message);
 
     std::string sha256(const std::string& str);
 
@@ -68,7 +68,9 @@ private:
     void addFriend(int fd, std::string str);
     void acceptAddFrined(int fd, std::string str);
     void refuseAddFriend(int fd, std::string msg);
+
     void deleteFriend(int fd, std::string str);
+
     void bannedFriend(int fd, std::string str);
     void accountInit( std::string str);
     void refreshFriendlist(int fd, std::string);

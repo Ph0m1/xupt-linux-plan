@@ -70,6 +70,74 @@ Widget::Widget(QWidget *parent, QString uname, QString uid, QString name, QStrin
     });
 }
 
+Widget::Widget(QWidget *parent, QString uname, QString uid, QString name, QString id,int sfd,
+               std::unordered_map<std::string, std::string> list)
+    : QWidget(parent)
+    , ui(new Ui::Widget)
+{
+    ui->setupUi(this);
+    m_name = name;
+    m_id = id;
+    u_id = uid;
+    qDebug()<<m_id;
+    qDebug()<<u_id;
+    u_name = uname;
+    fd = sfd;
+    members = list;
+    // 链接发送按钮
+    connect(ui->sendButton,&QPushButton::clicked,[=](){
+        SendMsg();
+
+        qDebug() << "Sender: "<< m_name ;
+    });
+
+    // 链接退出按钮
+    connect(ui->quitButton,&QPushButton::clicked,[=](){
+        this->close();
+    });
+    // 链接清除按钮
+    connect(ui->clearButton,&QPushButton::clicked,[=](){
+        ui->msgTextEdit->clear();
+        ui->msgTextEdit->setFocus();
+    });
+
+    // 设置字体
+    connect(ui->fontComboBox,&QFontComboBox::currentFontChanged,[=](const QFont &font){
+        ui->msgTextEdit->setFontFamily(font.toString());
+        ui->msgTextEdit->setFocus();
+    });
+
+    // 设置字体大小
+    void (QComboBox:: * sizebox)(const QString &text) = &QComboBox::currentTextChanged;
+    connect(ui->sizeBox,sizebox,[=](const QString &text){
+        ui->msgTextEdit->setFontPointSize(text.toDouble());
+        ui->msgTextEdit->setFocus();
+    });
+
+    // 以下参数均为bool类型
+    // 加粗
+    connect(ui->strongButton,&QToolButton::clicked,[=](bool checked){
+        if(checked){
+            ui->msgTextEdit->setFontWeight(QFont::Bold);
+        }
+        else{
+            ui->msgTextEdit->setFontWeight(QFont::Normal);
+        }
+        ui->msgTextEdit->setFocus();
+    });
+    // 倾斜
+    connect(ui->itllicButton,&QToolButton::clicked,[=](bool checked){
+        ui->msgTextEdit->setFontItalic(checked);
+        ui->msgTextEdit->setFocus();
+    });
+    // 下划线
+    connect(ui->underlineButton,&QToolButton::clicked,[=](bool checked){
+        ui->msgTextEdit->setFontUnderline(checked);
+        ui->msgTextEdit->setFocus();
+    });
+}
+
+
 void Widget::SendMsg(){
     if(ui->msgTextEdit->toPlainText().isEmpty()){
         QMessageBox::warning(this,"警告","输入不可为空");
@@ -79,7 +147,7 @@ void Widget::SendMsg(){
 
     std::string msg = m_id.toStdString() + u_id.toStdString() + mm.toStdString();
 
-    QString time = QDateTime::currentDateTime().toString("yyyy-MM-dd[hh:mm:ss]");
+    QString time = QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss");
     std::string t = time.toStdString();
     Json stream = {{"Time",t},{"Msg",msg},{"Status",Unread}};
     // stream["Time"] = t;
@@ -116,8 +184,10 @@ void Widget::getData(std::string data){
         if(recver == mid){
             prints(time, msg.substr(18), 1);
         }
+        else if(recver == "000000000")
+            prints(time, msg.substr(18), 2);
         else{
-            prints(time, msg.substr(18),2);
+            prints(time, msg.substr(9),3);
         }
     }
     else if(uid == recver){
@@ -148,13 +218,41 @@ void Widget::inithistory(std::vector<std::string> ml){
         std::string recver = msg.substr(9,9);
         std::string uid = u_id.toStdString();
         std::string mid = m_id.toStdString();
-        // 0表示自己发出的，1表示别人发给自己的
+        //flag : 0表示自己发出的，1表示别人发给自己的, 2表示通知消息，3表示群聊消息
         if(uid == sender){
-            prints(time, msg.substr(18), 1);
+            if(mid == recver)
+                prints(time, msg.substr(18), 1);
+            else if(recver == "000000000")
+                prints(time, msg.substr(18), 2);
+            else
+                prints(time, msg.substr(9), 3);
         }
         else if(uid == recver){
             prints(time, msg.substr(18), 0);
         }
+    }
+}
+
+void Widget::addmember(std::string id, std::string name){
+    members[id] = name;
+    adduser(id, name);
+}
+
+void Widget::adduser(std::string id, std::string name){
+    QString info = static_cast<QString>((name + "(" + id + ")").c_str());
+    bool isEmpty = ui->userTable->findItems(info, Qt::MatchExactly).isEmpty();
+    if(isEmpty){
+        QTableWidgetItem *user = new QTableWidgetItem(info);
+        ui->userTable->insertRow(0);
+        ui->userTable->setItem(0,0,user);
+    }
+}
+void Widget::deleteuser(std::string id, std::string name){
+    QString info = static_cast<QString>((name + "(" + id + ")").c_str());
+    bool isEmpty = ui->userTable->findItems(info, Qt::MatchExactly).isEmpty();
+    if(!isEmpty){
+        int row = ui->userTable->findItems(info, Qt::MatchExactly).first()->row();
+        ui->userTable->removeRow(row);
     }
 }
 
@@ -168,14 +266,20 @@ void Widget::prints(std::string time, std::string msg, int flag){
     ui->MsgBrowser->setTextColor(Qt::blue);
     ui->MsgBrowser->setCurrentFont(QFont("Times New Roman",10));
     if(flag == 1){
-        ui->MsgBrowser->append("["+u_name+"]" + static_cast<QString>(time.c_str()));
+        ui->MsgBrowser->append("["+u_name+"] " + static_cast<QString>(time.c_str()));
     }
     else if(flag == 0){
         ui->MsgBrowser->setTextColor(Qt::green);
-        ui->MsgBrowser->append("["+m_name+"]" + static_cast<QString>(time.c_str()));
+        ui->MsgBrowser->append("["+m_name+"] " + static_cast<QString>(time.c_str()));
     }
     else if(flag == 2){
+        qDebug() << "NIDAINDA";
         printinfo(msg);
+        return;
+    }else if(flag == 3){
+        ui->MsgBrowser->setTextColor(Qt::blue);
+        ui->MsgBrowser->append("[" + static_cast<QString>(members[msg.substr(0,9)].c_str())+"] "
+                               + static_cast<QString>(time.c_str()));
     }
     ui->MsgBrowser->append(msg.c_str());
 }

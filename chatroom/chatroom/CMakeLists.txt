@@ -48,9 +48,17 @@ set(CLIENT_SOURCES
         menu2.h
         menu2.cpp
         menu2.ui
-        settings.h settings.cpp settings.ui
-        informations.h informations.cpp informations.ui
+        settings.h
+        settings.cpp
+        settings.ui
+        informations.h
+        informations.cpp
+        informations.ui
         badgetoolbutton.h
+        creategroupdialog.h
+        creategroupdialog.cpp
+        createfrienddialog.h
+        createfrienddialog.cpp
 
 )
 
@@ -85,8 +93,6 @@ else()
     else()
         add_executable(client
             ${CLIENT_SOURCES}
-            creategroupdialog.h creategroupdialog.cpp
-
 
         )
     endif()

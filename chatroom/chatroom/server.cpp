@@ -116,9 +116,9 @@ void Server::handleMessage(int fd, MsgType type, const std::string &msg) {
             std::cout << "User add frined: "<< msg << std::endl;
             addFriend(fd,msg);
             break;
-        // case FriendDelete:
-        //     deleteFriend(fd,msg);
-        //     break;
+        case FriendDelete:
+            deleteFriend(fd,msg);
+            break;
         // case FriendBanned:
         //     bannedFriend(fd,msg);
         //     break;
@@ -128,19 +128,67 @@ void Server::handleMessage(int fd, MsgType type, const std::string &msg) {
         case FriendAddNo:
             refuseAddFriend(fd, msg);
             break;
+        case GroupJoinYes:
+            break;
+        case GroupJoinNo:
+            break;
         default:
             std::cout << "Unknown message type: " << type << std::endl;
             break;
         }
     }
 
+void Server::deleteFriend(int fd, std::string msg){
+    Json js = Json::parse(msg.data());
+    std::vector<std::string> friends = js["Info"].get<std::vector<std::string>>();
+    std::string m_id = users[fd];
+    Redis r;
+    for(auto &u_id : friends){
+        // 从本人好友列表中删除对方
+        r.Hdel(m_id + "f", u_id);
+        // 从对方好友列表中删除本人
+        r.Hdel(u_id + "f", m_id);
 
-void Server::broadcastMessage(int sender_fd, const std::string &message) {
-        for (const auto &client : clients) {
-            if (client.first != sender_fd) {
-                sendMsg(client.first, Msg, message);
-            }
+        if(onlinelist.find(u_id) != onlinelist.end()){
+            std::unordered_map<std::string, std::string> fl = getFl(u_id);
+            Json temp = {"FriendList",fl};
+            std::string str = temp.dump();
+            sendMsg(onlinelist[u_id], FriendDelete, str);
         }
+    }
+}
+
+
+void Server::broadcastMessage(int fd, const std::string &message) {
+    Json js = Json::parse(message);
+    std::string msg = js["Msg"];
+    std::string sender = msg.substr(0,9);
+    std::string gid = msg.substr(9,9);
+    Redis r;
+    std::vector<std::string> members = r.Smembers(gid+"member");
+    for(auto & member : members){
+        std::string recver = member.substr(0,9);
+        std::string newmsg = gid +sender + msg.substr(18);
+        Json msg;
+        msg["Msg"] = newmsg;
+        msg["Time"] = js["Time"].get<std::string>();
+        // msg["Status"] = Unread;
+        std::string data;
+            // 跳过广播给发送者
+        if(onlinelist.find(recver) != onlinelist.end()){
+            msg["Status"] = Readen;
+            data = msg.dump();
+            if(recver == sender){
+                r.Hmset(sender + "m", sha256(data), data);
+                continue;
+            }
+            sendMsg(onlinelist[recver], Msg, data);
+        }else{
+            msg["Status"] = Unread;
+            data = msg.dump();
+        }
+        r.Hmset(recver + "m", sha256(data), data);
+    }
 }
 
 // 生成uid
@@ -368,8 +416,9 @@ void Server::createGroup(int fd, std::string str){
     Json js =  Json::parse(str.data());
     std::string gid = generateUid(); // 分配群聊ID
     std::string owner = js["Owner"].get<std::string>();
-    std::vector<std::string> friends = js.get<std::vector<std::string>>();
+    std::vector<std::string> friends = js["Members"].get<std::vector<std::string>>();
     // 添加群聊信息
+    std::cout<<"||||------||||||||"<<std::endl;
     Json info;
     info["Owner"] = js["Owner"].get<std::string>();
     info["Gid"] = gid;
@@ -381,6 +430,7 @@ void Server::createGroup(int fd, std::string str){
     for(auto& t : friends){
         addmember(t, gid);
     }
+    r.Hmset("GroupInfo", gid, info.dump());
 }
 
 void Server::addmember(std::string id, std::string gid){
@@ -397,8 +447,8 @@ void Server::joinGroup(int fd, std::string str){
     }
     // 初始按照普通用户存储
     r.Sadd(str + "member", users[fd] + "0");
-
 }
+void acceptJoinGroup();
 void exitGroup(int fd, std::string str);
 
 void enter(int fd, std::string str);
@@ -414,11 +464,27 @@ void Server::Message(int fd, std::string str){
     std::string data = js.dump();
     std::string hash = sha256(str);
     Redis r;
-
+    if(r.Hexists("GroupInfo", recver)){
+        std::cout<< "[SSSSSSSS]"<<std::endl;
+        broadcastMessage(fd, str);
+        return;
+    }
+    if((!r.Hexists(sender + "f", recver)) && !r.Hexists(recver + "f", sender)){
+        std::cout<< "[FFFFFFFF]"<<std::endl;
+        Json ret;
+        ret["Time"] = js["Time"].get<std::string>();
+        ret["Msg"] = recver + "000000000" + "发送失败，对方已开启好友验证";
+        ret["Status"] = Readen;
+        std::string d = ret.dump();
+        sendMsg(onlinelist[sender], Msg, d);
+        return;
+    }
     if(onlinelist.find(recver) != onlinelist.end()){
+        std::cout<< "[AdDADADA]"<<std::endl;
         sendMsg(onlinelist[recver],Msg,data);
         js["Status"] = Readen;
     }
+    std::cout<< "[aaaaaaaaa]"<<std::endl;
     r.Hmset(sender + "m", hash, data);
     r.Hmset(recver + "m", hash, data);
 
@@ -532,7 +598,7 @@ void Server::refuseAddFriend(int fd, std::string str){
 void Server::acceptAddFrined(int fd, std::string str){
     sendMsg(fd, PopFriendAddList, str);
     std::string uid = str;
-    std::string mid = users[fd];s
+    std::string mid = users[fd];
     std::string uname = getusername(uid);
     std::string mname = getusername(mid);
     Redis r;
