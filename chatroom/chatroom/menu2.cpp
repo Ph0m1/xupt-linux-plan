@@ -33,6 +33,8 @@ Menu2::Menu2(QWidget *parent, int sfd, const std::string& data)
     qDebug()<<"12";
     std::unordered_map<std::string,std::string> gl = datajs["GroupList"].get<std::unordered_map<std::string,std::string>>();
     std::unordered_map<std::string,std::string> ml = datajs["MsgList"].get<std::unordered_map<std::string,std::string>>();
+    std::unordered_map<std::string, std::unordered_map<std::string, std::string>> gmembers
+        = datajs["GroupMembers"].get<std::unordered_map<std::string, std::unordered_map<std::string, std::string>>>();
     m_name = infojs["username"].get<std::string>();
     qDebug() << m_name.c_str();
     std::string id;
@@ -96,10 +98,12 @@ Menu2::Menu2(QWidget *parent, int sfd, const std::string& data)
     ui->settingBtn->setIconSize(cpixmap.size());
     Menu2::btnIsChecked[0] = false;
     Menu2::btnIsChecked[1] = true;
+    Menu2::setFbtn(fl,1, gmembers);
+    Menu2::setFbtn(gl,2, gmembers);
+    Menu2::setMbtn(ml);
     friendaddbtn = new BadgeToolButton;
     groupinfobtn = new BadgeToolButton;
-    Menu2::setFbtn(fl);
-    Menu2::setMbtn(ml);
+
     friendaddbtn->setText("新朋友    ");
     groupinfobtn->setText("群通知    ");
     friendaddbtn->setUnreadCount(friendaddlist.size());
@@ -214,7 +218,7 @@ void Menu2::showCreateGroupDialog(){
         std::vector<std::string> selectedFriends = dialog.getSelectedFriends();
         std::string gname = dialog.getGroupName();
         // 处理选择的好友并创建群聊
-
+        if(gname == " ") return;
         if(!selectedFriends.empty()){
             // 将好友id传递到创建群聊的函数
             createGroup(selectedFriends, gname);
@@ -397,7 +401,8 @@ void Menu2::resetFbtn(const std::string& str){
     });
 }
 
-void Menu2::setFbtn(std::unordered_map<std::string,std::string> list){
+void Menu2::setFbtn(std::unordered_map<std::string,std::string> list, int flag,
+                    std::unordered_map<std::string, std::unordered_map<std::string, std::string>> gmember){
 
     // QVector<QToolButton*> vector;
 
@@ -423,19 +428,28 @@ void Menu2::setFbtn(std::unordered_map<std::string,std::string> list){
         btn->setText(QString(static_cast<QString>(t.second.c_str()) + "<" + static_cast<QString>(t.first.c_str())) + ">");
 
         btn->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);// 设置按钮样式为文字紧贴图片
-        // btn->setAutoRepeat(true)；
+        btn->setAutoRepeat(true);
         layout->addWidget(btn);// 将按钮添加到布局
         this->vector.push_back(btn);// 将按钮添加到容器
         FriendIsShow.push_back(false);
         // 添加聊天页面
-        Widget *w = new Widget(nullptr, t.second.data(), t.first.data(), m_name.data(), m_id.data(), fd);
+        Widget *w;
+        if(flag == 1)
+        {
+            friendlist[t.first] = t.second;
+            w = new Widget(nullptr, t.second.data(), t.first.data(), m_name.data(), m_id.data(), fd);
+        }else if(flag == 2)
+        {
+            grouplist[t.first] = t.second;
+            w = new Widget(nullptr, t.second.data(), t.first.data(), m_name.data(), m_id.data(), fd, gmember[t.first]);
+        }
         connect(this, SIGNAL(sendlist(std::vector<std::string>)), w, SLOT(inithistory(std::vector<std::string>)));
         connect(this,SIGNAL(sendData(std::string)),w,SLOT(getData(std::string)));
         connect(w, SIGNAL(readmsg(std::string)), this, SLOT(updateList(std::string)));
         qStack->addWidget(w);
         ui->msgLayout->addWidget(qStack,0);
         lists.insert(std::pair<std::string, BadgeToolButton*>(t.first, btn));
-        friendlist[t.first] = t.second;
+
     }
     // listStack->addWidget(layout->widget());
     // listStack->addItem(layout);

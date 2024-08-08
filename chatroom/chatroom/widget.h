@@ -42,7 +42,7 @@ public slots:
 private:
     Ui::Widget *ui;
     CreateFriendDialog *w;
-    std::unordered_map<std::string, std::string> members;
+    std::unordered_map<std::string,std::string> members;
     // std::unordered_map<std::string, std::string> friends;
     QString m_name;
     QString m_id;

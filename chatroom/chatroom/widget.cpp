@@ -71,7 +71,7 @@ Widget::Widget(QWidget *parent, QString uname, QString uid, QString name, QStrin
 }
 
 Widget::Widget(QWidget *parent, QString uname, QString uid, QString name, QString id,int sfd,
-               std::unordered_map<std::string, std::string> list)
+               std::unordered_map<std::string, std::string> lists)
     : QWidget(parent)
     , ui(new Ui::Widget)
 {
@@ -83,7 +83,11 @@ Widget::Widget(QWidget *parent, QString uname, QString uid, QString name, QStrin
     qDebug()<<u_id;
     u_name = uname;
     fd = sfd;
-    members = list;
+    members = lists;
+
+    for(auto &member:members){
+        addmember(member.first.substr(0,9), member.second);
+    }
     // 链接发送按钮
     connect(ui->sendButton,&QPushButton::clicked,[=](){
         SendMsg();
@@ -237,7 +241,7 @@ void Widget::addmember(std::string id, std::string name){
     members[id] = name;
     adduser(id, name);
 }
-
+// 向成员列表中加入某人
 void Widget::adduser(std::string id, std::string name){
     QString info = static_cast<QString>((name + "(" + id + ")").c_str());
     bool isEmpty = ui->userTable->findItems(info, Qt::MatchExactly).isEmpty();
@@ -247,6 +251,7 @@ void Widget::adduser(std::string id, std::string name){
         ui->userTable->setItem(0,0,user);
     }
 }
+// 从成员列表中删除某人
 void Widget::deleteuser(std::string id, std::string name){
     QString info = static_cast<QString>((name + "(" + id + ")").c_str());
     bool isEmpty = ui->userTable->findItems(info, Qt::MatchExactly).isEmpty();
@@ -280,6 +285,8 @@ void Widget::prints(std::string time, std::string msg, int flag){
         ui->MsgBrowser->setTextColor(Qt::blue);
         ui->MsgBrowser->append("[" + static_cast<QString>(members[msg.substr(0,9)].c_str())+"] "
                                + static_cast<QString>(time.c_str()));
+        ui->MsgBrowser->append(msg.substr(9).c_str());
+        return;
     }
     ui->MsgBrowser->append(msg.c_str());
 }

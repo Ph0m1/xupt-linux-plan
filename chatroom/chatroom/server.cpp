@@ -231,6 +231,7 @@ void Server::reg(int fd, std::string str){
         return;
     }
     redis.Hmset(UsernameHash, name, uid);
+    redis.Hmset("Userid", uid, name);
     redis.Hmset(EmailHash, mail, uid);
     redis.Hmset(UserInfo, uid, str);
 
@@ -276,7 +277,21 @@ void Server::login(int fd,std::string str){
     json rec;
     rec["Uid"] = id;
     rec["FriendList"] = getFl(id);
-    rec["GroupList"]= getGl(id);
+    // 获取群聊信息
+    std::unordered_map<std::string, std::string> gl = getGl(id);
+    std::unordered_map<std::string, std::unordered_map<std::string, std::string>> gmembers;
+    for(auto &t : gl ){
+        Redis r;
+        std::vector<std::string> ll =  r.Smembers(t.first + "member");
+        std::unordered_map<std::string, std::string> ss;
+        for(auto& s : ll){
+            ss[s.substr(0,9)] = r.Hget("Userid", s.substr(0,9));
+        }
+        gmembers[t.first] = ss;
+    }
+    rec["GroupList"] = gl;
+    rec["GroupMembers"] =  gmembers;
+
     std::unordered_map<std::string, std::string> ml = getMl(id);
     rec["MsgList"] = ml;
     {
@@ -392,6 +407,7 @@ void Server::deleteAccount(int fd,std::string str){
     r.Hdel(UserInfo,id);
     r.Srem(UidSet,id);
     r.Hdel(UsernameHash,username);
+    r.Hdel("Userid", id);
     // ...
     // 删除信息
     std::unordered_map<std::string, std::string> fl = r.Hmget(id + "f");
@@ -414,29 +430,38 @@ void Server::deleteAccount(int fd,std::string str){
 // 创建群聊
 void Server::createGroup(int fd, std::string str){
     Json js =  Json::parse(str.data());
-    std::string gid = generateUid(); // 分配群聊ID
+    Redis r;
+     // 分配群聊ID
+    std::string gid = generateUid();
+    r.Sadd("UidSet", gid);
+
     std::string owner = js["Owner"].get<std::string>();
+    std::string gname = js["Gname"].get<std::string>();
     std::vector<std::string> friends = js["Members"].get<std::vector<std::string>>();
     // 添加群聊信息
     std::cout<<"||||------||||||||"<<std::endl;
     Json info;
     info["Owner"] = js["Owner"].get<std::string>();
     info["Gid"] = gid;
-    info["Gname"] = js["Gname"].get<std::string>();
+    info["Gname"] = gname;
     // 添加群主 2
-    Redis r;
+
     r.Sadd(gid + "member", owner + "2");
+    r.Hmset(owner+"g",gid,gname);
     // 添加普通成员 0
     for(auto& t : friends){
-        addmember(t, gid);
+        addmember(t, gid, gname);
     }
     r.Hmset("GroupInfo", gid, info.dump());
+    r.Hmset("Groupid", gid,gname);
+    r.Hmset("GroupName", gname, gid);
 }
 
-void Server::addmember(std::string id, std::string gid){
+void Server::addmember(std::string id, std::string gid, std::string gname){
     std::string key = gid + "member";
     Redis r;
     r.Sadd(key, id+"0");
+    r.Hmset(id + "g", gid, gname);
 }
 void Server::joinGroup(int fd, std::string str){
     Redis r;
@@ -447,6 +472,8 @@ void Server::joinGroup(int fd, std::string str){
     }
     // 初始按照普通用户存储
     r.Sadd(str + "member", users[fd] + "0");
+    std::string s = r.Hget("Groupid",str);
+    r.Hmset(users[fd] + "g" , str, s);
 }
 void acceptJoinGroup();
 void exitGroup(int fd, std::string str);

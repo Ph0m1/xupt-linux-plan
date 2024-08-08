@@ -32,13 +32,13 @@ public:
     ~Menu2();
 private:
     void resetFbtn(const std::string &str);
-    void setFbtn(std::unordered_map<std::string,std::string> list);
+    void setFbtn(std::unordered_map<std::string,std::string> list, int flag,
+                    std::unordered_map<std::string, std::unordered_map<std::string, std::string>> gmm);
     void setMbtn(std::unordered_map<std::string,std::string> list);
     void printmsg(std::string user, std::string msg, int flag, Widget* w);
     // 复制widget及其布局
     QWidget* copyWidget(QWidget* widget);
-    void pauseMsgThread();//暂停
-    void resumeMsgThread();//重新唤醒
+
 
     void createGroup(const std::vector<std::string> &ll, const std::string & name);
     void deletefriends(const std::vector<std::string> &ll);
@@ -66,9 +66,10 @@ private:
     QVector<Widget*> ww;
     bool btnIsChecked[2];
 
-    QVector<BadgeToolButton*> vector;// 好友按钮
+    QVector<BadgeToolButton*> vector;// 按钮
     std::unordered_map<std::string, BadgeToolButton*> lists; // 按钮
     std::unordered_map<std::string, std::string> friendlist;
+    std::unordered_map<std::string, std::string> grouplist;
     QStackedWidget *qStack = new QStackedWidget(this); // 聊天窗口
     // QStackedLayout *listStack = new QStackedLayout(this); // 消息/好友列表
 signals:

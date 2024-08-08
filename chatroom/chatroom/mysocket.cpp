@@ -40,6 +40,7 @@ void sendFile(int sfd,const std::string &filePath){
         }
     }
     std::cout<< "File sent successfully" << std::endl;
+    close(file_fd);
 }
 void sendMsg(int sfd,MsgType type,const std::string &msg){
 

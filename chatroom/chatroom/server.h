@@ -93,7 +93,7 @@ private:
         return fcntl(fd, F_SETFL, flags | O_NONBLOCK);
     }
 
-    void addmember(std::string id, std::string gid);
+    void addmember(std::string id, std::string gid, std::string gname);
 public:
 
 
