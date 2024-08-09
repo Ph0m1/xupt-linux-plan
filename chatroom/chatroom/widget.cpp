@@ -256,6 +256,7 @@ void Widget::deleteuser(std::string id, std::string name){
     QString info = static_cast<QString>((name + "(" + id + ")").c_str());
     bool isEmpty = ui->userTable->findItems(info, Qt::MatchExactly).isEmpty();
     if(!isEmpty){
+        QTableWidgetItem *user = new QTableWidgetItem(info);
         int row = ui->userTable->findItems(info, Qt::MatchExactly).first()->row();
         ui->userTable->removeRow(row);
     }

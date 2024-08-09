@@ -93,6 +93,8 @@ else()
     else()
         add_executable(client
             ${CLIENT_SOURCES}
+            customtablewidgetitem.h customtablewidgetitem.cpp
+
 
         )
     endif()

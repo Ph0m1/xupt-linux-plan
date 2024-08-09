@@ -40,6 +40,7 @@ public slots:
     void getData(std::string data);
 
 private:
+
     Ui::Widget *ui;
     CreateFriendDialog *w;
     std::unordered_map<std::string,std::string> members;

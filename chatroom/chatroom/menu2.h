@@ -19,6 +19,7 @@
 #include "createfrienddialog.h"
 
 #include "widget.h"
+
 namespace Ui {
 class Menu2;
 }
