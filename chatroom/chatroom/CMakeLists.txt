@@ -60,6 +60,8 @@ set(CLIENT_SOURCES
         createfrienddialog.h
         createfrienddialog.cpp
 
+        filemenu.h filemenu.cpp filemenu.ui
+
 )
 
 # Sever source files
@@ -93,8 +95,7 @@ else()
     else()
         add_executable(client
             ${CLIENT_SOURCES}
-            customtablewidgetitem.h customtablewidgetitem.cpp
-            filemenu.h filemenu.cpp filemenu.ui
+
 
 
         )
