@@ -7,6 +7,8 @@
 #include <sys/stat.h>
 #include <sys/sendfile.h>
 #include <sys/epoll.h>
+#include <sys/unistd.h>
+#include <filesystem>
 #include <fcntl.h>
 #include <netinet/in.h>
 #include <iostream>
@@ -16,8 +18,8 @@
 #define S_PORT 9098
 #define C_PORT 9098
 #define IP "127.0.0.1"
-#define SERVER_FILES "sfiles/"
-#define CLIENT_FILES "cfiles/"
+#define SERVER_FILES "sfiles"
+#define CLIENT_FILES "cfiles"
 
 using Json = nlohmann::json;
 

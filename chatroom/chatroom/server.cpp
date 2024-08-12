@@ -553,29 +553,45 @@ std::string Server::sha256(const std::string& str) {
 void Server::files(int fd, std::string str){
     int flags = fcntl(fd, F_GETFL, 0);
     if(flags == -1){
-        std::cerr << "fcntl(F_GETFL failed"<< std::endl;
+        std::cerr << "fcntl(F_GETFL) failed"<< std::endl;
         return;
     }
 
     flags &= ~O_NONBLOCK;
 
     if(fcntl(fd, F_SETFL, flags) == -1){
-        std::cerr << "fcntl(F_SETFL failed"<< std::endl;
+        std::cerr << "fcntl(F_SETFL) failed"<< std::endl;
         return;
     }
+
     Json fileinfo = Json::parse(str);
     size_t size = fileinfo["Size"].get<size_t>();
     std::string filename = fileinfo["Filename"].get<std::string>();
     recvFile(fd, size, filename, SERVER_FILES);
     Redis r;
     std::string uid = fileinfo["To"].get<std::string>();
-    fileinfo.erase("To");
+    // fileinfo.erase("To");
     fileinfo["From"] = users[fd];
     std::string filedata = fileinfo.dump();
-    r.Hmset("FileInfo", fileinfo["To"], filedata);
+    r.Sadd("FileInfo", filedata);
+
+    // std::filesystem::path currentpath = std::filesystem::current_path();
+    // std::string filepath = (currentpath / SERVER_FILES / filename).c_str();
+    // r.Hmset("Filepath",filename,filepath);
     if(onlinelist.find(uid) != onlinelist.end()){
         sendMsg(onlinelist[uid], File, filedata);
     }
+
+    if(fcntl(fd, F_SETFL, flags | O_NONBLOCK) == -1){
+        std::cerr << "fcntl(F_SETFL) failed"<< std::endl;
+        return;
+    }
+}
+
+void acceptfile(int fd, std::string uid, std::string filename){
+    std::filesystem::path currentpath = std::filesystem::current_path();
+    std::string filepath = currentpath / SERVER_FILES / filename;
+
 }
 
 void Server::addFriend(int fd, std::string str){
@@ -597,6 +613,13 @@ void Server::addFriend(int fd, std::string str){
     std::string mid = users[fd];
     std::string uname = getusername(uid);
     std::string mname = getusername(mid);
+    if(mid == uid){
+        Json js;
+        js["Msg"] = "请勿添加本人为好友";
+        js["Status"] = Failure;
+        sendMsg(fd, FriendAdd, js.dump());
+        return;
+    }
     if(r.Hexists(mid + "f", uid)){
         Json js;
         js["Msg"] = "该用户已是您的好友";

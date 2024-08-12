@@ -41,6 +41,7 @@ public slots:
     void getData(std::string data);
 
     void sentFile(std::string path);
+    void recvFile(std::string filename);
 
 private:
 

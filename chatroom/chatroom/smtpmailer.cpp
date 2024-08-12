@@ -141,7 +141,7 @@ std::string SMTPMailer::join(const std::vector<std::string>& list, const std::st
 std::string SMTPMailer::getcode(){
     std::srand(static_cast<unsigned int>(std::time(0)));
     std::ostringstream idStream;
-    for (int i = 1; i < 6; ++i) {
+    for (int i = 1; i < 7; ++i) {
         int digit = rand() % 10; // 生成0到9之间的随机数
         idStream << digit;
     }

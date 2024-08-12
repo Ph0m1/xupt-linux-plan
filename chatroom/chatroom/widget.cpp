@@ -68,6 +68,16 @@ Widget::Widget(QWidget *parent, QString uname, QString uid, QString name, QStrin
         ui->msgTextEdit->setFontUnderline(checked);
         ui->msgTextEdit->setFocus();
     });
+
+    // 设置文件
+    f = new FileMenu;
+    connect(ui->fileButton, &QToolButton::clicked,[=](){
+        f->show();
+    });
+
+    connect(f, SIGNAL(filePath(std::string)), this, SLOT());
+
+    connect(f, SIGNAL(filePath(std::string)), this, SLOT(sentFile(std::string)));
 }
 
 Widget::Widget(QWidget *parent, QString uname, QString uid, QString name, QString id,int sfd,
@@ -141,6 +151,10 @@ Widget::Widget(QWidget *parent, QString uname, QString uid, QString name, QStrin
     });
     // 设置文件
     f = new FileMenu;
+    connect(ui->fileButton, &QToolButton::clicked,[=](){
+        f->show();
+    });
+
     connect(f, SIGNAL(filePath(std::string)), this, SLOT(sentFile(std::string)));
 }
 

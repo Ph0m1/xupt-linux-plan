@@ -52,9 +52,13 @@ void sendFile(int sfd,const std::string &filePath, std::string id){
 }
 
 void recvFile(int fd, size_t filesize, const std::string &filename, const std::string &pathdir){
-    int file_fd = open((pathdir + filename).c_str(), O_WRONLY | O_CREAT | O_TRUNC, 0644);
+    std::filesystem::path current_path = std::filesystem::current_path();
+    if(!std::filesystem::exists(current_path / pathdir)){
+        std::filesystem::create_directories(current_path / pathdir);
+    }
+    int file_fd = open((current_path / pathdir / filename).c_str(), O_WRONLY | O_CREAT | O_TRUNC, 0644);
     if(file_fd < 0){
-        std::cerr << "Failed to open file: " << pathdir << filename << std::endl;
+        std::cerr << "Failed to open file: " << current_path / pathdir / filename << std::endl;
         return;
     }
 

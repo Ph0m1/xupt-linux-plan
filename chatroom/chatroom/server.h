@@ -11,6 +11,7 @@
 #include <sstream>
 #include <string>
 #include <iomanip>
+#include <filesystem>
 
 #define UsernameHash "UsernameSet"
 #define UserInfo "UserInfo"
@@ -38,7 +39,14 @@ private:
     std::unordered_map<int,std::string> capts;
     // 设置找回队列
     std::unordered_map<int ,std::string> found_queue;
+
+    std::mutex pauseMutex;
+    std::condition_variable pauseCondition;
+    bool pauseThread = false;
 private:
+    void pause();
+    void resume();
+
     void handleClient(int client_fd);
 
     void handleMessage(int client_fd, MsgType type, const std::string &message);
@@ -184,6 +192,8 @@ public:
                         std::cout<<client_fd<<std::endl;
                         // int count = getdtablesize() - close(0);
                         // std::cout << "Current open file descriptors: " << count << std::endl;
+                        std::unique_lock<std::mutex> lock(pauseMutex);
+                        pauseCondition.wait(lock, [this] { return !pauseThread; });
                         handleClient(client_fd);
                     });
 
