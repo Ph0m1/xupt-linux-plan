@@ -139,6 +139,18 @@ Widget::Widget(QWidget *parent, QString uname, QString uid, QString name, QStrin
         ui->msgTextEdit->setFontUnderline(checked);
         ui->msgTextEdit->setFocus();
     });
+    // 设置文件
+    f = new FileMenu;
+    connect(f, SIGNAL(filePath(std::string)), this, SLOT(sentFile(std::string)));
+}
+
+void Widget::sentFile(std::string filepath){
+
+    if(filepath == " "){
+        QMessageBox::information(this, "提示", "请选择正确的文件路径");
+        return;
+    }
+    sendFile(fd, filepath, u_id.toStdString());
 }
 
 

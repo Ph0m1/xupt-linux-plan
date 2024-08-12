@@ -5,6 +5,7 @@
 #include "mysocket.h"
 #include <QDebug>
 #include "createfrienddialog.h"
+#include "filemenu.h"
 
 using Json = nlohmann::json;
 
@@ -39,10 +40,13 @@ public slots:
     void inithistory(std::vector<std::string> ll);
     void getData(std::string data);
 
+    void sentFile(std::string path);
+
 private:
 
     Ui::Widget *ui;
     CreateFriendDialog *w;
+    FileMenu *f;
     std::unordered_map<std::string,std::string> members;
     // std::unordered_map<std::string, std::string> friends;
     QString m_name;

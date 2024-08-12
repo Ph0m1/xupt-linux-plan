@@ -94,6 +94,7 @@ else()
         add_executable(client
             ${CLIENT_SOURCES}
             customtablewidgetitem.h customtablewidgetitem.cpp
+            filemenu.h filemenu.cpp filemenu.ui
 
 
         )

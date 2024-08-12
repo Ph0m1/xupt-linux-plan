@@ -16,6 +16,8 @@
 #define S_PORT 9098
 #define C_PORT 9098
 #define IP "127.0.0.1"
+#define SERVER_FILES "sfiles/"
+#define CLIENT_FILES "cfiles/"
 
 using Json = nlohmann::json;
 
@@ -26,7 +28,8 @@ std::string getInfo();
 void sendMsg(int sfd,MsgType type,const std::string &msg);
 MsgType recvMsg(int sfd,std::string &str);
 
-void sendFile(int sfd, const std::string &filePath);
+void sendFile(int sfd, const std::string &filePath, std::string id);
+void recvFile(int fd, size_t filesize, const std::string &filename, const std::string &pathdir);
 int writen(int fd, std::string buf, int len);
 int readen(int fd, char* buf, int len);
 

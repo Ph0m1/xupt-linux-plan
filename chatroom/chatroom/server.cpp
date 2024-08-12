@@ -109,9 +109,9 @@ void Server::handleMessage(int fd, MsgType type, const std::string &msg) {
         case Msg:
             Message(fd,msg);
             break;
-        // case File:fd
-        //     files(fd,msg);
-        //     break;
+        case File://fd
+            files(fd,msg);
+            break;
         case FriendAdd:
             std::cout << "User add frined: "<< msg << std::endl;
             addFriend(fd,msg);
@@ -550,7 +550,33 @@ std::string Server::sha256(const std::string& str) {
     }
     return ss.str();
 }
-void files(int fd, std::string str);
+void Server::files(int fd, std::string str){
+    int flags = fcntl(fd, F_GETFL, 0);
+    if(flags == -1){
+        std::cerr << "fcntl(F_GETFL failed"<< std::endl;
+        return;
+    }
+
+    flags &= ~O_NONBLOCK;
+
+    if(fcntl(fd, F_SETFL, flags) == -1){
+        std::cerr << "fcntl(F_SETFL failed"<< std::endl;
+        return;
+    }
+    Json fileinfo = Json::parse(str);
+    size_t size = fileinfo["Size"].get<size_t>();
+    std::string filename = fileinfo["Filename"].get<std::string>();
+    recvFile(fd, size, filename, SERVER_FILES);
+    Redis r;
+    std::string uid = fileinfo["To"].get<std::string>();
+    fileinfo.erase("To");
+    fileinfo["From"] = users[fd];
+    std::string filedata = fileinfo.dump();
+    r.Hmset("FileInfo", fileinfo["To"], filedata);
+    if(onlinelist.find(uid) != onlinelist.end()){
+        sendMsg(onlinelist[uid], File, filedata);
+    }
+}
 
 void Server::addFriend(int fd, std::string str){
     Redis r;

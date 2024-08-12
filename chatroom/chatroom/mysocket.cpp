@@ -13,35 +13,87 @@ MsgType recvMsg(int sfd){
     return Failure;
 }
 
-void sendFile(int sfd,const std::string &filePath){
+void sendFile(int sfd,const std::string &filePath, std::string id){
     int file_fd = open(filePath.c_str(), O_RDONLY);
     if(file_fd < 0){
         std::cerr <<"Failed to open file: " << filePath << std::endl;
         return;
     }
 
+    size_t filenamepos = filePath.find_last_of("/\\");
+    std::string filename = filePath.substr(filenamepos + 1);
     struct stat file_stat;
     if(fstat(file_fd, &file_stat) < 0){
         std::cerr << "Failed to get file stats" <<std::endl;
         close(file_fd);
         return;
     }
-    sendMsg(sfd, File, std::to_string(file_stat.st_size));
+    Json js;
+    js["Filename"] = filename;
+    js["Size"] = file_stat.st_size;
+    js["To"] = id;
+    sendMsg(sfd, File, js.dump());
 
     off_t offset = 0;
     ssize_t sent_bytes = 0;
+    std::cout << "[SENDING FILE] " << filename << std::endl;
     while(offset < file_stat.st_size){
-        sent_bytes = sendfile(sfd,file_fd, &offset, file_stat.st_size - offset);
-        std::cout << "File is sending: " << offset / file_stat.st_size << "%" << std::endl;
+        sent_bytes = sendfile(sfd, file_fd, &offset, file_stat.st_size - offset);
+        std::cout << "\33[2K\r" << "File is sending: " << (offset * 100)/ file_stat.st_size << "%" << std::flush;
         if(sent_bytes < 0){
             std::cerr << "Failed to send file" <<std::endl;
             close(file_fd);
             return;
         }
     }
-    std::cout<< "File sent successfully" << std::endl;
+    std::cout << std::endl;
+    std::cout << "File sent successfully" << std::endl;
     close(file_fd);
 }
+
+void recvFile(int fd, size_t filesize, const std::string &filename, const std::string &pathdir){
+    int file_fd = open((pathdir + filename).c_str(), O_WRONLY | O_CREAT | O_TRUNC, 0644);
+    if(file_fd < 0){
+        std::cerr << "Failed to open file: " << pathdir << filename << std::endl;
+        return;
+    }
+
+    size_t received_size = 0;
+    ssize_t received_bytes;
+    char buffer[4096];
+    std::cout << "[RECVING FILE] " << filename << std::endl;
+    while(received_size < filesize){
+        received_bytes = recv(fd, buffer, sizeof(buffer), 0);
+        if(received_bytes < 0){
+            std::cerr << "Failed to receive file data" << std::endl;
+            close(file_fd);
+            return;
+        }
+
+        if(received_bytes == 0){
+            // 连接关闭，提前结束
+            break;
+        }
+        // 写入文件
+        if(write(file_fd, buffer, received_bytes) != received_bytes){
+            std::cerr << "Failed to write to file" << std::endl;
+            close(file_fd);
+            return;
+        }
+
+        received_size += received_bytes;
+        std::cout << "\33[2K\r" <<"File receiving: " << (received_size * 100) / filesize << "%" << std::flush;
+
+    }
+    std::cout << std::endl;
+        if(received_size == filesize){
+            std::cout << "File received successfully" << std::endl;
+        }else{
+            std::cerr << "File transfer incomplete" << std::endl;
+        }
+        close(file_fd);
+}
+
 void sendMsg(int sfd,MsgType type,const std::string &msg){
 
 
