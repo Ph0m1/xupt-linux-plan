@@ -28,6 +28,7 @@ enum MsgType{
 
     Msg,
     File,
+    FileInfo,
 
     FriendAdd,
     FriendAddYes,

@@ -181,8 +181,8 @@ Menu2::Menu2(QWidget *parent, int sfd, const std::string& data)
 void Menu2::readFromServer(int fd){
 
     while(true){
-        // std::unique_lock<std::mutex> lock(pauseMutex);
-        // pauseCondition.wait(lock, [this] { return !pauseThread; });
+        std::unique_lock<std::mutex> lock(pauseMutex);
+        pauseCondition.wait(lock, [this] { return !pauseThread; });
         try
         {
             std::string buffer;
@@ -200,16 +200,34 @@ void Menu2::readFromServer(int fd){
             case FriendAddMsg:
                 emit friendaddmsg(buffer);
                 break;
+            case FileInfo:
+            case File:
+                pause();
+                break;
             case PopFriendAddList:
                 auto t = std::remove(friendaddlist.begin(), friendaddlist.end(), buffer);
                 friendaddlist.erase(t);
                 break;
+
             }
         }
         catch(...){
 
         }
     }
+}
+
+void Menu2::pause(){
+    std::lock_guard<std::mutex> lock(pauseMutex);
+    pauseThread = true;
+}
+
+void Menu2::resume(){
+    {
+    std::lock_guard<std::mutex> lock(pauseMutex);
+    pauseThread = false;
+    }
+    pauseCondition.notify_all();
 }
 
 void Menu2::showCreateGroupDialog(){

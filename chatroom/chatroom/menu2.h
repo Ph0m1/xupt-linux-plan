@@ -67,6 +67,10 @@ private:
     QVector<Widget*> ww;
     bool btnIsChecked[2];
 
+    std::mutex pauseMutex;
+    std::condition_variable pauseCondition;
+    bool pauseThread = false;
+
     QVector<BadgeToolButton*> vector;// 按钮
     std::unordered_map<std::string, BadgeToolButton*> lists; // 按钮
     std::unordered_map<std::string, std::string> friendlist;
@@ -88,6 +92,10 @@ public slots:
     void updateFriendList(std::string list);
     void deleteAccont();
     void exit();
+
+    void pause();
+    void resume();
+
 private slots:
     void showCreateGroupDialog();
     void showDeleteFriendDialog();

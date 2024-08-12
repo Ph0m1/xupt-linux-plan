@@ -49,6 +49,25 @@
     <string>发送文件</string>
    </property>
   </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>240</x>
+     <y>380</y>
+     <width>251</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>提示：双击文件名接收文件</string>
+   </property>
+   <property name="textFormat">
+    <enum>Qt::TextFormat::PlainText</enum>
+   </property>
+   <property name="wordWrap">
+    <bool>false</bool>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections/>

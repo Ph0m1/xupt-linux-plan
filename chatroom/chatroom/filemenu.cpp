@@ -6,18 +6,49 @@ FileMenu::FileMenu(QWidget *parent)
     , ui(new Ui::FileMenu)
 {
     ui->setupUi(this);
-    connect(ui->choseFile, &QPushButton::clicked, [=](){
+
+    list = new QStringList;
+    QStringListModel *model = new QStringListModel(this);
+    ui->fileList->setModel(model);
+    ui->fileList->setViewMode(QListView::ListMode);
+    ui->fileList->setSelectionMode(QAbstractItemView::SingleSelection);
+
+
+    connect(ui->choseFile, &QPushButton::clicked, this, [=](){
         std::string path = getFile();
         emit filePath(path);
     });
-    connect(ui->cancelbtn, &QPushButton::clicked, [=](){
+    connect(ui->cancelbtn, &QPushButton::clicked, this, [=](){
         this->close();
     });
+    connect(ui->fileList, &QListView::doubleClicked, this, &FileMenu::onItemDoubleClicked);
 }
 
 FileMenu::~FileMenu()
 {
     delete ui;
+}
+
+void FileMenu::addFilelist(std::string filename){
+    list->append(filename.c_str());
+}
+
+void FileMenu::setFilelist(std::vector<std::string> filenames){
+    for(auto & filename : filenames){
+        list->append(filename.c_str());
+    }
+}
+
+void FileMenu::onItemDoubleClicked(const QModelIndex & index){
+    // 获取双击内容
+    std::string filename = index.data(Qt::DisplayRole).toString().toStdString();
+    std::string info = "是否要接收文件：" + filename;
+    //提示
+    QMessageBox::StandardButton reply;
+    reply = QMessageBox::information(this, "提示", info.c_str(), QMessageBox::Cancel | QMessageBox::Ok);
+    if(reply == QMessageBox::Ok){
+        emit seletedfilename(filename);
+    }
 }
 
 std::string FileMenu::getFile(){

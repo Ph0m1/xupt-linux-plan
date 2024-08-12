@@ -4,6 +4,7 @@
 #include <QPushButton>
 #include <QMessageBox>
 #include <QWidget>
+#include <QStringListModel>
 #include <QFileDialog>
 
 namespace Ui {
@@ -19,11 +20,17 @@ public:
     ~FileMenu();
 
     std::string getFile();
+public slots:
+    void addFilelist(std::string filename);
+    void setFilelist(std::vector<std::string> filenames);
+    void onItemDoubleClicked(const QModelIndex & index);
 
 signals:
     void filePath(std::string path);
+    void seletedfilename(std::string filename);
 private:
     Ui::FileMenu *ui;
+    QStringList *list;
 };
 
 #endif // FILEMENU_H
