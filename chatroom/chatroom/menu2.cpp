@@ -180,13 +180,18 @@ Menu2::Menu2(QWidget *parent, int sfd, const std::string& data)
     // readFromServer(fd);
 }
 
+void Menu2::sendFile(const std::string &filepath, std::string uid){
+    threadPool->submit([=](){::sendFile(fd, filepath, uid);});
+}
+
 void Menu2::recvfile(std::string fileinfo){
 
     Json js = Json::parse(fileinfo.data());
     size_t filesize = js["Size"].get<size_t>();
     std::string filename = js["filename"].get<std::string>();
-    recvFile(fd, filesize, filename, "received_files");
-    resume();
+    threadPool->submit([=](){recvFile(fd, filesize, filename, "received_files");});
+    // recvFile(fd, filesize, filename, "received_files");
+    // resume();
 }
 void Menu2::readFromServer(int fd){
 
@@ -478,6 +483,7 @@ void Menu2::setFbtn(std::unordered_map<std::string,std::string> list, int flag,
         connect(this, SIGNAL(sendlist(std::vector<std::string>)), w, SLOT(inithistory(std::vector<std::string>)));
         connect(this,SIGNAL(sendData(std::string)),w,SLOT(getData(std::string)));
         connect(w, SIGNAL(readmsg(std::string)), this, SLOT(updateList(std::string)));
+        connect(w, SIGNAL(sendf(std::string,std::string)), this, SLOT(sendFile(std::string,std::string)));
         qStack->addWidget(w);
         ui->msgLayout->addWidget(qStack,0);
         lists.insert(std::pair<std::string, BadgeToolButton*>(t.first, btn));

@@ -105,6 +105,8 @@ public slots:
 
     // void fileinfo(std::string fileinfo);
     void recvfile(std::string fileinfo);
+
+    void sendFile(const std::string &filepath, std::string uid);
 private slots:
     void showCreateGroupDialog();
     void showDeleteFriendDialog();

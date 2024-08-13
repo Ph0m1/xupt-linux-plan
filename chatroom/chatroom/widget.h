@@ -37,6 +37,7 @@ signals:
     void closeWidget();
     void readmsg(std::string id);
     void fileinfos(std::string filename);
+    void sendf(std::string filepath, std::string uid);
 public slots:
     void addmember(std::string id, std::string name);
     void inithistory(std::vector<std::string> ll);
