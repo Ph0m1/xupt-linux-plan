@@ -91,6 +91,7 @@ signals:
     void addRowList(std::string str);
     void receivedfile(std::string fileinfo);
     void fileinfos(std::string fileinfo);
+    // void newMsg(std::string id);
 public slots:
     void updatefriendaddbtn(std::string id);
     void updateList(std::string id);
@@ -102,7 +103,7 @@ public slots:
     void pause();
     void resume();
 
-    void fileinfo(std::string fileinfo);
+    // void fileinfo(std::string fileinfo);
     void recvfile(std::string fileinfo);
 private slots:
     void showCreateGroupDialog();

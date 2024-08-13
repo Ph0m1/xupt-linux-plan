@@ -30,19 +30,20 @@ public:
     void printinfo(std::string msg);
     void adduser(std::string id, std::string name);
     void deleteuser(std::string id, std::string name);
-    void sendfileinfo(std::string fileinfo);
+
     ~Widget();
 signals:
     //关闭窗口信号
     void closeWidget();
     void readmsg(std::string id);
+    void fileinfos(std::string filename);
 public slots:
     void addmember(std::string id, std::string name);
     void inithistory(std::vector<std::string> ll);
     void getData(std::string data);
 
     void sentFile(std::string path);
-    void recvFile(std::string filename);
+    // void recvFile(std::string filename);
     void recvFileask(std::string filename);
     void fileinfo(std::string fileinfo);
 

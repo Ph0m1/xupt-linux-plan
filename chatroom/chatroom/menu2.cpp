@@ -171,6 +171,7 @@ Menu2::Menu2(QWidget *parent, int sfd, const std::string& data)
     connect(this, SIGNAL(friendaddmsg(std::string)),
             this, SLOT(updatefriendaddbtn(std::string)));
     connect(setting, SIGNAL(exit()), this, SLOT(exit()));
+    // connect(this, SIGNAL(newMsg(std::string)), this, SLOT(updateList(std::string)));
     // 启动线程池
     threadPool->init();
 
@@ -418,7 +419,7 @@ void Menu2::resetFbtn(const std::string& str){
     Widget *w = new Widget(nullptr, uname.data(), uid.data(), m_name.data(), m_id.data(), fd);
     qStack->addWidget(w);
     lists.insert(std::pair<std::string, BadgeToolButton*>(uid, btn));
-    connect(this, SIGNAL(fileinfo(std::string)), w, SLOT(recvfileinfo(std::string)));
+    connect(this, SIGNAL(fileinfo(std::string)), w, SLOT(fileinfo(std::string)));
     connect(this, SIGNAL(sendlist(std::vector<std::string>)), w, SLOT(inithistory(std::vector<std::string>)));
     connect(this,SIGNAL(sendData(std::string)),w,SLOT(getData(std::string)));
     connect(w, SIGNAL(readmsg(std::string)), this, SLOT(updateList(std::string)));
@@ -473,6 +474,7 @@ void Menu2::setFbtn(std::unordered_map<std::string,std::string> list, int flag,
             grouplist[t.first] = t.second;
             w = new Widget(nullptr, t.second.data(), t.first.data(), m_name.data(), m_id.data(), fd, gmember[t.first]);
         }
+        connect(this, SIGNAL(fileinfo(std::string)), w, SLOT(fileinfo(std::string)));
         connect(this, SIGNAL(sendlist(std::vector<std::string>)), w, SLOT(inithistory(std::vector<std::string>)));
         connect(this,SIGNAL(sendData(std::string)),w,SLOT(getData(std::string)));
         connect(w, SIGNAL(readmsg(std::string)), this, SLOT(updateList(std::string)));

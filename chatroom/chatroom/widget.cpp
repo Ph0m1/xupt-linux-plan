@@ -170,6 +170,7 @@ void Widget::fileinfo(std::string fileinfo){
     if(sender != u_id.toStdString()){
         return;
     }
+    emit readmsg(sender);
     ui->MsgBrowser->setTextColor(Qt::gray);
     ui->MsgBrowser->append("对方向你发送了一个文件，请点击文件菜单接收");
     emit fileinfos(filename);
