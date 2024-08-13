@@ -191,8 +191,8 @@ void Menu2::recvfile(std::string fileinfo){
 void Menu2::readFromServer(int fd){
 
     while(true){
-        std::unique_lock<std::mutex> lock(pauseMutex);
-        pauseCondition.wait(lock, [this] { return !pauseThread; });
+        // std::unique_lock<std::mutex> lock(pauseMutex);
+        // pauseCondition.wait(lock, [this] { return !pauseThread; });
         try
         {
             std::string buffer;

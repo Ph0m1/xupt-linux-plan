@@ -194,8 +194,8 @@ public:
                         std::cout<<client_fd<<std::endl;
                         // int count = getdtablesize() - close(0);
                         // std::cout << "Current open file descriptors: " << count << std::endl;
-                        std::unique_lock<std::mutex> lock(pauseMutex);
-                        pauseCondition.wait(lock, [this] { return !pauseThread; });
+                        // std::unique_lock<std::mutex> lock(pauseMutex);
+                        // pauseCondition.wait(lock, [this] { return !pauseThread; });
                         handleClient(client_fd);
                     });
 
