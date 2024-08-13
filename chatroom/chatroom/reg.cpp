@@ -2,9 +2,11 @@
 #include "ui_reg.h"
 #include "log.h"
 #include <QMessageBox>
-reg::reg(QWidget *parent,int sfd)
+reg::reg(QWidget *parent,int sfd, int port, std::string ip)
     : QWidget(parent)
     , ui(new Ui::reg)
+    , port(port)
+    , ip(ip)
 {
     ui->setupUi(this);
     // 设置图标
@@ -47,14 +49,14 @@ reg::reg(QWidget *parent,int sfd)
         QMessageBox::information(this,"注册成功！您的帐号为：", remsg.c_str());
         this->close();
         QString id = static_cast<QString>(remsg.c_str());
-        class log *widget = new class log(nullptr,id,sfd);
+        class log *widget = new class log(nullptr,id,sfd,port,ip);
         widget->show();
         }
     });
     // 设置返回按钮
     connect(ui->returnBtn,&QPushButton::clicked,[=](){
         this->close();
-        class log *widget = new class log(nullptr,sfd);
+        class log *widget = new class log(nullptr,sfd,port,ip);
         widget->show();
         // QMessageBox::warning(this,QString("ausjidhasiojda"),"ni");
     });

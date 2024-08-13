@@ -13,7 +13,7 @@ MsgType recvMsg(int sfd){
     return Failure;
 }
 
-void sendFile(int sfd,const std::string &filePath, std::string id){
+void sendFile(int sfd,const std::string &filePath, std::string uid, std::string mid){
     int file_fd = open(filePath.c_str(), O_RDONLY);
     if(file_fd < 0){
         std::cerr <<"Failed to open file: " << filePath << std::endl;
@@ -31,7 +31,8 @@ void sendFile(int sfd,const std::string &filePath, std::string id){
     Json js;
     js["Filename"] = filename;
     js["Size"] = file_stat.st_size;
-    js["To"] = id;
+    js["To"] = uid;
+    js["From"] = mid;
     sendMsg(sfd, File, js.dump());
 
     off_t offset = 0;
@@ -64,7 +65,7 @@ void recvFile(int fd, size_t filesize, const std::string &filename, const std::s
 
     size_t received_size = 0;
     ssize_t received_bytes;
-    char buffer[40960];
+    char buffer[4096];
     std::cout << "[RECVING FILE] " << filename << std::endl;
     while(received_size < filesize){
         received_bytes = recv(fd, buffer, sizeof(buffer), 0);

@@ -2,10 +2,12 @@
 #include "ui_setnewpasswd.h"
 #include "log.h"
 #include <QMessageBox>
-SetNewPasswd::SetNewPasswd(QWidget *parent,int sfd)
+SetNewPasswd::SetNewPasswd(QWidget *parent,int sfd, int port, std::string ip)
     : QWidget(parent)
     , ui(new Ui::SetNewPasswd)
-    ,fd(sfd)
+    , fd(sfd)
+    , port(port)
+    , ip(ip)
 {
     ui->setupUi(this);
     // 设置图标
@@ -24,13 +26,13 @@ SetNewPasswd::SetNewPasswd(QWidget *parent,int sfd)
         }
         QMessageBox::information(this,"成功！","点击ok返回登陆页面");
         this->close();
-        class log *w = new class log(nullptr,sfd);
+        class log *w = new class log(nullptr, sfd, port, ip);
         w->show();
     });
 
     connect(ui->quitBtn,&QPushButton::clicked,[=](){
         this->close();
-        class log *w = new class log(nullptr,sfd);
+        class log *w = new class log(nullptr, sfd, port, ip);
         w->show();
     });
 }

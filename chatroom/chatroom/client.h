@@ -16,6 +16,8 @@ public:
 
 private:
     int m_sfd;
+    int port = 9098;
+    std::string ip = "127.0.0.1";
     // struct sockaddr_in m_addr;
     std::string key;
 

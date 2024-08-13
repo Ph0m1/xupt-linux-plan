@@ -5,10 +5,12 @@
 #include "found.h"
 #include "menu2.h"
 #include <QMessageBox>
-log::log(QWidget *parent,QString id,int sfd)
+log::log(QWidget *parent,QString id,int sfd, int port, std::string ip)
     : QWidget(parent)
     , ui(new Ui::log)
     , fd(sfd)
+    , port(port)
+    , ip(ip)
 {
     ui->setupUi(this);
     // 设置图标
@@ -61,7 +63,7 @@ log::log(QWidget *parent,QString id,int sfd)
     // 设置注册按钮
     connect(ui->resButton,&QPushButton::clicked,[=](){
         this->close();
-        class reg *widget = new class reg(nullptr,sfd);
+        class reg *widget = new class reg(nullptr,sfd, port, ip);
         widget->show();
     });
 
@@ -73,10 +75,12 @@ log::log(QWidget *parent,QString id,int sfd)
     });
 }
 
-log::log(QWidget *parent,int sfd)
+log::log(QWidget *parent,int sfd, int port, std::string ip)
     : QWidget(parent)
     , ui(new Ui::log)
     , fd(sfd)
+    , port(port)
+    , ip(ip)
 {
     ui->setupUi(this);
     // 设置图标
@@ -111,7 +115,7 @@ log::log(QWidget *parent,int sfd)
         MsgType a = recvMsg(sfd,remsg);
         if(a == Success){
             this->close();
-            Menu2 *wt = new Menu2(nullptr,sfd,remsg);
+            Menu2 *wt = new Menu2(nullptr, sfd, remsg, port, ip);
             wt->show();
         }
         else if (a == Failure){
@@ -131,14 +135,14 @@ log::log(QWidget *parent,int sfd)
     // 设置注册按钮
     connect(ui->resButton,&QPushButton::clicked,[=](){
         this->close();
-        reg *widget = new reg(nullptr,sfd);
+        reg *widget = new reg(nullptr, sfd, port, ip);
         widget->show();
     });
 
     // 设置忘记密码按钮
     connect(ui->foundButton,&QPushButton::clicked,[=](){
         this->close();
-        Found *w = new Found(nullptr,sfd);
+        Found *w = new Found(nullptr, sfd, port, ip);
         w->show();
     });
 }

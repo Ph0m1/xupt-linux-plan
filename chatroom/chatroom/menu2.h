@@ -29,7 +29,7 @@ class Menu2 : public QWidget
     Q_OBJECT
 
 public:
-    explicit Menu2(QWidget *parent, int sfd,const std::string &data);
+    explicit Menu2(QWidget *parent, int sfd,const std::string &data, int port, std::string ip);
     ~Menu2();
 private:
 
@@ -53,6 +53,9 @@ private:
 private:
     Ui::Menu2 *ui;
     int fd;
+    int port = 9098;
+    std::string ip = "127.0.0.1";
+
     std::string m_id;
     std::string m_name;
     std::vector<std::string> friendaddlist;// 好友申请列表
@@ -112,4 +115,36 @@ private slots:
     void showDeleteFriendDialog();
 };
 
+class FileSocket{
+public:
+    FileSocket() = default;
+    ~FileSocket() = default;
+    FileSocket(std::string ip, int port){
+        this->fd = socket(AF_INET, SOCK_STREAM, 0);
+        if(this->fd < 0){
+            std::cerr << "File socket error!" << std::endl;
+            return;
+        }
+        struct sockaddr_in addr;
+        memset(&addr,0,sizeof(addr));
+        addr.sin_family = AF_INET;
+        addr.sin_port = htons(port);
+        if(inet_pton(AF_INET, ip.c_str(), &addr.sin_addr) <= 0){
+            std::cout << "Invalid address/ Address not supported" << std::endl;
+            return;
+        }
+        if(connect(this->fd,(struct sockaddr*)&addr,sizeof(addr)) < 0){ //链接服务端
+            std::cout<<"connect error"<<std::endl;
+            return;
+        }
+    }
+public:
+    int getfilefd(){
+        return this->fd;
+    }
+private:
+    int port = 9098;
+    std::string ip = "127.0.0.1";
+    int fd;
+};
 #endif // MENU2_H

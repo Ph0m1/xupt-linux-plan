@@ -11,11 +11,13 @@
 #include <QPainterPath>
 using json = nlohmann::json;
 
-Menu2::Menu2(QWidget *parent, int sfd, const std::string& data)
+Menu2::Menu2(QWidget *parent, int sfd, const std::string& data, int port, std::string ip)
     : QWidget(parent)
     , fd(sfd)
     , ui(new Ui::Menu2)
-    ,threadPool(new ThreadPool(4))
+    , threadPool(new ThreadPool(4))
+    , port(port)
+    , ip(ip)
 {
     layout = new QVBoxLayout();
     // 注册常用类型
@@ -180,9 +182,17 @@ Menu2::Menu2(QWidget *parent, int sfd, const std::string& data)
     // readFromServer(fd);
 }
 
+
+
 void Menu2::sendFile(const std::string &filepath, std::string uid){
-    threadPool->submit([=](){::sendFile(fd, filepath, uid);});
+    FileSocket *sock = new FileSocket (this->ip, this->port);
+    threadPool->submit([=](){
+        FileSocket *sock = new FileSocket (this->ip, this->port);
+        // 修改sendFile打包的json
+        ::sendFile(sock->getfilefd(), filepath, uid, m_id);
+    });
 }
+
 
 void Menu2::recvfile(std::string fileinfo){
 

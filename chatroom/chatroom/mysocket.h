@@ -31,7 +31,7 @@ std::string getInfo();
 void sendMsg(int sfd,MsgType type,const std::string &msg);
 MsgType recvMsg(int sfd,std::string &str);
 
-void sendFile(int sfd, const std::string &filePath, std::string id);
+void sendFile(int sfd, const std::string &filePath, std::string uid, std::string mid);
 void recvFile(int fd, size_t filesize, const std::string &filename, const std::string &pathdir);
 int writen(int fd, std::string buf, int len);
 int readen(int fd, char* buf, int len);

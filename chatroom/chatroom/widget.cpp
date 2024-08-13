@@ -186,7 +186,8 @@ void Widget::sentFile(std::string filepath){
         QMessageBox::information(this, "提示", "请选择正确的文件路径");
         return;
     }
-    sendFile(fd, filepath, u_id.toStdString());
+    emit sendf(filepath, u_id.toStdString());
+    // sendFile(fd, filepath, u_id.toStdString());
 }
 
 

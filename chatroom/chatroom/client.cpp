@@ -10,8 +10,8 @@ Client::Client(int argc,char *argv[]) {
     struct sockaddr_in addr;
     memset(&addr,0,sizeof(addr));
     addr.sin_family = AF_INET;
-    std::string default_ip = "127.0.0.1";
-    int port = 9098;
+    ip = "127.0.0.1";
+    port = 9098;
 
     if(argc >= 2){
         port = std::stoi(argv[1]);
@@ -20,10 +20,10 @@ Client::Client(int argc,char *argv[]) {
         port = std::stoi(argv[2]);
     }
     if(argc >=3){
-        default_ip = argv[1];
+        ip = argv[1];
     }
     addr.sin_port = htons(port);
-    if(inet_pton(AF_INET, default_ip.c_str(), &addr.sin_addr) <= 0){
+    if(inet_pton(AF_INET, ip.c_str(), &addr.sin_addr) <= 0){
         std::cout << "Invalid address/ Address not supported" << std::endl;
         exit(-1);
     }
@@ -33,7 +33,7 @@ Client::Client(int argc,char *argv[]) {
     }
     std::cout <<"client started"<<std::endl;
 
-    class log *ui = new class log(nullptr,this->m_sfd);
+    class log *ui = new class log(nullptr,this->m_sfd, port, ip);
     ui->show();
 }
 

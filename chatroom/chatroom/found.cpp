@@ -4,10 +4,12 @@
 #include "mysocket.h"
 #include <QMessageBox>
 // 找回密码验证
-Found::Found(QWidget *parent,int sfd)
+Found::Found(QWidget *parent,int sfd, int port, std::string ip)
     : QWidget(parent)
     , ui(new Ui::Found)
     , fd(sfd)
+    , port(port)
+    , ip(ip)
 {
     ui->setupUi(this);
     // 设置图标
@@ -33,7 +35,7 @@ Found::Found(QWidget *parent,int sfd)
             QMessageBox::warning(this, "警告","验证码错误，请重试！");
             return;
         }
-        SetNewPasswd *w = new SetNewPasswd(nullptr,sfd);
+        SetNewPasswd *w = new SetNewPasswd(nullptr,sfd,port,ip);
         w->show();
         this->close();
     });
