@@ -14,6 +14,7 @@
 #include <iostream>
 #include <arpa/inet.h>
 #include <unistd.h>
+#include <cstdio>
 #include "msgtype.h"
 #define S_PORT 9098
 #define C_PORT 9098

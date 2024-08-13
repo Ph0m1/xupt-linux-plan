@@ -46,7 +46,9 @@ enum MsgType{
     PopFriendAddList,
 
     GroupJoinYes,
-    GroupJoinNo
+    GroupJoinNo,
+
+    AcceptFiles
 };
 
 

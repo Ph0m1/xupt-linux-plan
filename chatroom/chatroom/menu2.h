@@ -32,6 +32,7 @@ public:
     explicit Menu2(QWidget *parent, int sfd,const std::string &data);
     ~Menu2();
 private:
+
     void resetFbtn(const std::string &str);
     void setFbtn(std::unordered_map<std::string,std::string> list, int flag,
                     std::unordered_map<std::string, std::unordered_map<std::string, std::string>> gmm);
@@ -44,6 +45,9 @@ private:
     void createGroup(const std::vector<std::string> &ll, const std::string & name);
     void deletefriends(const std::vector<std::string> &ll);
     void readFromServer(int fd);
+
+    void sendfileinfo(std::string fileinfo);
+
     ThreadPool *threadPool;
 
 private:
@@ -85,6 +89,8 @@ signals:
     void refreshFriendList(std::string list);
     void friendaddmsg(std::string str);
     void addRowList(std::string str);
+    void receivedfile(std::string fileinfo);
+    void fileinfos(std::string fileinfo);
 public slots:
     void updatefriendaddbtn(std::string id);
     void updateList(std::string id);
@@ -96,6 +102,8 @@ public slots:
     void pause();
     void resume();
 
+    void fileinfo(std::string fileinfo);
+    void recvfile(std::string fileinfo);
 private slots:
     void showCreateGroupDialog();
     void showDeleteFriendDialog();

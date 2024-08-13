@@ -81,7 +81,9 @@ private:
 
     void bannedFriend(int fd, std::string str);
     void accountInit( std::string str);
-    void refreshFriendlist(int fd, std::string);
+    void refreshFriendlist(int fd, std::string str);
+
+    void acceptfile(int fd, std::string str);
     std::unordered_map<std::string, std::string> regetFriendlist(std::string id);
 
     void logout(std::string id);

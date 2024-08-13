@@ -573,7 +573,7 @@ void Server::files(int fd, std::string str){
     // fileinfo.erase("To");
     fileinfo["From"] = users[fd];
     std::string filedata = fileinfo.dump();
-    r.Sadd("FileInfo", filedata);
+    r.Sadd(uid+"files", filedata);
 
     // std::filesystem::path currentpath = std::filesystem::current_path();
     // std::string filepath = (currentpath / SERVER_FILES / filename).c_str();
@@ -588,10 +588,12 @@ void Server::files(int fd, std::string str){
     }
 }
 
-void acceptfile(int fd, std::string uid, std::string filename){
+void Server::acceptfile(int fd, std::string filename){
     std::filesystem::path currentpath = std::filesystem::current_path();
     std::string filepath = currentpath / SERVER_FILES / filename;
-
+    sendFile(fd, filepath, users[fd]);
+    // 删除服务器本地文件
+    std::remove(filepath.c_str());
 }
 
 void Server::addFriend(int fd, std::string str){

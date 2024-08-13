@@ -75,7 +75,7 @@ Widget::Widget(QWidget *parent, QString uname, QString uid, QString name, QStrin
         f->show();
     });
 
-    connect(f, SIGNAL(filePath(std::string)), this, SLOT());
+    connect(f, SIGNAL(seletedfilename(std::string)), this, SLOT(recvFileask(std::string)));
 
     connect(f, SIGNAL(filePath(std::string)), this, SLOT(sentFile(std::string)));
 }
@@ -140,22 +140,43 @@ Widget::Widget(QWidget *parent, QString uname, QString uid, QString name, QStrin
         ui->msgTextEdit->setFocus();
     });
     // 倾斜
-    connect(ui->itllicButton,&QToolButton::clicked,[=](bool checked){
+    connect(ui->itllicButton,&QToolButton::clicked, this, [=](bool checked){
         ui->msgTextEdit->setFontItalic(checked);
         ui->msgTextEdit->setFocus();
     });
     // 下划线
-    connect(ui->underlineButton,&QToolButton::clicked,[=](bool checked){
+    connect(ui->underlineButton,&QToolButton::clicked, this, [=](bool checked){
         ui->msgTextEdit->setFontUnderline(checked);
         ui->msgTextEdit->setFocus();
     });
     // 设置文件
     f = new FileMenu;
-    connect(ui->fileButton, &QToolButton::clicked,[=](){
+    connect(ui->fileButton, &QToolButton::clicked, this, [=](){
         f->show();
     });
 
+    connect(this, SIGNAL(fileinfos(std::string)), f, SLOT(addFilelist(std::string)));
+    connect(f, SIGNAL(seletedfilename(std::string)), this, SLOT(recvFileask(std::string)));
+
     connect(f, SIGNAL(filePath(std::string)), this, SLOT(sentFile(std::string)));
+}
+
+
+
+void Widget::fileinfo(std::string fileinfo){
+    Json js = Json::parse(fileinfo.data());
+    std::string filename = js["Filename"].get<std::string>();
+    std::string sender = js["From"].get<std::string>();
+    if(sender != u_id.toStdString()){
+        return;
+    }
+    ui->MsgBrowser->setTextColor(Qt::gray);
+    ui->MsgBrowser->append("对方向你发送了一个文件，请点击文件菜单接收");
+    emit fileinfos(filename);
+}
+
+void Widget::recvFileask(std::string filename){
+    sendMsg(fd, AcceptFiles, filename);
 }
 
 void Widget::sentFile(std::string filepath){

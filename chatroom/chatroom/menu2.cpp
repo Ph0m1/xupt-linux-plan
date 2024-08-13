@@ -110,11 +110,11 @@ Menu2::Menu2(QWidget *parent, int sfd, const std::string& data)
     groupinfobtn->setUnreadCount(groupinfolist.size());
     w = new informations(nullptr, fd, friendaddlist, 0);
     w2 = new informations(nullptr, fd, groupinfolist, 1);
-    connect(friendaddbtn, &BadgeToolButton::clicked, [=](){
+    connect(friendaddbtn, &BadgeToolButton::clicked, this, [=](){
         w->show();
         friendaddbtn->setUnreadCount(0);
     });
-    connect(groupinfobtn, &BadgeToolButton::clicked,[=](){
+    connect(groupinfobtn, &BadgeToolButton::clicked, this, [=](){
         w2->show();
         groupinfobtn->setUnreadCount(0);
     });
@@ -122,7 +122,7 @@ Menu2::Menu2(QWidget *parent, int sfd, const std::string& data)
     ui->framelayout->addWidget(groupinfobtn);
 
     // Menu2::setFbtn(ml);
-    connect(ui->friendBtn,&QToolButton::clicked,[=](){
+    connect(ui->friendBtn,&QToolButton::clicked, this, [=](){
         if(Menu2::btnIsChecked[0] == true || Menu2::btnIsChecked[1] == false){
             return;
         }
@@ -133,7 +133,7 @@ Menu2::Menu2(QWidget *parent, int sfd, const std::string& data)
         ui->friendBtn->setChecked(true);
 
     });
-    connect(ui->msgBtn,&QToolButton::clicked,[=](){
+    connect(ui->msgBtn,&QToolButton::clicked, this, [=](){
         if(Menu2::btnIsChecked[1] == true || Menu2::btnIsChecked[0] == false){
             return;
         }
@@ -141,10 +141,10 @@ Menu2::Menu2(QWidget *parent, int sfd, const std::string& data)
         Menu2::btnIsChecked[0] = false;
         ui->friendBtn->setChecked(false);
     });
-    connect(ui->settingBtn,&QToolButton::clicked, [=](){
+    connect(ui->settingBtn,&QToolButton::clicked, this, [=](){
         setting->show();
     });
-    connect(ui->addBtn, &QToolButton::clicked,[=](){
+    connect(ui->addBtn, &QToolButton::clicked, this, [=](){
         std::string line = ui->searchEdit->text().toStdString();
         if(line.empty()){
             QMessageBox::warning(this,"错误！","输入不能为空!");
@@ -153,7 +153,7 @@ Menu2::Menu2(QWidget *parent, int sfd, const std::string& data)
         sendMsg(fd,FriendAdd,line);
 
     });
-    // 绑定删除按键
+    // 绑定功能按键
     //
 
     connect(ui->inviteBtn, &QToolButton::clicked, this, &Menu2::showCreateGroupDialog);
@@ -166,6 +166,7 @@ Menu2::Menu2(QWidget *parent, int sfd, const std::string& data)
     connect(this, SIGNAL(friendsg(std::string)), this,  SLOT(friendAdd(std::string)));
     connect(this, SIGNAL(refreshFriendList(std::string)),
             this, SLOT(updateFriendList(std::string)));
+    connect(this, SIGNAL(receviedfile(std::string)), this, SLOT(recvfile(std::string)));
 
     connect(this, SIGNAL(friendaddmsg(std::string)),
             this, SLOT(updatefriendaddbtn(std::string)));
@@ -178,6 +179,14 @@ Menu2::Menu2(QWidget *parent, int sfd, const std::string& data)
     // readFromServer(fd);
 }
 
+void Menu2::recvfile(std::string fileinfo){
+
+    Json js = Json::parse(fileinfo.data());
+    size_t filesize = js["Size"].get<size_t>();
+    std::string filename = js["filename"].get<std::string>();
+    recvFile(fd, filesize, filename, "received_files");
+    resume();
+}
 void Menu2::readFromServer(int fd){
 
     while(true){
@@ -201,8 +210,11 @@ void Menu2::readFromServer(int fd){
                 emit friendaddmsg(buffer);
                 break;
             case FileInfo:
+                emit fileinfos(buffer);
+                break;
             case File:
                 pause();
+                emit receivedfile(buffer);
                 break;
             case PopFriendAddList:
                 auto t = std::remove(friendaddlist.begin(), friendaddlist.end(), buffer);
@@ -406,7 +418,7 @@ void Menu2::resetFbtn(const std::string& str){
     Widget *w = new Widget(nullptr, uname.data(), uid.data(), m_name.data(), m_id.data(), fd);
     qStack->addWidget(w);
     lists.insert(std::pair<std::string, BadgeToolButton*>(uid, btn));
-
+    connect(this, SIGNAL(fileinfo(std::string)), w, SLOT(recvfileinfo(std::string)));
     connect(this, SIGNAL(sendlist(std::vector<std::string>)), w, SLOT(inithistory(std::vector<std::string>)));
     connect(this,SIGNAL(sendData(std::string)),w,SLOT(getData(std::string)));
     connect(w, SIGNAL(readmsg(std::string)), this, SLOT(updateList(std::string)));
