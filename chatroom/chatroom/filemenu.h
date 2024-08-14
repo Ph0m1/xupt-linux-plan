@@ -31,6 +31,7 @@ signals:
 private:
     Ui::FileMenu *ui;
     QStringList *list;
+    QStringListModel *model;
 };
 
 #endif // FILEMENU_H
