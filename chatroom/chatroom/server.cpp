@@ -112,6 +112,9 @@ void Server::handleMessage(int fd, MsgType type, const std::string &msg) {
         case File://fd
             files(fd,msg);
             break;
+        case AcceptFiles:
+            acceptfile(fd, msg);
+            break;
         case FriendAdd:
             std::cout << "User add frined: "<< msg << std::endl;
             addFriend(fd,msg);
@@ -593,12 +596,27 @@ void Server::files(int fd, std::string str){
 }
 
 void Server::acceptfile(int fd, std::string fileinfo){
+    int flags = fcntl(fd, F_GETFL, 0);
+    if(flags == -1){
+        std::cerr << "fcntl(F_GETFL) failed"<< std::endl;
+        return;
+    }
+
+    flags &= ~O_NONBLOCK;
+
+    if(fcntl(fd, F_SETFL, flags) == -1){
+        std::cerr << "fcntl(F_SETFL) failed"<< std::endl;
+        return;
+    }
     std::string filename = fileinfo.substr(18);
     std::filesystem::path currentpath = std::filesystem::current_path();
     std::string filepath = currentpath / SERVER_FILES / filename;
     ::sendFile(fd, filepath, fileinfo.substr(9,9), fileinfo.substr(0,9));
     // 删除服务器本地文件
-
+    if(fcntl(fd, F_SETFL, flags | O_NONBLOCK) == -1){
+        std::cerr << "fcntl(F_SETFL) failed"<< std::endl;
+        return;
+    }
     close(fd);
     epoll_ctl(epoll_fd, EPOLL_CTL_DEL, fd, NULL);
     clients.erase(fd);

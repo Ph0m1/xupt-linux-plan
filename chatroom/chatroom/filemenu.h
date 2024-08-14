@@ -6,6 +6,7 @@
 #include <QWidget>
 #include <QStringListModel>
 #include <QFileDialog>
+#include <QDebug>
 
 namespace Ui {
 class FileMenu;

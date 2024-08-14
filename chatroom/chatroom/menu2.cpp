@@ -169,7 +169,6 @@ Menu2::Menu2(QWidget *parent, int sfd, const std::string& data, int port, std::s
     connect(this, SIGNAL(refreshFriendList(std::string)),
             this, SLOT(updateFriendList(std::string)));
     // connect(this, SIGNAL(receviedfile(std::string)), this, SLOT(recvfile(std::string)));
-
     connect(this, SIGNAL(friendaddmsg(std::string)),
             this, SLOT(updatefriendaddbtn(std::string)));
     connect(setting, SIGNAL(exit()), this, SLOT(exit()));
@@ -202,13 +201,14 @@ void Menu2::recvfile(std::string fileinfo){
         sendMsg(sock->getfilefd(), AcceptFiles, fileinfo);
         std::string newinfo;
         MsgType status = recvMsg(sock->getfilefd(), newinfo);
+        qDebug() << newinfo.c_str();
         if(status != File){
             delete sock;
             return;
         }
         Json js = Json::parse(newinfo.data());
         size_t filesize = js["Size"].get<size_t>();
-        std::string filename = js["filename"].get<std::string>();
+        std::string filename = js["Filename"].get<std::string>();
 
         recvFile(sock->getfilefd(), filesize, filename, "received_files");
         // sendMsg(sock->getfilefd(), Disconnent, "[Finshed work]");

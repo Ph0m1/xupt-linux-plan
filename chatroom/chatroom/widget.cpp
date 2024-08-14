@@ -75,6 +75,8 @@ Widget::Widget(QWidget *parent, QString uname, QString uid, QString name, QStrin
         f->show();
     });
 
+        connect(this, SIGNAL(fileinfos(std::string)), f, SLOT(addFilelist(std::string)));
+
     connect(f, SIGNAL(seletedfilename(std::string)), this, SLOT(recvFileask(std::string)));
 
     connect(f, SIGNAL(filePath(std::string)), this, SLOT(sentFile(std::string)));

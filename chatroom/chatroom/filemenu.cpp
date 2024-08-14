@@ -31,15 +31,23 @@ FileMenu::~FileMenu()
 }
 
 void FileMenu::addFilelist(std::string filename){
-    list->append(filename.c_str());
+    list->append(QString::fromStdString(filename));
     model->setStringList(*list);
+    ui->fileList->update();
+
+    qDebug() << "setFilelist: " << QString::fromStdString(filename);  // 调试信息
+    qDebug() << "Current list: " << *list;  // 查看列表当前内容
 }
 
 void FileMenu::setFilelist(std::vector<std::string> filenames){
     for(auto & filename : filenames){
-        list->append(filename.c_str());
+        list->append(QString::fromStdString(filename));
     }
     model->setStringList(*list);
+    ui->fileList->update();
+
+    qDebug() << "setFilelist: " << QString::fromStdString(filenames[0]);  // 调试信息
+    qDebug() << "Current list: " << *list;  // 查看列表当前内容
 }
 
 void FileMenu::onItemDoubleClicked(const QModelIndex & index){
