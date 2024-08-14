@@ -38,6 +38,7 @@ signals:
     void readmsg(std::string id);
     void fileinfos(std::string filename);
     void sendf(std::string filepath, std::string uid);
+    void recvf(std::string filename);
 public slots:
     void addmember(std::string id, std::string name);
     void inithistory(std::vector<std::string> ll);

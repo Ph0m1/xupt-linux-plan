@@ -177,7 +177,9 @@ void Widget::fileinfo(std::string fileinfo){
 }
 
 void Widget::recvFileask(std::string filename){
-    sendMsg(fd, AcceptFiles, filename);
+    std::string fileinfo = u_id.toStdString() + m_id.toStdString() + filename;
+    emit recvf(fileinfo);
+    // sendMsg(fd, AcceptFiles, fileinfo);
 }
 
 void Widget::sentFile(std::string filepath){

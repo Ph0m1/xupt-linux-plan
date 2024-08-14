@@ -570,8 +570,9 @@ void Server::files(int fd, std::string str){
     recvFile(fd, size, filename, SERVER_FILES);
     Redis r;
     std::string uid = fileinfo["To"].get<std::string>();
+    std::string mid = fileinfo["From"].get<std::string>();
     // fileinfo.erase("To");
-    fileinfo["From"] = users[fd];
+    // fileinfo["From"] = users[fd];
     std::string filedata = fileinfo.dump();
     r.Sadd(uid+"files", filedata);
 
@@ -579,7 +580,7 @@ void Server::files(int fd, std::string str){
     // std::string filepath = (currentpath / SERVER_FILES / filename).c_str();
     // r.Hmset("Filepath",filename,filepath);
     if(onlinelist.find(uid) != onlinelist.end()){
-        sendMsg(onlinelist[uid], File, filedata);
+        sendMsg(onlinelist[uid], FileInfo, filedata);
     }
 
     if(fcntl(fd, F_SETFL, flags | O_NONBLOCK) == -1){
@@ -588,10 +589,11 @@ void Server::files(int fd, std::string str){
     }
 }
 
-void Server::acceptfile(int fd, std::string filename){
+void Server::acceptfile(int fd, std::string fileinfo){
+    std::string filename = fileinfo.substr(18);
     std::filesystem::path currentpath = std::filesystem::current_path();
     std::string filepath = currentpath / SERVER_FILES / filename;
-    sendFile(fd, filepath, users[fd]);
+    ::sendFile(fd, filepath, fileinfo.substr(9,9), fileinfo.substr(0,9));
     // 删除服务器本地文件
     std::remove(filepath.c_str());
 }

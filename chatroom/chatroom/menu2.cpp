@@ -168,7 +168,7 @@ Menu2::Menu2(QWidget *parent, int sfd, const std::string& data, int port, std::s
     connect(this, SIGNAL(friendsg(std::string)), this,  SLOT(friendAdd(std::string)));
     connect(this, SIGNAL(refreshFriendList(std::string)),
             this, SLOT(updateFriendList(std::string)));
-    connect(this, SIGNAL(receviedfile(std::string)), this, SLOT(recvfile(std::string)));
+    // connect(this, SIGNAL(receviedfile(std::string)), this, SLOT(recvfile(std::string)));
 
     connect(this, SIGNAL(friendaddmsg(std::string)),
             this, SLOT(updatefriendaddbtn(std::string)));
@@ -190,16 +190,29 @@ void Menu2::sendFile(const std::string &filepath, std::string uid){
         FileSocket *sock = new FileSocket (this->ip, this->port);
         // 修改sendFile打包的json
         ::sendFile(sock->getfilefd(), filepath, uid, m_id);
+
+        delete sock;
     });
 }
 
 
 void Menu2::recvfile(std::string fileinfo){
+    threadPool->submit([=](){
+        FileSocket *sock = new FileSocket(this->ip, this->port);
+        sendMsg(sock->getfilefd(), AcceptFiles, fileinfo);
+        std::string newinfo;
+        MsgType status = recvMsg(sock->getfilefd(), newinfo);
+        if(status != File){
+            delete sock;
+            return;
+        }
+        Json js = Json::parse(newinfo.data());
+        size_t filesize = js["Size"].get<size_t>();
+        std::string filename = js["filename"].get<std::string>();
 
-    Json js = Json::parse(fileinfo.data());
-    size_t filesize = js["Size"].get<size_t>();
-    std::string filename = js["filename"].get<std::string>();
-    threadPool->submit([=](){recvFile(fd, filesize, filename, "received_files");});
+        recvFile(sock->getfilefd(), filesize, filename, "received_files");
+        delete sock;
+    });
     // recvFile(fd, filesize, filename, "received_files");
     // resume();
 }
@@ -229,7 +242,7 @@ void Menu2::readFromServer(int fd){
                 emit fileinfos(buffer);
                 break;
             case File:
-                pause();
+                // pause();
                 emit receivedfile(buffer);
                 break;
             case PopFriendAddList:
@@ -438,6 +451,8 @@ void Menu2::resetFbtn(const std::string& str){
     connect(this, SIGNAL(sendlist(std::vector<std::string>)), w, SLOT(inithistory(std::vector<std::string>)));
     connect(this,SIGNAL(sendData(std::string)),w,SLOT(getData(std::string)));
     connect(w, SIGNAL(readmsg(std::string)), this, SLOT(updateList(std::string)));
+    connect(w, SIGNAL(recvf(std::string)), this, SLOT(recvfile(std::string)));
+    connect(this, SIGNAL(fileinfos(std::string)), w, SLOT(fileinfo(std::string)));
     connect(btn, &QToolButton::clicked,[this, i = vector.count() - 1](){
         vector[i]->setUnreadCount(0);
         FriendIsShow[i] = true;
@@ -494,6 +509,7 @@ void Menu2::setFbtn(std::unordered_map<std::string,std::string> list, int flag,
         connect(this,SIGNAL(sendData(std::string)),w,SLOT(getData(std::string)));
         connect(w, SIGNAL(readmsg(std::string)), this, SLOT(updateList(std::string)));
         connect(w, SIGNAL(sendf(std::string,std::string)), this, SLOT(sendFile(std::string,std::string)));
+        connect(w, SIGNAL(recvf(std::string)), this, SLOT(recvfile(std::string)));
         qStack->addWidget(w);
         ui->msgLayout->addWidget(qStack,0);
         lists.insert(std::pair<std::string, BadgeToolButton*>(t.first, btn));

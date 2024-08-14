@@ -49,7 +49,7 @@ log::log(QWidget *parent,QString id,int sfd, int port, std::string ip)
         MsgType a = recvMsg(sfd,remsg);
         if(a == Success){
             this->close();
-            Menu2 *wt = new Menu2(nullptr,sfd,remsg);
+            Menu2 *wt = new Menu2(nullptr,sfd,remsg,port,ip);
             wt->show();
         }
         else if (a == Failure){
@@ -70,7 +70,7 @@ log::log(QWidget *parent,QString id,int sfd, int port, std::string ip)
     // 设置忘记密码按钮
     connect(ui->foundButton,&QPushButton::clicked,[=](){
         this->close();
-        Found *w = new Found(nullptr,sfd);
+        Found *w = new Found(nullptr,sfd, port,ip);
         w->show();
     });
 }
