@@ -92,6 +92,7 @@ signals:
     void refreshFriendList(std::string list);
     void friendaddmsg(std::string str);
     void addRowList(std::string str);
+    void addgroupRow(std::string str);
     void receivedfile(std::string fileinfo);
     void fileinfos(std::string fileinfo);
     // void newMsg(std::string id);

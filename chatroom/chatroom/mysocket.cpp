@@ -65,10 +65,10 @@ void recvFile(int fd, size_t filesize, const std::string &filename, const std::s
 
     size_t received_size = 0;
     ssize_t received_bytes;
-    char buffer[4096];
+    char buffer[5242880];
     std::cout << "[RECVING FILE] " << filename << std::endl;
     while(received_size < filesize){
-        received_bytes = recv(fd, buffer, sizeof(buffer), 0);
+        received_bytes = recv(fd, buffer, sizeof(buffer) <= filesize - received_size? sizeof(buffer) : filesize - received_size, 0);
         if(received_bytes < 0){
             std::cerr << "Failed to receive file data" << std::endl;
             close(file_fd);

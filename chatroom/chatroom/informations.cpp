@@ -62,7 +62,7 @@ void informations::addgroupRow(std::string info){
 void informations::addfriendRow(std::string info)
 {
     QHBoxLayout* rowLayout = new QHBoxLayout;
-        QWidget* rowWidget = new QWidget(this);
+    QWidget* rowWidget = new QWidget(this);
     QLabel* label = new QLabel(static_cast<QString>(info.c_str())+"请求添加您为好友",this);
     QPushButton* yesbtn = new QPushButton("同意",this);
     QPushButton* nobtn = new QPushButton("忽略",this);

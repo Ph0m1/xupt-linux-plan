@@ -576,6 +576,7 @@ void Server::files(int fd, std::string str){
     std::string mid = fileinfo["From"].get<std::string>();
     // fileinfo.erase("To");
     // fileinfo["From"] = users[fd];
+    fileinfo["Flag"] = 1;
     std::string filedata = fileinfo.dump();
     r.Sadd(uid+"files", filedata);
 
@@ -586,13 +587,25 @@ void Server::files(int fd, std::string str){
         sendMsg(onlinelist[uid], FileInfo, filedata);
     }
 
+    if(r.Hexists("GroupInfo",uid)){
+        fileinfo["Flag"] = 2;
+        std::vector<std::string> members = r.Smembers(uid + "member");
+        for(auto &member : members){
+            std::string id = member.substr(0,9);
+            if(onlinelist.find(uid) != onlinelist.end() ){
+                sendMsg(onlinelist[uid], FileInfo, fileinfo.dump());
+            }
+        }
+    }
+
+
     if(fcntl(fd, F_SETFL, flags | O_NONBLOCK) == -1){
         std::cerr << "fcntl(F_SETFL) failed"<< std::endl;
         return;
     }
-    epoll_ctl(epoll_fd, EPOLL_CTL_DEL, fd, NULL);
-    clients.erase(fd);
-    std::cout << "[FINSHED WORK] Client disconnected: " << fd << std::endl;
+    // epoll_ctl(epoll_fd, EPOLL_CTL_DEL, fd, NULL);
+    // clients.erase(fd);
+    std::cout << "[FINSHED WORK] " << std::endl;
 }
 
 void Server::acceptfile(int fd, std::string fileinfo){
@@ -617,11 +630,11 @@ void Server::acceptfile(int fd, std::string fileinfo){
         std::cerr << "fcntl(F_SETFL) failed"<< std::endl;
         return;
     }
-    close(fd);
-    epoll_ctl(epoll_fd, EPOLL_CTL_DEL, fd, NULL);
-    clients.erase(fd);
-    std::cout << "[FINSHED WORK] Client disconnected: " << fd << std::endl;
-    std::remove(filepath.c_str());
+    // close(fd);
+    // epoll_ctl(epoll_fd, EPOLL_CTL_DEL, fd, NULL);
+    // clients.erase(fd);
+    std::cout << "[FINSHED WORK] " << std::endl;
+    // std::remove(filepath.c_str());
 }
 
 void Server::addFriend(int fd, std::string str){

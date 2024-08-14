@@ -163,7 +163,7 @@ Menu2::Menu2(QWidget *parent, int sfd, const std::string& data, int port, std::s
 
     // 绑定信号和槽
     connect(setting, SIGNAL(deleteAccont()), this, SLOT(deleteAccont()));
-    connect(this, SIGNAL(addRowList(std::string)), w, SLOT(addFriendRow(std::string)));
+    connect(this, SIGNAL(addRowList(std::string)), w, SLOT(addfriendRow(std::string)));
     connect(this, SIGNAL(addgroupRow(std::string)), w2, SLOT(addgroupRow(std::string)));
     connect(this, SIGNAL(friendsg(std::string)), this,  SLOT(friendAdd(std::string)));
     connect(this, SIGNAL(refreshFriendList(std::string)),
@@ -189,7 +189,7 @@ void Menu2::sendFile(const std::string &filepath, std::string uid){
         FileSocket *sock = new FileSocket (this->ip, this->port);
         // 修改sendFile打包的json
         ::sendFile(sock->getfilefd(), filepath, uid, m_id);
-        // sendMsg(sock->getfilefd(), Disconnent, "[Finshed work]");
+        sendMsg(sock->getfilefd(), Disconnent, "[Finshed work]");
         delete sock;
     });
 }
@@ -211,7 +211,7 @@ void Menu2::recvfile(std::string fileinfo){
         std::string filename = js["Filename"].get<std::string>();
 
         recvFile(sock->getfilefd(), filesize, filename, "received_files");
-        // sendMsg(sock->getfilefd(), Disconnent, "[Finshed work]");
+        sendMsg(sock->getfilefd(), Disconnent, "[Finshed work]");
         delete sock;
     });
     // recvFile(fd, filesize, filename, "received_files");

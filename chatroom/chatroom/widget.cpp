@@ -168,13 +168,20 @@ Widget::Widget(QWidget *parent, QString uname, QString uid, QString name, QStrin
 void Widget::fileinfo(std::string fileinfo){
     Json js = Json::parse(fileinfo.data());
     std::string filename = js["Filename"].get<std::string>();
-    std::string sender = js["From"].get<std::string>();
+    std::string sender;
+    if(js["Flag"] == 1)
+        sender = js["From"].get<std::string>();
+    else
+        sender = js["To"].get<std::string>();
     if(sender != u_id.toStdString()){
         return;
     }
     emit readmsg(sender);
     ui->MsgBrowser->setTextColor(Qt::gray);
-    ui->MsgBrowser->append("对方向你发送了一个文件，请点击文件菜单接收");
+    if(js["Flag"] == 1)
+        ui->MsgBrowser->append(QString::fromStdString("对方向你发送了一个文件: " + filename +"，请点击文件菜单接收"));
+    else
+        ui->MsgBrowser->append(QString::fromStdString(members[js["From"]] + " 发送了一个文件：" + filename + " ,请点击文件菜单接收"));
     emit fileinfos(filename);
 }
 
