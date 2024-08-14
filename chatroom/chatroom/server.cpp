@@ -595,6 +595,8 @@ void Server::acceptfile(int fd, std::string fileinfo){
     std::string filepath = currentpath / SERVER_FILES / filename;
     ::sendFile(fd, filepath, fileinfo.substr(9,9), fileinfo.substr(0,9));
     // 删除服务器本地文件
+
+    // close(fd);
     std::remove(filepath.c_str());
 }
 

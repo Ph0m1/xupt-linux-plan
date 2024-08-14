@@ -190,7 +190,7 @@ void Menu2::sendFile(const std::string &filepath, std::string uid){
         FileSocket *sock = new FileSocket (this->ip, this->port);
         // 修改sendFile打包的json
         ::sendFile(sock->getfilefd(), filepath, uid, m_id);
-
+        sendMsg(sock->getfilefd(), Disconnent, "[Finshed work]");
         delete sock;
     });
 }
@@ -211,6 +211,7 @@ void Menu2::recvfile(std::string fileinfo){
         std::string filename = js["filename"].get<std::string>();
 
         recvFile(sock->getfilefd(), filesize, filename, "received_files");
+        sendMsg(sock->getfilefd(), Disconnent, "[Finshed work]");
         delete sock;
     });
     // recvFile(fd, filesize, filename, "received_files");
@@ -447,12 +448,12 @@ void Menu2::resetFbtn(const std::string& str){
     Widget *w = new Widget(nullptr, uname.data(), uid.data(), m_name.data(), m_id.data(), fd);
     qStack->addWidget(w);
     lists.insert(std::pair<std::string, BadgeToolButton*>(uid, btn));
-    connect(this, SIGNAL(fileinfo(std::string)), w, SLOT(fileinfo(std::string)));
+    connect(this, SIGNAL(fileinfos(std::string)), w, SLOT(fileinfo(std::string)));
     connect(this, SIGNAL(sendlist(std::vector<std::string>)), w, SLOT(inithistory(std::vector<std::string>)));
     connect(this,SIGNAL(sendData(std::string)),w,SLOT(getData(std::string)));
     connect(w, SIGNAL(readmsg(std::string)), this, SLOT(updateList(std::string)));
     connect(w, SIGNAL(recvf(std::string)), this, SLOT(recvfile(std::string)));
-    connect(this, SIGNAL(fileinfos(std::string)), w, SLOT(fileinfo(std::string)));
+
     connect(btn, &QToolButton::clicked,[this, i = vector.count() - 1](){
         vector[i]->setUnreadCount(0);
         FriendIsShow[i] = true;
@@ -504,7 +505,7 @@ void Menu2::setFbtn(std::unordered_map<std::string,std::string> list, int flag,
             grouplist[t.first] = t.second;
             w = new Widget(nullptr, t.second.data(), t.first.data(), m_name.data(), m_id.data(), fd, gmember[t.first]);
         }
-        connect(this, SIGNAL(fileinfo(std::string)), w, SLOT(fileinfo(std::string)));
+        connect(this, SIGNAL(fileinfos(std::string)), w, SLOT(fileinfo(std::string)));
         connect(this, SIGNAL(sendlist(std::vector<std::string>)), w, SLOT(inithistory(std::vector<std::string>)));
         connect(this,SIGNAL(sendData(std::string)),w,SLOT(getData(std::string)));
         connect(w, SIGNAL(readmsg(std::string)), this, SLOT(updateList(std::string)));
