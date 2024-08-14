@@ -8,7 +8,8 @@ FileMenu::FileMenu(QWidget *parent)
     ui->setupUi(this);
 
     list = new QStringList;
-    QStringListModel *model = new QStringListModel(this);
+    model = new QStringListModel(this);
+    model->setStringList(*list);
     ui->fileList->setModel(model);
     ui->fileList->setViewMode(QListView::ListMode);
     ui->fileList->setSelectionMode(QAbstractItemView::SingleSelection);
@@ -31,12 +32,14 @@ FileMenu::~FileMenu()
 
 void FileMenu::addFilelist(std::string filename){
     list->append(filename.c_str());
+    model->setStringList(*list);
 }
 
 void FileMenu::setFilelist(std::vector<std::string> filenames){
     for(auto & filename : filenames){
         list->append(filename.c_str());
     }
+    model->setStringList(*list);
 }
 
 void FileMenu::onItemDoubleClicked(const QModelIndex & index){
