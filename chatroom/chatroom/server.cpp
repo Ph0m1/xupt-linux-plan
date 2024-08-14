@@ -587,6 +587,9 @@ void Server::files(int fd, std::string str){
         std::cerr << "fcntl(F_SETFL) failed"<< std::endl;
         return;
     }
+    epoll_ctl(epoll_fd, EPOLL_CTL_DEL, fd, NULL);
+    clients.erase(fd);
+    std::cout << "[FINSHED WORK] Client disconnected: " << fd << std::endl;
 }
 
 void Server::acceptfile(int fd, std::string fileinfo){
@@ -596,7 +599,10 @@ void Server::acceptfile(int fd, std::string fileinfo){
     ::sendFile(fd, filepath, fileinfo.substr(9,9), fileinfo.substr(0,9));
     // 删除服务器本地文件
 
-    // close(fd);
+    close(fd);
+    epoll_ctl(epoll_fd, EPOLL_CTL_DEL, fd, NULL);
+    clients.erase(fd);
+    std::cout << "[FINSHED WORK] Client disconnected: " << fd << std::endl;
     std::remove(filepath.c_str());
 }
 

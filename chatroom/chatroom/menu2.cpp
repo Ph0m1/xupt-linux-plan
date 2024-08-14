@@ -190,7 +190,7 @@ void Menu2::sendFile(const std::string &filepath, std::string uid){
         FileSocket *sock = new FileSocket (this->ip, this->port);
         // 修改sendFile打包的json
         ::sendFile(sock->getfilefd(), filepath, uid, m_id);
-        sendMsg(sock->getfilefd(), Disconnent, "[Finshed work]");
+        // sendMsg(sock->getfilefd(), Disconnent, "[Finshed work]");
         delete sock;
     });
 }
@@ -211,7 +211,7 @@ void Menu2::recvfile(std::string fileinfo){
         std::string filename = js["filename"].get<std::string>();
 
         recvFile(sock->getfilefd(), filesize, filename, "received_files");
-        sendMsg(sock->getfilefd(), Disconnent, "[Finshed work]");
+        // sendMsg(sock->getfilefd(), Disconnent, "[Finshed work]");
         delete sock;
     });
     // recvFile(fd, filesize, filename, "received_files");
